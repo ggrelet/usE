@@ -35,6 +35,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "include/wiiuse.h"
+#include <stdlib.h>
 
 const unsigned int MAX_BALLES=3;
 const int WIDTH=1024;

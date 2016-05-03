@@ -13,8 +13,8 @@
 #include <SDL2/SDL.h>
 
 //
-double y;
-double y2;
+double y = 0.0;
+double y2 = 0.0;
 wiimote_t** wiimotes;
 
 
@@ -23,7 +23,7 @@ wiimote_t** wiimotes;
 using namespace std;
 
 //Variables globales
-Moteur moteur;
+Moteur *moteur = new Moteur();
 
 std::string programName = "Jeu Pong usE";
 
@@ -105,6 +105,7 @@ bool Init()
 return true;
 }
 
+
 bool SetOpenGLAttributes()
 {
     // Set our OpenGL version.
@@ -126,7 +127,7 @@ int main(int argc, char *argv[])
 {
     if (!Init())
         return -1;
-    
+       
     // Clear our buffer with a black background
     // This is the same as :
     // 		SDL_SetRenderDrawColor(&renderer, 255, 0, 0, 255);
@@ -145,11 +146,12 @@ int main(int argc, char *argv[])
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     
-    
+   
     RunGame();
     
-    Cleanup();
     
+    Cleanup();
+     
     return 0;
 }
 
@@ -161,7 +163,8 @@ void RunGame()
     const unsigned int wantedfps = 35; //nombre d'image par secondes qu'on veut
     
     //Initialisation du moteur
-    if(moteur.init()==false)
+    printf("1\n");
+    if(moteur->init()==false)
         loop=false;
     
     //Pour le calcul des FPS
@@ -175,76 +178,91 @@ void RunGame()
     
     //Boucle generale
    
-    while (loop)
-    {
-        if(wiiuse_poll(wiimotes,1)) //Si on detecte un event sur l'une des Wiimote
-        {
-            
-            
-            //On modifie les coordonnees du carre en fonction de l'infrarouge
-            y=wiimotes[0]->ir.dot[0].y;
-            y2=wiimotes[0]->ir.dot[1].y;
-            if(IS_HELD(wiimotes[0],WIIMOTE_BUTTON_HOME)) //Si on appuie sur HOME on quitte
-                loop=false;
-        }
+    while (loop) {
+      
+      printf("loop\n");
+      
+      
+      //Gerer les evenements
+      while (SDL_PollEvent(&event)) {
+	
+	printf("pol_event\n");
+	
+	if(wiiuse_poll(wiimotes,1)){
+	  //Si on detecte un event sur l'une des Wiimote
+	  
+	  printf("if_wiiuse\n");            
+          
+	  //On modifie les coordonnees du carre en fonction de l'infrarouge
+	  y=wiimotes[0]->ir.dot[0].y;
+	  y2=wiimotes[0]->ir.dot[1].y;
+	  if(IS_HELD(wiimotes[0],WIIMOTE_BUTTON_HOME)) //Si on appuie sur HOME on quitte
+	    loop=false;
+	}
 
-        
-        //Gerer les evenements
-        while (SDL_PollEvent(&event))
-        {
-            switch(event.type)
-            {
-                
-                    
-                case SDL_QUIT:
-                    moteur.fin();
-                    loop = false;
-                    break;
-                case SDL_KEYUP:
-                    moteur.clavier(event.key.keysym.sym);
-                    break;
-                case SDL_KEYDOWN:
-                    switch (event.key.keysym.sym)
-                {
-                    case SDLK_ESCAPE:
-                        loop = false; //on sort du jeu si on appuie sur escape
-                        break;
-                    default:
-                        break;
-                        
-                }
+	printf("1111111111111\n");
+	switch(event.type) {
+	  
+          
+	case SDL_QUIT:
+	  moteur->fin();
+	  loop = false;
+	  break;
+	case SDL_KEYUP:
+	  moteur->clavier(event.key.keysym.sym);
+	  break;
+	case SDL_KEYDOWN:
+	  switch (event.key.keysym.sym) {
+	  case SDLK_ESCAPE:
+	    loop = false; //on sort du jeu si on appuie sur escape
+	    break;
+	  default:
+	    printf("222222222222\n");
+	    break;
+            
+	  }
+	  
+	default:
+	  break;
+	}
+      }
 
-                default:
-                    break;
-            }
-        }
+      printf("3333333333\n");
+      
+      if(SDL_GetTicks() > (checkTime + 1000 / wantedfps) ) {
+
+	printf("4444444444\n");
+	// On met a jour la variable checkTime
+	checkTime = SDL_GetTicks();
         
-        if(SDL_GetTicks() > (checkTime + 1000 / wantedfps) )
-        {
-            // On met a jour la variable checkTime
-            checkTime = SDL_GetTicks();
-            
-            // On incremente la variable fps
-            fps++;
-            // Gerer l'affichage du fps
-            now = time(NULL);
-            if(now!=last)
-            {
-                cout << "FPS: " << fps/(now-last) << endl;
-                last = now;
-                fps = 0;
-            }
-            
-            // Demander au moteur de dessiner la scene
-            moteur.gereScene();
-            moteur.gereDeplacement(y,y2);
-            SDL_GL_SwapWindow(mainWindow);
-        }
-        else
-        {
-            // Attendre 5 millisecondes
-            SDL_Delay(5);
-        }    }
+	// On incremente la variable fps
+	fps++;
+	// Gerer l'affichage du fps
+	now = time(NULL);
+
+	if(now!=last) {
+	  
+	  printf("55555555555555\n");
+	  cout << "FPS: " << fps/(now-last) << endl;
+	  last = now;
+	  fps = 0;
+	}
+       	printf("7777777777\n"); 
+	// Demander au moteur de dessiner la scene
+	moteur->gereScene();
+	printf("888888888\n");
+	moteur->gereDeplacement(y,y2);
+	printf("9999999999\n");
+	SDL_GL_SwapWindow(mainWindow);
+	printf("000000000000000\n");
+      }
+      else {
+	// Attendre 5 millisecondes
+	printf("666666666666666666\n");
+	
+	SDL_Delay(5);
+      }
+    }
 }
 
 void Cleanup()

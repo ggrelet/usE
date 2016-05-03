@@ -24,9 +24,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //Constructeur
 Moteur::Moteur()
 {
-	dans_menu = false; // on va directement dans le menu comme ca! 
-    jeu = new Jeu();
-    menu = new Menu();
+  printf("appel du constructeur par defaut de Moteur\n");
+  dans_menu = true; // on va directement dans le menu comme ca! 
+  jeu = new Jeu();
+  menu = new Menu();
 }
 
 //Destructeur
@@ -42,16 +43,17 @@ void Moteur::gereScene()
 	// Effacer le tampon des couleurs
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
-
-	//if(!dans_menu)
-		dessineJeu();
-	/*else
-		dessineMenu();*/
+	printf("_______________\n");
+	if(!dans_menu)
+	dessineJeu();
+	else
+		dessineMenu();
 
 	//SDL_GL_SwapBuffers(); (mis dans le main?)
 }
 
 void Moteur::gereDeplacement(int y, int y2){
+  printf("position %d\n", y);
     jeu->gereDeplacement(y, y2);
 }
 
@@ -62,8 +64,10 @@ void Moteur::dessineMenu()
 
 void Moteur::dessineJeu()
 {
-	jeu->affiche();
-	jeu->gereSceneServeur();
+  printf("jeu = %p\n", jeu);
+  jeu->affiche();
+  printf("suite dessineJeu\n");
+  jeu->gereSceneServeur();
 }
 
 bool Moteur::init()

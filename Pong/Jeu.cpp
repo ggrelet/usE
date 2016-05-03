@@ -32,6 +32,9 @@ Jeu::Jeu()
 {
     last = 0;
     jeuEnCours = true;
+    Objet o;
+    objets.resize(3,o);
+
 }	
 
 //Destructeur
@@ -167,8 +170,7 @@ bool Jeu::initObjets()
 //Recommence la partie
 void Jeu::recommence()
 {
-    Objet o;
-    objets.resize(3,o);
+    
     
     Physique::init();
     jeuEnCours = true;
@@ -219,7 +221,8 @@ void Jeu::affObjets()
 
     for(i=0;i<3;i++)
     {
-        objets[i].affiche();
+      printf("objet %d\n", i);
+      objets[i].affiche();
     }
 }
 
@@ -231,6 +234,7 @@ void Jeu::gereSceneServeur()
 }
 
 void Jeu::gereDeplacement(int y, int y2){
+  printf("objet pos %f\n", objets[0].getX());
     objets[0].setPos(objets[0].getX(),y);
     objets[1].setPos(objets[0].getX(),y2);
 }
