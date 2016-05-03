@@ -24,7 +24,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //Constructeur
 Moteur::Moteur()
 {
-	dans_menu = true; // on va directement dans le menu comme ca! 
+	dans_menu = false; // on va directement dans le menu comme ca! 
     jeu = new Jeu();
     menu = new Menu();
 }
@@ -43,10 +43,10 @@ void Moteur::gereScene()
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
 
-	if(!dans_menu)
+	//if(!dans_menu)
 		dessineJeu();
-	else
-		dessineMenu();
+	/*else
+		dessineMenu();*/
 
 	//SDL_GL_SwapBuffers(); (mis dans le main?)
 }

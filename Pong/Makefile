@@ -43,7 +43,7 @@ LDFLAGS = -Wno-deprecated
 # Librairies a utiliser
 # Example: LDLIBS = -L/usr/local/qt/lib -lqt
 #
-LDLIBS = -lglut -lGLU -lGL -lm -lSDL2 -lwiiuse -lSDL_image
+LDLIBS = -lglut -lGLU -lGL -lm -lSDL2 -lwiiuse -lSDL2_image
 
 
 ##########################################
