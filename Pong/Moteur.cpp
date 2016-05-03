@@ -44,11 +44,12 @@ void Moteur::gereScene()
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
 	printf("_______________\n");
-	if(!dans_menu)
-	dessineJeu();
-	else
+	if(!dans_menu){
+	  dessineJeu();
+	}
+	else{
 		dessineMenu();
-
+	}
 	//SDL_GL_SwapBuffers(); (mis dans le main?)
 }
 

@@ -180,18 +180,18 @@ void RunGame()
    
     while (loop) {
       
-      printf("loop\n");
+
       
       
       //Gerer les evenements
       while (SDL_PollEvent(&event)) {
 	
-	printf("pol_event\n");
+
 	
 	if(wiiuse_poll(wiimotes,1)){
 	  //Si on detecte un event sur l'une des Wiimote
 	  
-	  printf("if_wiiuse\n");            
+
           
 	  //On modifie les coordonnees du carre en fonction de l'infrarouge
 	  y=wiimotes[0]->ir.dot[0].y;
@@ -200,7 +200,7 @@ void RunGame()
 	    loop=false;
 	}
 
-	printf("1111111111111\n");
+
 	switch(event.type) {
 	  
           
@@ -217,7 +217,6 @@ void RunGame()
 	    loop = false; //on sort du jeu si on appuie sur escape
 	    break;
 	  default:
-	    printf("222222222222\n");
 	    break;
             
 	  }
@@ -227,11 +226,9 @@ void RunGame()
 	}
       }
 
-      printf("3333333333\n");
-      
+ 
       if(SDL_GetTicks() > (checkTime + 1000 / wantedfps) ) {
 
-	printf("4444444444\n");
 	// On met a jour la variable checkTime
 	checkTime = SDL_GetTicks();
         
@@ -242,24 +239,19 @@ void RunGame()
 
 	if(now!=last) {
 	  
-	  printf("55555555555555\n");
 	  cout << "FPS: " << fps/(now-last) << endl;
 	  last = now;
 	  fps = 0;
 	}
-       	printf("7777777777\n"); 
 	// Demander au moteur de dessiner la scene
 	moteur->gereScene();
-	printf("888888888\n");
 	moteur->gereDeplacement(y,y2);
-	printf("9999999999\n");
+
 	SDL_GL_SwapWindow(mainWindow);
-	printf("000000000000000\n");
       }
       else {
 	// Attendre 5 millisecondes
-	printf("666666666666666666\n");
-	
+
 	SDL_Delay(5);
       }
     }
