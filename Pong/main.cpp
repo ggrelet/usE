@@ -13,7 +13,7 @@
 #include <SDL2/SDL.h>
 
 //
-double y=HEIGHT/2-LARG_BARRE;
+double y=500;
 double y2=HEIGHT/2-LARG_BARRE;
 wiimote_t** wiimotes;
 
@@ -66,7 +66,7 @@ bool Init()
     
     // initialisation wiimotes
     int found, connected;
-    /*wiimotes=wiiuse_init(MAX_WIIMOTE); //On initialise la premiere Wiimote
+    wiimotes=wiiuse_init(MAX_WIIMOTE); //On initialise la premiere Wiimote
     found = wiiuse_find(wiimotes, MAX_WIIMOTE,5);//On essaie de la trouver
     if (!found){
         fprintf(stderr,"Aucune Wiimote trouvee\n");
@@ -85,7 +85,7 @@ bool Init()
     SDL_Delay(400);
     wiiuse_rumble(wiimotes[0],0);
     wiiuse_set_ir(wiimotes[0],1); //On active l'infrarouge pour la premiere Wiimote
-    wiiuse_set_ir_vres(wiimotes[0],1024,768); //On définit l'espace infrarouge a (0->640 ; 0->480)*/
+    wiiuse_set_ir_vres(wiimotes[0],1024,768); //On définit l'espace infrarouge a (0->640 ; 0->480)
 
     
     // Create our opengl context and attach it to our window
@@ -97,9 +97,9 @@ bool Init()
     SDL_GL_SetSwapInterval(1);
     
     // Init GLEW
-#ifndef __APPLE__
+    /*#ifndef __APPLE__
     glewInit();
-#endif
+    #endif*/
     return true;
 }
 
@@ -180,16 +180,16 @@ void RunGame()
         //Gerer les evenements
         while (SDL_PollEvent(&event))
         {
-            /*if(wiiuse_poll(wiimotes,1)) //Si on detecte un event sur l'une des Wiimote
+	   if(wiiuse_poll(wiimotes,1)) //Si on detecte un event sur l'une des Wiimote
             {
                 
                 
                 //On modifie les coordonnees du carre en fonction de l'infrarouge
                 y=wiimotes[0]->ir.dot[0].y;
-                y2=wiimotes[0]->ir.dot[1].y;
+		y2=wiimotes[0]->ir.dot[1].y;
                 if(IS_HELD(wiimotes[0],WIIMOTE_BUTTON_HOME)) //Si on appuie sur HOME on quitte
                     loop=false;
-            }*/
+            }
 
             switch(event.type)
             {
@@ -258,7 +258,7 @@ void Cleanup()
     // Shutdown SDL 2
     SDL_Quit();
     
-    //wiiuse_disconnect(wiimotes[0]); //On deconnecte la premiere Wiimote
+    wiiuse_disconnect(wiimotes[0]); //On deconnecte la premiere Wiimote
 }
 
 void CheckSDLError(int line = -1)

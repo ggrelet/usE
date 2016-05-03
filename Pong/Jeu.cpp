@@ -32,8 +32,9 @@ Jeu::Jeu()
 {
     last = 0;
     jeuEnCours = true;
-    Objet o;
+     Objet o;
     objets.resize(3,o);
+    
 }	
 
 //Destructeur
@@ -169,6 +170,7 @@ bool Jeu::initObjets()
 //Recommence la partie
 void Jeu::recommence()
 {
+ 
     
     Physique::init();
     jeuEnCours = true;
