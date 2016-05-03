@@ -24,10 +24,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 //Constructeur
 Moteur::Moteur()
 {
-  printf("appel du constructeur par defaut de Moteur\n");
-  dans_menu = true; // on va directement dans le menu comme ca! 
-  jeu = new Jeu();
-  menu = new Menu();
+	dans_menu = true; // on va directement dans le menu comme ca!
+    jeu = new Jeu();
+    menu = new Menu();
 }
 
 //Destructeur
@@ -43,18 +42,16 @@ void Moteur::gereScene()
 	// Effacer le tampon des couleurs
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
-	printf("_______________\n");
-	if(!dans_menu){
-	  dessineJeu();
-	}
-	else{
+
+	if(!dans_menu)
+		dessineJeu();
+	else
 		dessineMenu();
-	}
+
 	//SDL_GL_SwapBuffers(); (mis dans le main?)
 }
 
 void Moteur::gereDeplacement(int y, int y2){
-  printf("position %d\n", y);
     jeu->gereDeplacement(y, y2);
 }
 
@@ -65,15 +62,13 @@ void Moteur::dessineMenu()
 
 void Moteur::dessineJeu()
 {
-  printf("jeu = %p\n", jeu);
-  jeu->affiche();
-  printf("suite dessineJeu\n");
-  jeu->gereSceneServeur();
+	jeu->affiche();
+	jeu->gereSceneServeur();
 }
 
 bool Moteur::init()
 {
-	return jeu->init() && menu->init("data/menu.txt");;
+	return jeu->init() && menu->init("/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/pong1/usE/data/menu.txt");;
 }
 
 void Moteur::clavier(unsigned char k)
