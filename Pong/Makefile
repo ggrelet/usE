@@ -9,12 +9,12 @@
 #
 # Nom du programme
 #
-PROG = TP_INF224
+PROG = PONG
 
 #
 # Fichiers sources (NE PAS METTRE les .h ni les .o seulement les .cpp)
 #
-SOURCES = Menu.cpp main.cpp Physique.cpp Jeu.cpp Moteur.cpp Objet.cpp Rand.cpp Vecteur.cp
+SOURCES = Menu.cpp main.cpp Physique.cpp Jeu.cpp Moteur.cpp Objet.cpp Rand.cpp Vecteur.cpp
 
 #
 # Fichiers objets (ne pas modifier sauf si l'extension n'est pas .cpp)
@@ -43,7 +43,7 @@ LDFLAGS = -Wno-deprecated
 # Librairies a utiliser
 # Example: LDLIBS = -L/usr/local/qt/lib -lqt
 #
-LDLIBS = -lglut -lGLU -lGL -lm -lSDL -lwiiuse 
+LDLIBS = -lglut -lGLU -lGL -lm -lSDL2 -lwiiuse -lSDL_image
 
 
 ##########################################

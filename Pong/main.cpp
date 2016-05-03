@@ -99,10 +99,10 @@ bool Init()
     SDL_GL_SetSwapInterval(1);
     
     // Init GLEW
-#ifndef __APPLE__
+    /*#ifndef __APPLE__
     glewInit();
-#endif
-    return true;
+    #endif*/
+return true;
 }
 
 bool SetOpenGLAttributes()
