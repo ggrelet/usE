@@ -39,8 +39,8 @@ class Jeu
 {
 	private:
         //Les objets
-		std::vector<Objet> objets;
-        //Objet objets[3];
+		//std::vector<Objet> objets;
+    Objet objets[3];
 
         //Pour la creation des balles
 		unsigned int last;

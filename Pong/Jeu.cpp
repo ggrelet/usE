@@ -32,8 +32,10 @@ Jeu::Jeu()
 {
     last = 0;
     jeuEnCours = true;
-     Objet o;
-    objets.resize(3,o);
+    Objet o;
+    objets[0]=o;
+    objets[1]=o;
+    objets[2]=o;
     
 }	
 
@@ -55,14 +57,14 @@ bool Jeu::initTextures()
         
         if(k==0)
         {
-            string fichier="data/balle.png";
+            string fichier="/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/pong1/usE/data/balle.png";
             //On charge l'image "data/balle.bmp"
             tmpsurf = IMG_Load(fichier.c_str());
         }
         else
         {
             //On charge l'image "data/barre.bmp"
-            tmpsurf = IMG_Load("data/barre.png");
+            tmpsurf = IMG_Load("/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/pong1/usE/data/barre.png");
         }
         
         if(tmpsurf==0)
@@ -163,14 +165,13 @@ bool Jeu::init()
 
 bool Jeu::initObjets()
 {
-    objets.clear();
+   // objets.clear();
     return true;
 }
 
 //Recommence la partie
 void Jeu::recommence()
 {
- 
     
     Physique::init();
     jeuEnCours = true;
@@ -228,7 +229,6 @@ void Jeu::affObjets()
 
 void Jeu::gereSceneServeur()
 {
-    
     Physique::updateObjets(objets);
 }
 

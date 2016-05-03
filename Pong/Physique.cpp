@@ -14,7 +14,7 @@ bool Physique::init()
     return true;
 }
 
-void Physique::updateObjets(std::vector<Objet> &objets)
+void Physique::updateObjets(Objet objets[3])
 {
 	int i;
 	int res;
@@ -23,7 +23,7 @@ void Physique::updateObjets(std::vector<Objet> &objets)
 	double vx,vy,newvx, newvy,n;
 	double x1,x2,y1,y2;
 
-	int nobjets = objets.size();
+	int nobjets = 3;
 	
 	for(i=0;i<nobjets;i++)
 		{
@@ -134,11 +134,11 @@ bool Physique::collisionCercle(double cx1, double cy1, double r1,
 }
 
 //Y-a-t-il une collision entres les objets et le rectangle (x,y,w,h) ?
-bool Physique::isCollision(std::vector<Objet> &objets, double x, double y, double w, double h)
+bool Physique::isCollision(Objet objets[3], double x, double y, double w, double h)
 {
 	int i;
 	double x1,y1,w1,h1;
-	int nobjets = objets.size();
+	int nobjets = 3;
 
 	for(i=0;i<nobjets;i++)
 		{
@@ -154,9 +154,9 @@ bool Physique::isCollision(std::vector<Objet> &objets, double x, double y, doubl
 }
 
 //Est-ce que l'objet d'indice idx est en collision avec les autres ?
-int Physique::collisionObjet(std::vector<Objet> &objets, int idx)
+int Physique::collisionObjet(Objet objets[3], int idx)
 {
-	int i,nobjets = objets.size();
+	int i,nobjets = 3;
 
 	double x1,x2,y1,y2;
 	double w1,h1,w2,h2;
@@ -286,7 +286,7 @@ void Physique::enleverObjetZone(int idx, int i, int j)
     }
 }
 
-void Physique::enleverObjetDesZones(std::vector<Objet> &objs, int idx)
+void Physique::enleverObjetDesZones(Objet objs[3], int idx)
 {
     double x=0,y=0;
     int oldzonei=-1, oldzonej=-1;
@@ -332,7 +332,7 @@ void Physique::ajouterObjetZone(int idx, int i, int j)
 }
 
 
-void Physique::ajouterObjetDansZones(std::vector<Objet> &objs, int idx)
+void Physique::ajouterObjetDansZones(Objet objs[3], int idx)
 {
     double x=0,y=0;
     int oldzonei=-1, oldzonej=-1;
@@ -358,7 +358,7 @@ void Physique::ajouterObjetDansZones(std::vector<Objet> &objs, int idx)
 }
 
 //Est-ce que l'objet d'indice a est en collision avec les autres de sa zone ?
-int Physique::collisionObjetZone(std::vector<Objet> &objets, int idx)
+int Physique::collisionObjetZone(Objet objets[3], int idx)
 {
     int i,k,l;
     
