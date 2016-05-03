@@ -1,9 +1,9 @@
-/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/pong1/usE/data/menu.png
-/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/pong1/usE/data/titre.png
+data/menu.png
+data/titre.png
 20 30
-/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/pong1/usE/data/nouveau.png
+data/nouveau.png
 52 277
-/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/pong1/usE/data/quitter.png
+data/quitter.png
 302 440
-/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/pong1/usE/data/continuer.png
+data/continuer.png
 282 180

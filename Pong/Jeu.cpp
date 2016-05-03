@@ -52,14 +52,14 @@ bool Jeu::initTextures()
         
         if(k==0)
         {
-            string fichier="/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/pong1/usE/data/balle.png";
+            string fichier="data/balle.png";
             //On charge l'image "data/balle.bmp"
             tmpsurf = IMG_Load(fichier.c_str());
         }
         else
         {
             //On charge l'image "data/barre.bmp"
-            tmpsurf = IMG_Load("/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/pong1/usE/data/barre.png");
+            tmpsurf = IMG_Load("data/barre.png");
         }
         
         if(tmpsurf==0)
