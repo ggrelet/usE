@@ -68,7 +68,7 @@ void Moteur::dessineJeu()
 
 bool Moteur::init()
 {
-	return jeu->init() && menu->init("/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/pong1/usE/data/menu.txt");;
+	return jeu->init() && menu->init("data/menu.txt");;
 }
 
 void Moteur::clavier(unsigned char k)
