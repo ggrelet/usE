@@ -14,7 +14,7 @@
 #include <iostream>
 //Bibliotheque SDL2
 #include <SDL2/SDL.h>
-#include <SDL2_image/SDL_image.h>
+#include <SDL2/SDL_image.h>
 
 //Bibliotheque openGL
 #define GLEW_STATIC 1
