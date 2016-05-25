@@ -197,8 +197,8 @@ int main(int argc,char **argv)
         {
             
             
-            pos1.x=wiimotes[0]->ir.dot[0].x-sur1->w/2; //On modifie les coordonnees du carre en fonction de l'infrarouge
-            pos1.y=wiimotes[0]->ir.dot[0].y-sur1->h/2;
+            pos1.x=wiimotes[0]->ir.dot[0].x-50; //On modifie les coordonnees du carre en fonction de l'infrarouge
+            pos1.y=wiimotes[0]->ir.dot[0].y-50;
             if(IS_HELD(wiimotes[0],WIIMOTE_BUTTON_HOME)) //Si on appuie sur HOME on quitte
                 continuer=false;
             
@@ -209,7 +209,7 @@ int main(int argc,char **argv)
         glBegin(GL_QUADS);
         glTexCoord2i(0.0,0.0);
         glVertex3f(pos1.x,pos1.y,0);
-        glTexCoord2i(1.0,0.0);
+        glTexCoord2i(1.0,0.0);  
         glVertex3f(pos1.x+100,pos1.y,0);
         glTexCoord2i(1.0,1.0);
         glVertex3f(pos1.x+100,pos1.y+100,0);
