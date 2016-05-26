@@ -8,7 +8,7 @@ PROG = Test
 #
 # Fichiers sources (NE PAS METTRE les .h ni les .o seulement les .cpp)
 #
-SOURCES = Test.cpp 
+SOURCES = Test.cpp
 #
 # Fichiers objets (ne pas modifier sauf si l'extension n'est pas .cpp)
 #
@@ -30,13 +30,13 @@ CXXFLAGS = -std=c++11 -Wall -g
 #
 # Options de l'editeur de liens
 #
-LDFLAGS = -Wno-deprecated 
+LDFLAGS = -Wno-deprecated
 
 #
 # Librairies a utiliser
 # Example: LDLIBS = -L/usr/local/qt/lib -lqt
 #
-LDLIBS = -lGL -lSDL -lSDL_image -lwiiuse 
+LDLIBS = -lGL -lSDL2 -lSDL2_image -lwiiuse -lbluetooth
 
 
 ##########################################
@@ -44,7 +44,7 @@ LDLIBS = -lGL -lSDL -lSDL_image -lwiiuse
 # Regles de construction/destruction des .o et de l'executable
 # depend-${PROG} sera un fichier contenant les dependances
 #
- 
+
 all: ${PROG}
 
 run: ${PROG}
@@ -58,11 +58,11 @@ clean:
 
 clean-all: clean
 	-@$(RM) ${PROG} 1>/dev/null 2>&1
-  
+
 tar:
 	tar cvf ${PROG}.tar.gz ${SOURCES}
 
-# Gestion des dependances : creation automatique des dependances en utilisant 
+# Gestion des dependances : creation automatique des dependances en utilisant
 # l'option -MM de g++ (attention tous les compilateurs n'ont pas cette option)
 #
 depend-${PROG}:
