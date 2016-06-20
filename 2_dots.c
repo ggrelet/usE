@@ -14,7 +14,7 @@ int main(int argc,char **argv)
     SDL_Rect pos2={20,20};
     bool continuer=true;
 
-    
+
     wiimote_t** wiimotes;
     int found, connected;
 
@@ -26,7 +26,7 @@ int main(int argc,char **argv)
         fprintf(stderr,"Aucune Wiimote trouvee\n");
         return 0;
     }
-    connected = wiiuse_connect(wiimotes, MAX_WIIMOTE); 
+    connected = wiiuse_connect(wiimotes, MAX_WIIMOTE);
     if(connected) {
           printf("connected to wiimote \n");
 } else {
@@ -46,8 +46,8 @@ return 0;
 
     sur1=SDL_CreateRGBSurface(SDL_HWSURFACE,10,10,32,0,0,0,0); //Notre carre 10*10 (rouge)
     SDL_FillRect(sur1,NULL,SDL_MapRGB(sur1->format,255,0,0));
-    sur2=SDL_CreateRGBSurface(SDL_HWSURFACE,10,10,32,0,0,0,0);
-    SDL_FillRect(sur2,NULL,SDL_MapRGB(sur2->format,0,255,0));
+    //sur2=SDL_CreateRGBSurface(SDL_HWSURFACE,10,10,32,0,0,0,0);
+    //SDL_FillRect(sur2,NULL,SDL_MapRGB(sur2->format,0,255,0));
 
     while(continuer)
     {
@@ -61,8 +61,12 @@ return 0;
 
             pos1.x=wiimotes[0]->ir.dot[0].x-sur1->w/2; //On modifie les coordonnees du carre en fonction de l'infrarouge
             pos1.y=wiimotes[0]->ir.dot[0].y-sur1->h/2;
-	    pos2.x=wiimotes[0]->ir.dot[1].x-sur2->w/2;
-	    pos2.y=wiimotes[0]->ir.dot[1].y-sur2->h/2;
+	    //pos2.x=wiimotes[0]->ir.dot[1].x-sur2->w/2;
+	    //pos2.y=wiimotes[0]->ir.dot[1].y-sur2->h/2;
+
+				printf("IR x,y coordonates : %u , %u \n" , wiimotes[0]->ir.dot[0].x, wiimotes[0]->ir.dot[0].y);
+	    	printf("IR z distance: %f\n", wiimotes[0]->ir.z);
+
             if(IS_HELD(wiimotes[0],WIIMOTE_BUTTON_HOME)) //Si on appuie sur HOME on quitte
                 continuer=false;
 
@@ -74,6 +78,7 @@ return 0;
         SDL_Flip(ecran);
         SDL_Delay(10);
     }
+
     SDL_FreeSurface(ecran);
     SDL_FreeSurface(sur1);
     SDL_FreeSurface(sur2);
@@ -83,4 +88,3 @@ return 0;
 
     return EXIT_SUCCESS;
 }
-
