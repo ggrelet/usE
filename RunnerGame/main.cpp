@@ -10,20 +10,18 @@
 #include "Scene.h"
 #include "Mat4.h"
 
+
 using namespace std;
 
 //VARIABLES GLOBALES:
 
 int main( int argc, char* argv[] )
 {
+
     Scene scene(programName,WIDTH,HEIGHT);
 
     scene.executer();
-    
-    
+
+
     return 0;
 }
-
-
-
-

@@ -25,8 +25,7 @@
 #include <SDL2/SDL_image.h>
 
 
-//library wiiuse
-//#include "include/wiiuse.h"
+#include <wiiuse.h>
 
 //autres librairies
 #include <string>
