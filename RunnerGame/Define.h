@@ -22,7 +22,7 @@
 
 //library SDL2
 #include <SDL2/SDL.h>
-#include <SDL2_image/SDL_image.h>
+#include <SDL2/SDL_image.h>
 
 
 //library wiiuse
@@ -55,4 +55,8 @@ const float ANGLE_VISION=45.0;
 //on doit initialiser le nombre maximal de wiimotes qu'on veut (une seule pour nous -> sera directement la camera de notre telephone par la suite)
 const int MAX_WIIMOTE = 1;
 
+<<<<<<< HEAD
 #endif /* Define_h */
+=======
+#endif /* Define_h */
+>>>>>>> c1324418961dc36116a1f2c11f21368c0f66ebea

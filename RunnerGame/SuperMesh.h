@@ -9,7 +9,6 @@
 #ifndef SuperMesh_h
 #define SuperMesh_h
 
-#endif /* SuperMesh_h */
 
 #include "Mesh.h"
 
@@ -20,3 +19,5 @@ public:
 
     std::vector<Mesh> meshes;
 };
+
+#endif /* SuperMesh_h */

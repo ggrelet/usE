@@ -61,6 +61,7 @@ void Personnage::afficher(void){
     glRotated(angleHorizontal, 0.0, 0.0, 1.0);
     
     
+    
         Vec4f position;
         Vec4f normale;
         

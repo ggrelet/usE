@@ -1,0 +1,1 @@
+g++ -Wall 2_dots.c -lwiiuse -lSDL -lbluetooth -o 2_dots

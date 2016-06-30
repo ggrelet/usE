@@ -9,8 +9,6 @@
 #ifndef Scene_h
 #define Scene_h
 
-#include "Define.h"
-#include "Mat4.h"
 #include "Texture.h"
 #include "Personnage.h"
 
@@ -20,7 +18,9 @@ private:
     //< Key,Value> Key: on utilisera un string pour distinguer nos textures(plus intuitif) -- map values: contenu associe a la clé (GluInt utilisé par openGL pour referencer ses textures)
     //agit comme un tableau dynamique: Textures[identifiant sous forme de string]=valeur
     
-
+    Personnage objets[3];
+    Texture textures[7];
+    
     bool continuer;
     Personnage *personnage;
     
@@ -34,11 +34,11 @@ private:
     SDL_Event m_evenements;
    
     void gererEvenements(void);
-    void animer(void);
     void dessiner(void);
     void afficher(void);
     void dessinerSkybox(void);
     void dessinerObjets(void);
+    void chargerTextures(void);
     
 public:
     Scene(std::string titreFenetre, int largeurFenetre, int hauteurFenetre);

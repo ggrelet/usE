@@ -65,7 +65,7 @@ void SuperMesh::loadOBJ (const std::string & filename) {
     }
     
     
-    unsigned int VSize [size]; //pour l'instant 4 mais nombre d'objets
+    unsigned int VSize [size];
     unsigned int NSize [size];
     unsigned int TSize [size];
     unsigned int SSize [size];
@@ -267,7 +267,7 @@ void SuperMesh::centerAndScaleToUnit () {
         float m = dist (meshes[g].V[i].p, c);
         if (m > maxD)
             maxD = m;
-    } }
+    }}
     
     for( int g=0; g<meshes.size();g++){
         for  (unsigned int i = 0; i < meshes[g].V.size (); i++){

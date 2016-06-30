@@ -19,7 +19,7 @@
 class Texture
 {
 public:
-    
+    Texture();
     Texture(std::string fichierImage);
     ~Texture();
     void charger();

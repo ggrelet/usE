@@ -12,9 +12,36 @@ using namespace std;
 
 Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titreFenetre(titreFenetre), m_largeurFenetre(largeurFenetre),m_hauteurFenetre(hauteurFenetre), m_fenetre(0), m_contexteOpenGL(0) {
     continuer = true;
-    personnage = new Personnage("data/ball.rtf");
+    personnage = new Personnage("/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/RunnerGame/data/ball.rtf");
+    
+    //initialisation objets
+    for (int i=0; i<3; i++) {
+        objets[i] = *new Personnage();
+    }
+    
+    //chargement objets
+    objets[0] = *new Personnage(1,20,0,0,0,"/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/RunnerGame/data/stalagtites1.rtf");
+    objets[1] = *new Personnage(-2,10,0,0,0,"/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/RunnerGame/data/stalagtites1.rtf");
+    objets[2] = *new Personnage(0.5,5,0,0,0,"/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/RunnerGame/data/stalagtites1.rtf");
+    
+    
+    
+    //initialisation textures
+    for (int i=0; i<7; i++) {
+        textures[i] = *new Texture();
+    }
+    //chargement des textures
+    textures[0].setFichierImage("/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/RunnerGame/Textures/verre6.jpg");
+    textures[1].setFichierImage("/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/RunnerGame/Textures/cube maps-centre.png");
+    textures[2].setFichierImage("/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/RunnerGame/Textures/cube maps-sud.png");
+    textures[3].setFichierImage("/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/RunnerGame/Textures/verre3.jpg");
+    textures[4].setFichierImage("/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/RunnerGame/Textures/cube maps-ouest.png");
+    textures[5].setFichierImage("/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/RunnerGame/Textures/cube maps-est.png");
+    textures[6].setFichierImage("/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/RunnerGame/Textures/cube maps-nord.png");
+    
 
 }
+
 
 
 Scene::~Scene() {
@@ -26,6 +53,8 @@ Scene::~Scene() {
     SDL_Quit();
     
 }
+
+
 
 //initialisation de SDL2
 bool Scene::initSDL2()
@@ -52,6 +81,8 @@ bool Scene::initSDL2()
     return true;
     
 }
+
+
 
 //initialisation d'openGL
 
@@ -90,58 +121,33 @@ bool Scene::initOpenGl()
     // Définition de la zone visible
     gluPerspective(ANGLE_VISION, RATIO, PRET, LOIN);
     
+    
     return true;
-
 }
 
 
+
+void Scene::chargerTextures()
+{
+    for (int i=0; i<7;i++) {
+        textures[i].charger();
+    }
+    
+}
 
 
 void Scene::executer()
 {
     initSDL2();
     initOpenGl();
-    
-    //chargement des textures
-    Texture texture0("Textures/verre6.jpg");
-    texture0.charger();
-    
-    Texture texture_bk("Textures/perdicus_bk.tga");
-    texture_bk.charger();
-    cout << "bk: "<<texture_bk.getID()<<endl;
-    
-    Texture texture_dn("Textures/perdicus_dn.tga");
-    texture_dn.charger();
-    cout << "dn: "<<texture_dn.getID()<<endl;
-
-    
-    Texture texture_ft("Textures/perdicus_ft.tga");
-    texture_ft.charger();
-    cout << "ft: "<<texture_ft.getID()<<endl;
-
-    
-    Texture texture_lf("Textures/perdicus_lf.tga");
-    texture_lf.charger();
-    cout << "lf: "<< texture_lf.getID()<<endl;
-
-    
-    Texture texture_rt("Textures/perdicus_rt.tga");
-    texture_rt.charger();
-    cout << "rt: "<<texture_rt.getID()<<endl;
-
-    
-    Texture texture_up("Textures/perdicus_up.tga");
-    texture_up.charger();
-    cout << "up: "<<texture_up.getID()<<endl;
-
+    chargerTextures();
     
     
         while(continuer)
     {
         gererEvenements();
-        //animer();
         dessiner();
-        //afficher();
+        afficher();
         }
     
 }
@@ -170,10 +176,10 @@ void Scene::gererEvenements(void)
                     glPolygonMode (GL_FRONT_AND_BACK, mode[1] ==  GL_FILL ? GL_LINE : GL_FILL);
                     break;
                 case SDL_SCANCODE_UP:
-                    personnage->avancer(1.5);
+                    personnage->avancer(0.5);
                     break;
                 case SDL_SCANCODE_DOWN:
-                    personnage->avancer(-1.5);
+                    personnage->avancer(-0.5);
                     break;
                 case SDL_SCANCODE_RIGHT:
                     personnage->tournerHorizontalement(-10.0);
@@ -202,9 +208,6 @@ void Scene::gererEvenements(void)
    
 }
 
-void Scene::animer(){
-    
-}
 
 void Scene::dessiner(){
     // Vidage de l'écran
@@ -218,27 +221,22 @@ void Scene::dessiner(){
     dessinerSkybox();
     dessinerObjets();
     
-    SDL_Delay(10);
-    SDL_GL_SwapWindow(m_fenetre);
 }
 
 void Scene::dessinerSkybox() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    float t = 800.0f;
-    // On mémorise le repère courant avant d'effectuer la RST
+    float t = 800.0f; //taille du cube
+    
     glDepthMask(GL_FALSE);
     
-    // Utilisation de la texture CubeMap
-    //glBindTexture(GL_TEXTURE_2D, 2);
     // Pas de teinte
     glColor3ub(255,255,255);
-    
+    //glColor3f(1, 1, 1);
     
     vector<Vec4f> vertices;
     vertices.resize(8);
-    
-    vertices[0]=Vec4f(-t,-t,-t,1);
+        vertices[0]=Vec4f(-t,-t,-t,1);
     vertices[1]=Vec4f(t,-t,-t,1);
     vertices[2]=Vec4f(t,-t,t,1);
     vertices[3]=Vec4f(-t,-t,t,1);
@@ -247,8 +245,7 @@ void Scene::dessinerSkybox() {
     vertices[6]=Vec4f(t,t,t,1);
     vertices[7]=Vec4f(-t,t,t,1);
     
-    glBindTexture(GL_TEXTURE_2D, 5);
-    // Rendu de la géométrie
+    glBindTexture(GL_TEXTURE_2D, textures[4].getID());
     glBegin(GL_QUADS);			// X Négatif
     glTexCoord2f(0,0); glVertex3f(vertices[0][0],vertices[0][1],vertices[0][2]);
     glTexCoord2f(1,0); glVertex3f(vertices[4][0],vertices[4][1],vertices[4][2]);
@@ -257,7 +254,7 @@ void Scene::dessinerSkybox() {
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
     
-    glBindTexture(GL_TEXTURE_2D, 6);
+    glBindTexture(GL_TEXTURE_2D, textures[5].getID());
     glBegin(GL_QUADS);			// X Positif
     glTexCoord2f(0,0); glVertex3f(vertices[5][0],vertices[5][1],vertices[5][2]);
     glTexCoord2f(1,0); glVertex3f(vertices[1][0],vertices[1][1],vertices[1][2]);
@@ -266,7 +263,7 @@ void Scene::dessinerSkybox() {
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
     
-    glBindTexture(GL_TEXTURE_2D, 4);
+    glBindTexture(GL_TEXTURE_2D, textures[3].getID());
     glBegin(GL_QUADS);			// Y Négatif
     glTexCoord2f(0,0); glVertex3f(vertices[1][0],vertices[1][1],vertices[1][2]);
     glTexCoord2f(1,0); glVertex3f(vertices[0][0],vertices[0][1],vertices[0][2]);
@@ -275,7 +272,7 @@ void Scene::dessinerSkybox() {
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
     
-    glBindTexture(GL_TEXTURE_2D, 2);
+    glBindTexture(GL_TEXTURE_2D, textures[1].getID());
     glBegin(GL_QUADS);			// Y Positif
     glTexCoord2f(0,0); glVertex3f(vertices[4][0],vertices[4][1],vertices[4][2]);
     glTexCoord2f(1,0); glVertex3f(vertices[5][0],vertices[5][1],vertices[5][2]);
@@ -284,21 +281,21 @@ void Scene::dessinerSkybox() {
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
     
-    glBindTexture(GL_TEXTURE_2D, 7);
+    glBindTexture(GL_TEXTURE_2D, textures[6].getID());
     glBegin(GL_QUADS);			// Z Négatif
-    glTexCoord2f(1,0); glVertex3f(vertices[0][0],vertices[0][1],vertices[0][2]);
-    glTexCoord2f(1,1); glVertex3f(vertices[1][0],vertices[1][1],vertices[1][2]);
-    glTexCoord2f(0,1); glVertex3f(vertices[5][0],vertices[5][1],vertices[5][2]);
-    glTexCoord2f(0,0); glVertex3f(vertices[4][0],vertices[4][1],vertices[4][2]);
+    glTexCoord2f(0,0); glVertex3f(vertices[0][0],vertices[0][1],vertices[0][2]);
+    glTexCoord2f(1,0); glVertex3f(vertices[1][0],vertices[1][1],vertices[1][2]);
+    glTexCoord2f(1,1); glVertex3f(vertices[5][0],vertices[5][1],vertices[5][2]);
+    glTexCoord2f(0,1); glVertex3f(vertices[4][0],vertices[4][1],vertices[4][2]);
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
     
-    glBindTexture(GL_TEXTURE_2D, 3);
+    glBindTexture(GL_TEXTURE_2D, textures[2].getID());
     glBegin(GL_QUADS);			// Z Positif
-    glTexCoord2f(0,1); glVertex3f(vertices[7][0],vertices[7][1],vertices[7][2]);
-    glTexCoord2f(0,0); glVertex3f(vertices[6][0],vertices[6][1],vertices[6][2]);
-    glTexCoord2f(1,0); glVertex3f(vertices[2][0],vertices[2][1],vertices[2][2]);
-    glTexCoord2f(1,1); glVertex3f(vertices[3][0],vertices[3][1],vertices[3][2]);
+    glTexCoord2f(0,0); glVertex3f(vertices[7][0],vertices[7][1],vertices[7][2]);
+    glTexCoord2f(1,0); glVertex3f(vertices[6][0],vertices[6][1],vertices[6][2]);
+    glTexCoord2f(1,1); glVertex3f(vertices[2][0],vertices[2][1],vertices[2][2]);
+    glTexCoord2f(0,1); glVertex3f(vertices[3][0],vertices[3][1],vertices[3][2]);
     glEnd();
     glBindTexture(GL_TEXTURE_2D, 0);
     
@@ -306,18 +303,19 @@ void Scene::dessinerSkybox() {
     }
 
 
+
 void Scene::dessinerObjets(){
     personnage->afficher();
-    
-    Personnage *objet2 = new Personnage(3,0,0,0,0,"data/stalagtites1.rtf");
-    
-    objet2->afficher();
+    for (int i=0; i<3; i++) {
+        objets[i].afficher();
+    }
     
 }
 
 
 void Scene::afficher(){
-    
+    SDL_Delay(10);
+    SDL_GL_SwapWindow(m_fenetre);
     
 }
 

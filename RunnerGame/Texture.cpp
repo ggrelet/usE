@@ -12,6 +12,13 @@
 
 using namespace std;
 
+Texture::Texture()
+{
+    m_id=0;
+    m_fichierImage=" ";
+    
+}
+
 Texture::Texture(string fichierImage) : m_id(0), m_fichierImage(fichierImage)
 {
 

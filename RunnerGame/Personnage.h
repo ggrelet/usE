@@ -9,7 +9,6 @@
 #ifndef Personnage_h
 #define Personnage_h
 
-#include "Define.h"
 #include "SuperMesh.h"
 
 class Personnage {
@@ -20,9 +19,19 @@ public:
     float posZ;
     float angleHorizontal;
     float angleVertical;
-    SuperMesh supermesh;
     
-    Personnage(std::string fileName) {  // Initialisation des attributs
+    
+    SuperMesh supermesh;
+    inline Personnage() {
+        posX = 0.0f;
+        posY = 0.0f;
+        posZ = 0.0f;
+        angleHorizontal = 0.0f;
+        angleVertical = 0.0f;
+        
+    }
+    
+    inline Personnage(std::string fileName) {  // Initialisation des attributs
         posX = 0.0f;
         posY = 0.0f;
         posZ = 0.0f;

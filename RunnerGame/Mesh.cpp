@@ -65,8 +65,6 @@ void Mesh::centerAndScaleToUnit () {
 }
 
 void Mesh::deplacer(Vec4f position1, Vec4f position2) {
-
-    
     int n = V.size();
     Vec4f deplacement = position2 - position1;
     

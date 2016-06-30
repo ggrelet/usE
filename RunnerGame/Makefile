@@ -32,11 +32,13 @@ CXXFLAGS = -std=c++11 -Wall -g
 #
 LDFLAGS = -Wno-deprecated 
 
+
 #
 # Librairies a utiliser
 # Example: LDLIBS = -L/usr/local/qt/lib -lqt
 #
-LDLIBS = -lGL -lSDL2 -lSDL2_image -lwiiuse 
+
+LDLIBS = -lGL -lSDL2 -lSDL2_image -lwiiuse -lGLU 
 
 
 ##########################################
@@ -44,7 +46,7 @@ LDLIBS = -lGL -lSDL2 -lSDL2_image -lwiiuse
 # Regles de construction/destruction des .o et de l'executable
 # depend-${PROG} sera un fichier contenant les dependances
 #
- 
+
 all: ${PROG}
 
 run: ${PROG}
@@ -63,6 +65,11 @@ tar:
 	tar cvf ${PROG}.tar.gz ${SOURCES}
 
 # Gestion des dependances : creation automatique des dependances en utilisant 
+
+tar:
+	tar cvf ${PROG}.tar.gz ${SOURCES}
+
+# Gestion des dependances : creation automatique des dependances en utilisant
 # l'option -MM de g++ (attention tous les compilateurs n'ont pas cette option)
 #
 depend-${PROG}:

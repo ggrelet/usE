@@ -17,7 +17,6 @@
 // --------------------------------------------------------------------------
 
 #pragma once
-#include "Define.h"
 #include "Vec4.h"
 
 /// A simple vertex class storing position and normal
@@ -100,9 +99,6 @@ public:
     std::vector<Square> S;
     
 
-    /// Loads the mesh from a <file>.off
-	//void loadOFF (const std::string & filename);
-    
     /// Compute smooth per-vertex normals
     void recomputeNormals ();
 
