@@ -140,7 +140,7 @@ void Scene::executer()
     initSDL2();
     initOpenGl();
     chargerTextures();
-
+    SDL_Event evenement;
     wiimote_t** wiimotes;
     int found, connected;
 
@@ -168,12 +168,52 @@ void Scene::executer()
     printf("Connexion etablie\n");
 
         while(continuer)
-    {
-        gererEvenements();
-        dessiner();
-        afficher();
-        }
+        {
+        //gererEvenements();
 
+
+
+        SDL_PollEvent(&evenement);
+        if(wiiuse_poll(wiimotes,1)) //Si on detecte un event sur l'une des Wiimote
+                {
+
+          printf("IR source : (%u, %u)\n",wiimotes[0]->ir.dot[0].x, wiimotes[0]->ir.dot[0].y);
+
+
+
+        if (wiimotes[0]->ir.dot[0].x > 768){
+          personnage->posAvant=personnage->posApres;
+          personnage->posApres="droite";
+          personnage->deplacement();
+          }
+
+
+        if (wiimotes[0]->ir.dot[0].x < 256){
+          personnage->posAvant=personnage->posApres;
+          personnage->posApres="gauche";
+          personnage->deplacement();
+          }
+
+
+        if (wiimotes[0]->ir.dot[0].y < 192){
+          personnage->posAvant=personnage->posApres;
+          personnage->posApres="haut";
+          personnage->deplacement();
+          }
+
+
+        if (wiimotes[0]->ir.dot[0].y > 576){
+          personnage->posAvant=personnage->posApres;
+          personnage->posApres="bas";
+          personnage->deplacement();
+          }
+
+
+
+          dessiner();
+          afficher();
+    }
+  }
 }
 
 void Scene::gererEvenements(void)
@@ -200,19 +240,36 @@ void Scene::gererEvenements(void)
                     glPolygonMode (GL_FRONT_AND_BACK, mode[1] ==  GL_FILL ? GL_LINE : GL_FILL);
                     break;
                 case SDL_SCANCODE_UP:
-                    personnage->avancer(0.5);
+                    //personnage->avancer(0.5);
+                    personnage->posAvant=personnage->posApres;
+                    personnage->posApres="haut";
+                    personnage->deplacement();
                     break;
                 case SDL_SCANCODE_DOWN:
-                    personnage->avancer(-0.5);
+                    //personnage->avancer(-0.5);
+                    personnage->posAvant=personnage->posApres;
+                    personnage->posApres="bas";
+                    personnage->deplacement();
                     break;
                 case SDL_SCANCODE_RIGHT:
-                    personnage->tournerHorizontalement(-10.0);
+                    //personnage->tournerHorizontalement(-10.0);
+                    personnage->posAvant=personnage->posApres;
+                    personnage->posApres="droite";
+                    personnage->deplacement();
                     break;
                 case SDL_SCANCODE_LEFT:
-                    personnage->tournerHorizontalement(10.0);
+                    //personnage->tournerHorizontalement(10.0);
+                    personnage->posAvant=personnage->posApres;
+                    personnage->posApres="gauche";
+                    personnage->deplacement();
+
                     break;
                 case SDL_SCANCODE_P:
-                    personnage->tournerVerticalement(10.0);
+                    //personnage->tournerVerticalement(10.0);
+                    personnage->posAvant=personnage->posApres;
+                    personnage->posApres="neutre";
+                    personnage->deplacement();
+
                     break;
                 case SDL_SCANCODE_SEMICOLON:
                     personnage->tournerVerticalement(-10.0);
