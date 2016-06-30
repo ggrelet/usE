@@ -358,5 +358,3 @@ void Scene::afficher(){
     SDL_GL_SwapWindow(m_fenetre);
 
 }
-
-}
