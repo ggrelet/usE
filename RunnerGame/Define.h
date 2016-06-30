@@ -54,4 +54,5 @@ const float ANGLE_VISION=45.0;
 //on doit initialiser le nombre maximal de wiimotes qu'on veut (une seule pour nous -> sera directement la camera de notre telephone par la suite)
 const int MAX_WIIMOTE = 1;
 
+
 #endif /* Define_h */

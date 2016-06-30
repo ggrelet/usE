@@ -6,9 +6,8 @@
 //  Copyright © 2016 Etcheverry Mayalen. All rights reserved.
 //
 
-#include "Define.h"
+
 #include "Scene.h"
-#include "Mat4.h"
 
 
 using namespace std;
