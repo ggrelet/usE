@@ -169,24 +169,18 @@ void Scene::executer()
 
         while(continuer)
         {
-        //gererEvenements();
-
-
 
         SDL_PollEvent(&evenement);
+        if(evenement.type==SDL_QUIT) //Si on appuie sur la croix on quitte
+            continuer=false;
         if(wiiuse_poll(wiimotes,1)) //Si on detecte un event sur l'une des Wiimote
                 {
 
-          printf("IR source : (%u, %u)\n",wiimotes[0]->ir.dot[0].x, wiimotes[0]->ir.dot[0].y);
-
-
-
-        if (wiimotes[0]->ir.dot[0].x > 768){
-          personnage->posAvant=personnage->posApres;
-          personnage->posApres="droite";
-          personnage->deplacement();
-          }
-
+if (wiimotes[0]->ir.dot[0].x > 768){
+            personnage->posAvant=personnage->posApres;
+            personnage->posApres="droite";
+            personnage->deplacement();
+            }
 
         if (wiimotes[0]->ir.dot[0].x < 256){
           personnage->posAvant=personnage->posApres;
@@ -194,13 +188,11 @@ void Scene::executer()
           personnage->deplacement();
           }
 
-
         if (wiimotes[0]->ir.dot[0].y < 192){
           personnage->posAvant=personnage->posApres;
           personnage->posApres="haut";
           personnage->deplacement();
           }
-
 
         if (wiimotes[0]->ir.dot[0].y > 576){
           personnage->posAvant=personnage->posApres;
@@ -208,11 +200,11 @@ void Scene::executer()
           personnage->deplacement();
           }
 
-
-
-          dessiner();
-          afficher();
+cout<<personnage->posApres<<endl;
+dessiner();
+afficher();
     }
+SDL_Delay(10);
   }
 }
 
