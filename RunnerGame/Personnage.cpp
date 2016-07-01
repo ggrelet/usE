@@ -21,19 +21,19 @@ Personnage::~Personnage(){
 void Personnage::deplacement(void) {
   if (posAvant=="neutre") {
       if (posApres=="droite") {
-            posX = 0.4f;
+            posX = 1.0f;
         }
 
         else if (posApres=="gauche") {
-              posX = -0.4f;
+              posX = -1.0f;
           }
 
           else if (posApres=="haut") {
-                posZ = 0.4f;
+                posZ = 1.0f;
             }
 
             else if (posApres=="bas") {
-                  posZ = -0.4f;
+                  posZ = -1.0f;
               }
 
   }
@@ -44,15 +44,15 @@ void Personnage::deplacement(void) {
             }
 
             else if (posApres=="gauche") {
-                  posX = -0.4f;
+                  posX = -1.0f;
               }
 
               else if (posApres=="haut") {
-                    posZ = 0.4f;
+                    posZ = 1.0f;
                 }
 
                 else if (posApres=="bas") {
-                      posZ = -0.4f;
+                      posZ = -1.0f;
                   }
 
   }
@@ -63,15 +63,15 @@ void Personnage::deplacement(void) {
             }
 
             else if (posApres=="droite") {
-                  posX = 0.4f;
+                  posX = 1.0f;
               }
 
               else if (posApres=="haut") {
-                    posZ = 0.4f;
+                    posZ = 1.0f;
                 }
 
                 else if (posApres=="bas") {
-                      posZ = -0.4f;
+                      posZ = -1.0f;
                   }
 
   }
@@ -82,15 +82,15 @@ void Personnage::deplacement(void) {
             }
 
             else if (posApres=="droite") {
-                  posX = 0.4f;
+                  posX = 1.0f;
               }
 
               else if (posApres=="gauche") {
-                    posX = -0.4f;
+                    posX = -1.0f;
                 }
 
                 else if (posApres=="bas") {
-                      posZ = -0.4f;
+                      posZ = -1.0f;
                   }
 
       }
@@ -101,15 +101,15 @@ void Personnage::deplacement(void) {
                 }
 
                 else if (posApres=="droite") {
-                      posX = 0.4f;
+                      posX = 1.0f;
                   }
 
                   else if (posApres=="gauche") {
-                        posX = -0.4f;
+                        posX = -1.0f;
                     }
 
                     else if (posApres=="haut") {
-                          posZ = 0.4f;
+                          posZ = 1.0f;
                       }
 
           }

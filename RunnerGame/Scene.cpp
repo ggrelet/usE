@@ -143,6 +143,7 @@ void Scene::executer()
     SDL_Event evenement;
     wiimote_t** wiimotes;
     int found, connected;
+    int tempsPrecedent = 0, tempsActuel = 0;
 
     wiimotes=wiiuse_init(MAX_WIIMOTE); //On initialise la premiere Wiimote
     found = wiiuse_find(wiimotes, MAX_WIIMOTE,5);//On essaie de la trouver
@@ -160,12 +161,10 @@ void Scene::executer()
 
     wiiuse_set_leds(wiimotes[0],WIIMOTE_LED_1); //On fixe sa DEL a la position 1
     wiiuse_rumble(wiimotes[0],1); //On la fait vibrer pendant 400 ms
-    SDL_Delay(400);
+    SDL_Delay(200);
     wiiuse_rumble(wiimotes[0],0);
     wiiuse_set_ir(wiimotes[0],1); //On active l'infrarouge pour la premiere Wiimote
     wiiuse_set_ir_vres(wiimotes[0],1024,768); //On définit l'espace infrarouge a (0->1024 ; 0->768)
-
-    printf("Connexion etablie\n");
 
         while(continuer)
         {
@@ -178,13 +177,13 @@ void Scene::executer()
 
 if (wiimotes[0]->ir.dot[0].x > 768){
             personnage->posAvant=personnage->posApres;
-            personnage->posApres="droite";
+            personnage->posApres="gauche";
             personnage->deplacement();
             }
 
         if (wiimotes[0]->ir.dot[0].x < 256){
           personnage->posAvant=personnage->posApres;
-          personnage->posApres="gauche";
+          personnage->posApres="droite";
           personnage->deplacement();
           }
 
@@ -200,11 +199,23 @@ if (wiimotes[0]->ir.dot[0].x > 768){
           personnage->deplacement();
           }
 
-cout<<personnage->posApres<<endl;
-dessiner();
-afficher();
+          if (wiimotes[0]->ir.dot[0].y < 576 && wiimotes[0]->ir.dot[0].y > 192 && wiimotes[0]->ir.dot[0].x < 768 && wiimotes[0]->ir.dot[0].x > 256 ){
+            personnage->posAvant=personnage->posApres;
+            personnage->posApres="neutre";
+            personnage->deplacement();
+            }
+
+//cout<<personnage->posApres<<endl;
     }
-SDL_Delay(10);
+
+    tempsActuel = SDL_GetTicks();
+    if (tempsActuel - tempsPrecedent > 30) /* Si 30 ms se sont écoulées */
+    {
+      dessiner();
+      afficher();
+      tempsPrecedent=tempsActuel;
+
+    }
   }
 }
 
