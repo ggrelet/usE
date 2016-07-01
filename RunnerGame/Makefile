@@ -38,7 +38,7 @@ LDFLAGS = -Wno-deprecated
 # Example: LDLIBS = -L/usr/local/qt/lib -lqt
 #
 
-LDLIBS = -lGL -lSDL2 -lSDL2_image -lwiiuse -lGLU -lbluetooth
+LDLIBS = -lGL -lSDL2 -lSDL2_image -lwiiuse -lGLU -lbluetooth -lpthread
 
 ##########################################
 #

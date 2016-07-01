@@ -11,7 +11,6 @@ using namespace std;
 #define MAX_WIIMOTE 1
 
 Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titreFenetre(titreFenetre), m_largeurFenetre(largeurFenetre),m_hauteurFenetre(hauteurFenetre), m_fenetre(0), m_contexteOpenGL(0) {
-    continuer = true;
     personnage = new Personnage("data/ball.rtf");
 
     //initialisation objets
@@ -141,7 +140,8 @@ void Scene::executer()
     initOpenGl();
     chargerTextures();
     SDL_Event evenement;
-    wiimote_t** wiimotes;
+int tempsPrecedent = 0, tempsActuel = 0;
+    /*wiimote_t** wiimotes;
     int found, connected;
     int tempsPrecedent = 0, tempsActuel = 0;
 
@@ -164,7 +164,7 @@ void Scene::executer()
     SDL_Delay(200);
     wiiuse_rumble(wiimotes[0],0);
     wiiuse_set_ir(wiimotes[0],1); //On active l'infrarouge pour la premiere Wiimote
-    wiiuse_set_ir_vres(wiimotes[0],1024,768); //On définit l'espace infrarouge a (0->1024 ; 0->768)
+    wiiuse_set_ir_vres(wiimotes[0],1024,768); //On définit l'espace infrarouge a (0->1024 ; 0->768)*/
 
         while(continuer)
         {
@@ -172,51 +172,59 @@ void Scene::executer()
         SDL_PollEvent(&evenement);
         if(evenement.type==SDL_QUIT) //Si on appuie sur la croix on quitte
             continuer=false;
+    /*
+  printf("Debut_poll %d\n", SDL_GetTicks());
         if(wiiuse_poll(wiimotes,1)) //Si on detecte un event sur l'une des Wiimote
                 {
 
-if (wiimotes[0]->ir.dot[0].x > 768){
+//printf("Debut wii %d\n", SDL_GetTicks());*/
+pthread_mutex_lock(&lock);
+int x = pos.x;
+int y = pos.y;
+pthread_mutex_unlock(&lock);
+if (x > 768){
             personnage->posAvant=personnage->posApres;
             personnage->posApres="gauche";
             personnage->deplacement();
             }
 
-        if (wiimotes[0]->ir.dot[0].x < 256){
+        if (x < 256){
           personnage->posAvant=personnage->posApres;
           personnage->posApres="droite";
           personnage->deplacement();
           }
 
-        if (wiimotes[0]->ir.dot[0].y < 192){
+        if (y < 192){
           personnage->posAvant=personnage->posApres;
           personnage->posApres="haut";
           personnage->deplacement();
           }
 
-        if (wiimotes[0]->ir.dot[0].y > 576){
+        if (y > 576){
           personnage->posAvant=personnage->posApres;
           personnage->posApres="bas";
           personnage->deplacement();
           }
 
-          if (wiimotes[0]->ir.dot[0].y < 576 && wiimotes[0]->ir.dot[0].y > 192 && wiimotes[0]->ir.dot[0].x < 768 && wiimotes[0]->ir.dot[0].x > 256 ){
+          if (y < 576 && y > 192 && x < 768 && x > 256 ){
             personnage->posAvant=personnage->posApres;
             personnage->posApres="neutre";
             personnage->deplacement();
             }
 
-//cout<<personnage->posApres<<endl;
-    }
-
     tempsActuel = SDL_GetTicks();
     if (tempsActuel - tempsPrecedent > 30) /* Si 30 ms se sont écoulées */
     {
+      gererEvenements();
+printf("Dessiner %d\n", SDL_GetTicks());
       dessiner();
+printf("Afficher %d\n", SDL_GetTicks());
       afficher();
       tempsPrecedent=tempsActuel;
-
     }
   }
+
+
 }
 
 void Scene::gererEvenements(void)
@@ -301,12 +309,12 @@ void Scene::dessiner(){
     //gluLookAt(10,0,0,0,0,0,0,0,1);
     personnage->regarder();
 
-    dessinerSkybox();
+    //dessinerSkybox();
     dessinerObjets();
 
 }
 
-void Scene::dessinerSkybox() {
+/*void Scene::dessinerSkybox() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     float t = 800.0f; //taille du cube
@@ -399,7 +407,7 @@ void Scene::dessinerSkybox() {
 
     glDepthMask(GL_TRUE);
     }
-
+*/
 
 
 void Scene::dessinerObjets(){
@@ -414,7 +422,6 @@ void Scene::dessinerObjets(){
 
 void Scene::afficher(){
 
-    SDL_Delay(10);
-    SDL_GL_SwapWindow(m_fenetre);
+        SDL_GL_SwapWindow(m_fenetre);
 
 }
