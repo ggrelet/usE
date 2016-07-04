@@ -33,6 +33,7 @@
 
 
 //#include <wiiuse.h>
+#include "wiiuse.h"
 
 //autres librairies
 #include <string>
@@ -43,10 +44,12 @@
 #include <pthread.h>
 
 
-const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
+/*const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
+
 #ifndef __APPLE__
 chemin="";
-#endif
+#endif*/
+const std::string chemin = "";
 
 //nom de notre Programme
 const std::string programName="Runner Game";

@@ -21,19 +21,19 @@ Personnage::~Personnage(){
 void Personnage::deplacement(void) {
   if (posAvant=="neutre") {
       if (posApres=="droite") {
-            posX = 1.0f;
+            posX = 0.5f;
         }
 
         else if (posApres=="gauche") {
-              posX = -1.0f;
+              posX = -0.5f;
           }
 
           else if (posApres=="haut") {
-                posZ = 1.0f;
+                posZ = 0.5f;
             }
 
             else if (posApres=="bas") {
-                  posZ = -1.0f;
+                  posZ = -0.5f;
               }
 
   }
@@ -44,15 +44,15 @@ void Personnage::deplacement(void) {
             }
 
             else if (posApres=="gauche") {
-                  posX = -1.0f;
+                  posX = -0.5f;
               }
 
               else if (posApres=="haut") {
-                    posZ = 1.0f;
+                    posZ = 0.5f;
                 }
 
                 else if (posApres=="bas") {
-                      posZ = -1.0f;
+                      posZ = -0.5f;
                   }
 
   }
@@ -63,34 +63,34 @@ void Personnage::deplacement(void) {
             }
 
             else if (posApres=="droite") {
-                  posX = 1.0f;
+                  posX = 0.5f;
               }
 
               else if (posApres=="haut") {
-                    posZ = 1.0f;
+                    posZ = 0.5f;
                 }
 
                 else if (posApres=="bas") {
-                      posZ = -1.0f;
+                      posZ = -0.5f;
                   }
 
   }
 
       if (posAvant=="haut") {
           if (posApres=="neutre") {
-                posZ = 0.0f;
+                posZ = 0.5f;
             }
 
             else if (posApres=="droite") {
-                  posX = 1.0f;
+                  posX = 0.5f;
               }
 
               else if (posApres=="gauche") {
-                    posX = -1.0f;
+                    posX = -0.5f;
                 }
 
                 else if (posApres=="bas") {
-                      posZ = -1.0f;
+                      posZ = -0.5f;
                   }
 
       }
@@ -101,15 +101,15 @@ void Personnage::deplacement(void) {
                 }
 
                 else if (posApres=="droite") {
-                      posX = 1.0f;
+                      posX = 0.5f;
                   }
 
                   else if (posApres=="gauche") {
-                        posX = -1.0f;
+                        posX = -0.5f;
                     }
 
                     else if (posApres=="haut") {
-                          posZ = 1.0f;
+                          posZ = 0.5f;
                       }
 
           }
@@ -117,8 +117,7 @@ void Personnage::deplacement(void) {
 }
 
 void Personnage::avancer(float distance){
-    posX -= distance * sin(angleHorizontal* M_PI / 180.0);
-    posY += distance * cos(angleHorizontal * M_PI / 180.0);
+    posY += distance ;
 
 
 }
@@ -161,16 +160,16 @@ void Personnage::afficher(void){
     glRotated(angleHorizontal, 0.0, 0.0, 1.0);
 
     glScaled(scaleX, scaleY, scaleZ);
-    
-    
-    
+
+
+
         Vec4f position;
         Vec4f normale;
-        
-        
+
+
         Vec4f ligthPos1(0.0f,5.0f,0.0f,1.0f);
         Vec4f ligthPos2(0.0f,-1.0f,0.0f,1.0f);
-    
+
         Vec4f fd = 3.0f * Kd / 3.14;
         float s= 10.0f;
 
@@ -194,21 +193,21 @@ void Personnage::afficher(void){
 
                     Vec4f w0 = normalize (-v.p);
 
-                
+
                     //BLIN-PHONG:
-                    
-                    
-                    
+
+
+
                     Vec4f fs1=Ks*pow(dot(r1,w0),s);
                     Vec4f fs2=Ks*pow(dot(r2,w0),s);
-                    
+
                     Vec4f L1 = Vec4f(1.0f,1.0f,1.0f,1.0f);
                     Vec4f L2 = Vec4f(1.0f,1.0f,1.0f,1.0f);
-                    
-                    
+
+
                     Vec4f color1 = eclairage*10*L1*(fd+fs1)*(fmax(dot(v.n,l1),0.0f)) ;
                     Vec4f color2 = eclairage*L2*(fd+fs2)*(fmax(dot(v.n,l2),0.0f)) ;
-                    
+
 
 
                     Vec4f color = (color1 + color2);
@@ -239,15 +238,15 @@ void Personnage::afficher(void){
 
 
                     Vec4f w0 = normalize (-v.p);
-                    
-                
+
+
                     Vec4f fs1=Ks*pow(dot(r1,w0),s);
                     Vec4f fs2=Ks*pow(dot(r2,w0),s);
-                    
+
                     Vec4f L1 = Vec4f(1.0f,1.0f,1.0f,1.0f);
                     Vec4f L2 = Vec4f(1.0f,1.0f,1.0f,1.0f);
-                    
-                    
+
+
                     Vec4f color1 = eclairage*10*L1*(fd+fs1)*(fmax(dot(v.n,l1),0.0f)) ;
                     Vec4f color2 = eclairage*L2*(fd+fs2)*(fmax(dot(v.n,l2),0.0f)) ;
 
