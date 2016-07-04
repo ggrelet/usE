@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <cstdlib>
 
-#include <SDL/SDL.h>
+#include "/Library/Frameworks/SDL2.framework/Versions/A/Headers/SDL.h" 
 
 #include <wiiuse.h>
 #define MAX_WIIMOTE 1

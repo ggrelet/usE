@@ -14,18 +14,25 @@
 #ifdef __APPLE__
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
+#include <SDL2_image/SDL_image.h>
+#define slash "/"
+
+
 
 #else
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <SDL2/SDL_image.h>
+
+
+
 #endif
 
 //library SDL2
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 
 
-#include <wiiuse.h>
+//#include <wiiuse.h>
 
 //autres librairies
 #include <string>
@@ -36,7 +43,10 @@
 #include <pthread.h>
 
 
-
+const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
+#ifndef __APPLE__
+chemin="";
+#endif
 
 //nom de notre Programme
 const std::string programName="Runner Game";
