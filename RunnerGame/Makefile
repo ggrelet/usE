@@ -30,20 +30,15 @@ CXXFLAGS = -std=c++11 -Wall -g
 #
 # Options de l'editeur de liens
 #
-LDFLAGS = -Wno-deprecated 
+LDFLAGS = -Wno-deprecated
 
 
 #
 # Librairies a utiliser
 # Example: LDLIBS = -L/usr/local/qt/lib -lqt
 #
-<<<<<<< HEAD
-LDLIBS = -lGL -lSDL2 -lSDL2_image -lwiiuse -lGLU -lbluetooth  
-=======
 
-LDLIBS = -lGL -lSDL2 -lSDL2_image -lwiiuse -lGLU 
->>>>>>> 359fe726644b3c0fe1f71cdd728a31d130d93fd8
-
+LDLIBS = -lGL -lSDL2 -lSDL2_image -lwiiuse -lGLU -lbluetooth -lpthread
 
 ##########################################
 #
@@ -64,11 +59,11 @@ clean:
 
 clean-all: clean
 	-@$(RM) ${PROG} 1>/dev/null 2>&1
-  
+
 tar:
 	tar cvf ${PROG}.tar.gz ${SOURCES}
 
-# Gestion des dependances : creation automatique des dependances en utilisant 
+# Gestion des dependances : creation automatique des dependances en utilisant
 
 tar:
 	tar cvf ${PROG}.tar.gz ${SOURCES}

@@ -10,10 +10,110 @@
 
 Personnage::Personnage(float posX, float posY, float posZ, float angleHorizontal,float angleVertical, float scaleX, float scaleY, float scaleZ, Vec4f Kd, Vec4f Ks, float eclairage, std::string fileName):posX(posX),posY(posY),posZ(posZ),angleHorizontal(angleHorizontal),angleVertical(angleVertical), scaleX(scaleX), scaleY(scaleY),scaleZ(scaleZ), Kd(Kd),Ks(Ks), eclairage(eclairage) {
     supermesh.loadOBJ(fileName);
+    posApres="neutre";
+    posAvant="neutre";
 }
 
 Personnage::~Personnage(){
-    
+
+}
+
+void Personnage::deplacement(void) {
+  if (posAvant=="neutre") {
+      if (posApres=="droite") {
+            posX = 1.0f;
+        }
+
+        else if (posApres=="gauche") {
+              posX = -1.0f;
+          }
+
+          else if (posApres=="haut") {
+                posZ = 1.0f;
+            }
+
+            else if (posApres=="bas") {
+                  posZ = -1.0f;
+              }
+
+  }
+
+      if (posAvant=="droite") {
+          if (posApres=="neutre") {
+                posX = 0.0f;
+            }
+
+            else if (posApres=="gauche") {
+                  posX = -1.0f;
+              }
+
+              else if (posApres=="haut") {
+                    posZ = 1.0f;
+                }
+
+                else if (posApres=="bas") {
+                      posZ = -1.0f;
+                  }
+
+  }
+
+      if (posAvant=="gauche") {
+          if (posApres=="neutre") {
+                posX = 0.0f;
+            }
+
+            else if (posApres=="droite") {
+                  posX = 1.0f;
+              }
+
+              else if (posApres=="haut") {
+                    posZ = 1.0f;
+                }
+
+                else if (posApres=="bas") {
+                      posZ = -1.0f;
+                  }
+
+  }
+
+      if (posAvant=="haut") {
+          if (posApres=="neutre") {
+                posZ = 0.0f;
+            }
+
+            else if (posApres=="droite") {
+                  posX = 1.0f;
+              }
+
+              else if (posApres=="gauche") {
+                    posX = -1.0f;
+                }
+
+                else if (posApres=="bas") {
+                      posZ = -1.0f;
+                  }
+
+      }
+
+          if (posAvant=="bas") {
+              if (posApres=="neutre") {
+                    posZ = 0.0f;
+                }
+
+                else if (posApres=="droite") {
+                      posX = 1.0f;
+                  }
+
+                  else if (posApres=="gauche") {
+                        posX = -1.0f;
+                    }
+
+                    else if (posApres=="haut") {
+                          posZ = 1.0f;
+                      }
+
+          }
+
 }
 
 void Personnage::avancer(float distance){
@@ -24,9 +124,9 @@ void Personnage::avancer(float distance){
 }
 
 void Personnage::tournerHorizontalement(float angle){
-    
+
     angleHorizontal+=angle; //doit rester entre -180 et 180
-    
+
     while (this->angleHorizontal >= 180.0) // Lorsqu'on dépasse la limite (1/2 tour)
     {
         this->angleHorizontal -= 360.0;
@@ -35,13 +135,13 @@ void Personnage::tournerHorizontalement(float angle){
     {
         this->angleHorizontal += 360.0;
     }
-    
+
 }
 
 void Personnage::tournerVerticalement(float angle)
 {
     angleVertical += angle;
-    
+
     if (45.0f < angleVertical)
     {
         angleVertical = 45.0f;
@@ -55,10 +155,11 @@ void Personnage::tournerVerticalement(float angle)
 void Personnage::afficher(void){
    // On mémorise le repère courant avant d'effectuer la RST
     glPushMatrix();
-    
+
     // Positionne l'objet en lieu de dessin
     glTranslatef(posX, posY, 0.0);
     glRotated(angleHorizontal, 0.0, 0.0, 1.0);
+
     glScaled(scaleX, scaleY, scaleZ);
     
     
@@ -72,27 +173,27 @@ void Personnage::afficher(void){
     
         Vec4f fd = 3.0f * Kd / 3.14;
         float s= 10.0f;
-        
-    
+
         for (int g=0; g<supermesh.meshes.size();g++){
             glBindTexture(GL_TEXTURE_2D, 0);
-            
+
             glBegin (GL_TRIANGLES);
             for (unsigned int i = 0; i < supermesh.meshes[g].T.size(); i++) {
-                
-                
+
+
                 for (unsigned int j = 0; j < 3; j++) {
                     const Vertex & v = supermesh.meshes[g].V[supermesh.meshes[g].T[i].ve[j]];
-                    
-                    
+
+
                     Vec4f l1 = normalize (ligthPos1 - v.p);
                     Vec4f r1 =  l1 - 2.0f * dot(v.n, l1) * v.n;
-                    
+
                     Vec4f l2 = normalize (ligthPos2 - v.p);
                     Vec4f r2 = l2 - 2.0f * dot(v.n, l1) * v.n;
-                    
-                    
+
+
                     Vec4f w0 = normalize (-v.p);
+
                 
                     //BLIN-PHONG:
                     
@@ -108,11 +209,13 @@ void Personnage::afficher(void){
                     Vec4f color1 = eclairage*10*L1*(fd+fs1)*(fmax(dot(v.n,l1),0.0f)) ;
                     Vec4f color2 = eclairage*L2*(fd+fs2)*(fmax(dot(v.n,l2),0.0f)) ;
                     
+
+
                     Vec4f color = (color1 + color2);
-                    
+
                     position =  v.p;
                     normale = v.n;
-                    
+
                     glColor4f(color[0],color[1],color[2],1.0f);
                     //glColor3f(1, 1,1);
                     //glTexCoord2f(v.vt[0], v.vt[1]);
@@ -121,20 +224,20 @@ void Personnage::afficher(void){
                 }
             }
             glEnd ();
-            
+
             glBegin (GL_QUADS);
             for (unsigned int i = 0; i < supermesh.meshes[g].S.size(); i++) {
                 for (unsigned int j = 0; j < 4; j++) {
                     glColor4f(1.0,0.0,0.0,0.2);
                     const Vertex & v = supermesh.meshes[g].V[supermesh.meshes[g].S[i].v[j]];
-                    
+
                     Vec4f l1 = normalize (ligthPos1 - v.p);
                     Vec4f r1 =  l1 - 2.0f * dot(v.n, l1) * v.n;
-                    
+
                     Vec4f l2 = normalize (ligthPos2 - v.p);
                     Vec4f r2 = l2 - 2.0f * dot(v.n, l1) * v.n;
-                    
-                    
+
+
                     Vec4f w0 = normalize (-v.p);
                     
                 
@@ -147,13 +250,15 @@ void Personnage::afficher(void){
                     
                     Vec4f color1 = eclairage*10*L1*(fd+fs1)*(fmax(dot(v.n,l1),0.0f)) ;
                     Vec4f color2 = eclairage*L2*(fd+fs2)*(fmax(dot(v.n,l2),0.0f)) ;
-                    
+
+
+
                     Vec4f color = (color1 + color2);
-                    
-                    
+
+
                     position = v.p;
                     normale = v.n;
-                    
+
                     glColor4f(color[0],color[1],color[2],1.0f);
                     //glColor3f(1, 1,1);
                     //glTexCoord2f(v.vt[0], v.vt[1]);
@@ -163,7 +268,7 @@ void Personnage::afficher(void){
             }
             glEnd ();
             glBindTexture(GL_TEXTURE_2D, 0);
-            
+
         }
 
    glPopMatrix();
@@ -172,6 +277,6 @@ void Personnage::afficher(void){
 
 void Personnage::regarder(void)
 {
-    gluLookAt(posX, posY, 0.0, posX-sin(angleHorizontal * M_PI/180), posY+cos(angleHorizontal*M_PI/180), tan(angleVertical*M_PI/180), 0, 0, 1);
-    
+    gluLookAt(posX, posY, posZ, posX-sin(angleHorizontal * M_PI/180), posY+cos(angleHorizontal*M_PI/180), posZ + tan(angleVertical*M_PI/180), 0, 0, 1);
+
    }

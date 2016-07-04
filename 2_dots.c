@@ -79,7 +79,7 @@ return 0;
         SDL_Flip(ecran);
         SDL_Delay(10);
 
-          if (wiimotes[0]->ir.dot[0].x > 768){
+        /*  if (wiimotes[0]->ir.dot[0].x > 768){
             mv_right=true;
             }
           if (mv_right)
@@ -101,13 +101,15 @@ return 0;
             mv_down=true;
             }
           if (mv_down)
-              printf("Bas\n");
+              printf("Bas\n"); */
 
+ printf("IR source : (%u, %u)\n",wiimotes[0]->ir.dot[0].x, wiimotes[0]->ir.dot[0].y);
+ /*
 mv_right=false;
 mv_left=false;
 mv_up=false;
 mv_down=false;
-
+*/
     }
 
     SDL_FreeSurface(ecran);

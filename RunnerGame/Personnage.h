@@ -12,7 +12,7 @@
 #include "SuperMesh.h"
 
 class Personnage {
-    
+
 public:
     float posX;
     float posY;
@@ -25,8 +25,9 @@ public:
     Vec4f Kd;
     Vec4f Ks;
     float eclairage;
-    
-    
+    std::string posAvant;
+    std::string posApres;
+
     SuperMesh supermesh;
     
     inline Personnage() {
@@ -41,8 +42,11 @@ public:
         Kd=Vec4f(1.0f,1.0f,1.0f,1.0f);
         Ks=Vec4f(1.0f,1.0f,1.0f,1.0f);
         eclairage=0.0f;
+        posApres="neutre";
+        posAvant="neutre";
+
     }
-    
+
     inline Personnage(std::string fileName) {  // Initialisation des attributs
         posX = 0.0f;
         posY = -9.0f;
@@ -55,6 +59,9 @@ public:
         Kd=Vec4f(1.0f,1.0f,1.0f,1.0f);
         Ks=Vec4f(1.0f,1.0f,1.0f,1.0f);
         eclairage=0.0f;
+        posApres="neutre";
+        posAvant="neutre";
+
         
         supermesh.loadOBJ(fileName);
     };
@@ -64,9 +71,10 @@ public:
     void avancer(float distance);
     void tournerHorizontalement(float angle);
     void tournerVerticalement(float angle);
+    void deplacement(void);
     void afficher(void);
     void regarder(void);
-    
+
 };
 
 #include <stdio.h>

@@ -21,7 +21,6 @@ private:
     Personnage objets[3];
     Texture textures[7];
 
-    bool continuer;
     Personnage *personnage;
 
     std::string m_titreFenetre;

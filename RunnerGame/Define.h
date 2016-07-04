@@ -40,6 +40,7 @@
 #include <stdio.h>
 #include <map>
 #include <vector>
+#include <pthread.h>
 
 
 const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
@@ -64,5 +65,16 @@ const float ANGLE_VISION=45.0;
 //on doit initialiser le nombre maximal de wiimotes qu'on veut (une seule pour nous -> sera directement la camera de notre telephone par la suite)
 const int MAX_WIIMOTE = 1;
 
+struct wii_pos {
+	int x;
+	int y;
+};
+
+extern struct wii_pos pos;
+
+extern wiimote_t** wiimotes;
+extern pthread_mutex_t lock;
+
+extern bool continuer;
 
 #endif /* Define_h */
