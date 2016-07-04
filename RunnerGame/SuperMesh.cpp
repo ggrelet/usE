@@ -45,10 +45,8 @@ void SuperMesh::loadOBJ (const std::string & filename) {
         
         // else : parse lineHeader
         
-        if (strcmp( lineHeader, "g" ) == 0 ){
-            
+        if (strcmp( lineHeader, "o" ) == 0 ){
             size+=1;
-            
         }
         
         //else {printf("File can't be read by our simple parser :  Try exporting with other options\n");}
@@ -60,6 +58,7 @@ void SuperMesh::loadOBJ (const std::string & filename) {
     
     // 2eme lecture pour trouver le nombre de sommets, normales, faces, texture pour chaque objet
     file = fopen(filename.c_str (), "r");
+    
     if( file == NULL ){
         printf("Impossible to open the file a second time !\n");
     }
@@ -92,7 +91,7 @@ void SuperMesh::loadOBJ (const std::string & filename) {
         
         // else : parse lineHeader
         
-        if (strcmp( lineHeader, "g" ) == 0 ){
+        if (strcmp( lineHeader, "o" ) == 0 ){
             
             gcurrent+=1;
             
@@ -142,7 +141,7 @@ void SuperMesh::loadOBJ (const std::string & filename) {
         
         // else : parse lineHeader
         
-        if (strcmp( lineHeader, "g" ) == 0 ){
+        if (strcmp( lineHeader, "o" ) == 0 ){
             
             fscanf(file, "%d\n", &gcurrent);
             gcurrent-=1;

@@ -12,18 +12,24 @@ using namespace std;
 
 Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titreFenetre(titreFenetre), m_largeurFenetre(largeurFenetre),m_hauteurFenetre(hauteurFenetre), m_fenetre(0), m_contexteOpenGL(0) {
     continuer = true;
-    personnage = new Personnage("data/ball.rtf");
 
+    
+    personnage = new Personnage(chemin+"data/perso.rtf");
     //initialisation objets
     for (int i=0; i<3; i++) {
         objets[i] = *new Personnage();
     }
 
     //chargement objets
-    objets[0] = *new Personnage(1,20,0,0,0,"data/stalagtites1.rtf");
-    objets[1] = *new Personnage(-2,10,0,0,0,"data/stalagtites1.rtf");
-    objets[2] = *new Personnage(0.5,5,0,0,0,"data/stalagtites1.rtf");
-
+    objets[0] = *new Personnage(-0.7,7,0,0,0,1,1,1,Vec4f(0.7843f,0.7843f,0.7843f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f), 2500.0f, chemin+"data/cailloux.rtf");
+    //objets[1] = *new Personnage(-2,10,0,0,0,1,1,1,chemin+"data/stalagtites1.rtf");
+    //objets[2] = *new Personnage(0.5,5,0,0,0,chemin+"data/stalagtites1.rtf");
+    objets[1] = *new Personnage(0,0,0,0,0,10,20,10,Vec4f(0.7843f,0.7843f,0.7843f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),80000.0f,chemin+"data/tunnel.rtf");
+    objets[2] = *new Personnage(0,10,0,0,0,10,1,10,Vec4f(1.0f,1.0f,1.0f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),10000.0f,chemin+"data/fond.rtf");
+    
+    //objets[0] = *new Personnage(0,0,0,0,0,10,20,10,Vec4f(0.7843f,0.7843f,0.7843f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),50000.0f,chemin+"data/tout.rtf");
+    
+    
 
 
     //initialisation textures
@@ -31,13 +37,13 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
         textures[i] = *new Texture();
     }
     //chargement des textures
-    textures[0].setFichierImage("Textures/verre6.jpg");
-    textures[1].setFichierImage("Textures/cube maps-centre.png");
-    textures[2].setFichierImage("Textures/cube maps-sud.png");
-    textures[3].setFichierImage("Textures/verre3.jpg");
-    textures[4].setFichierImage("Textures/cube maps-ouest.png");
-    textures[5].setFichierImage("Textures/cube maps-est.png");
-    textures[6].setFichierImage("Textures/cube maps-nord.png");
+    textures[0].setFichierImage(chemin+"Textures/verre6.jpg");
+    textures[1].setFichierImage(chemin+"Textures/cube maps-centre.png");
+    textures[2].setFichierImage(chemin+"Textures/cube maps-sud.png");
+    textures[3].setFichierImage(chemin+"Textures/verre3.jpg");
+    textures[4].setFichierImage(chemin+"Textures/cube maps-ouest.png");
+    textures[5].setFichierImage(chemin+"Textures/cube maps-est.png");
+    textures[6].setFichierImage(chemin+"Textures/cube maps-nord.png");
 
 
 }
@@ -140,6 +146,7 @@ void Scene::executer()
     initSDL2();
     initOpenGl();
     chargerTextures();
+    /*int tempsPrecedent = 0, tempsActuel = 0;
 
     wiimote_t** wiimotes;
     int found, connected;
@@ -165,14 +172,22 @@ void Scene::executer()
     wiiuse_set_ir(wiimotes[0],1); //On active l'infrarouge pour la premiere Wiimote
     wiiuse_set_ir_vres(wiimotes[0],1024,768); //On définit l'espace infrarouge a (0->1024 ; 0->768)
 
-    printf("Connexion etablie\n");
+    printf("Connexion etablie\n");*/
 
         while(continuer)
     {
         gererEvenements();
         dessiner();
         afficher();
-        }
+        /*tempsActuel = SDL_GetTicks();
+        if (tempsActuel - tempsPrecedent > 30)
+        {
+            dessiner();
+            afficher();
+            tempsPrecedent=tempsActuel;
+            
+        }*/
+}
 
 }
 
@@ -241,7 +256,7 @@ void Scene::dessiner(){
     //gluLookAt(10,0,0,0,0,0,0,0,1);
     personnage->regarder();
 
-    dessinerSkybox();
+    //dessinerSkybox();
     dessinerObjets();
 
 }
@@ -354,9 +369,7 @@ void Scene::dessinerObjets(){
 
 void Scene::afficher(){
 
-    SDL_Delay(10);
+    //SDL_Delay(10);
     SDL_GL_SwapWindow(m_fenetre);
-
-}
 
 }

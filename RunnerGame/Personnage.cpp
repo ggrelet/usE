@@ -8,7 +8,7 @@
 
 #include "Personnage.h"
 
-Personnage::Personnage(float posX, float posY, float posZ, float angleHorizontal,float angleVertical, std::string fileName):posX(posX),posY(posY),posZ(posZ),angleHorizontal(angleHorizontal),angleVertical(angleVertical){
+Personnage::Personnage(float posX, float posY, float posZ, float angleHorizontal,float angleVertical, float scaleX, float scaleY, float scaleZ, Vec4f Kd, Vec4f Ks, float eclairage, std::string fileName):posX(posX),posY(posY),posZ(posZ),angleHorizontal(angleHorizontal),angleVertical(angleVertical), scaleX(scaleX), scaleY(scaleY),scaleZ(scaleZ), Kd(Kd),Ks(Ks), eclairage(eclairage) {
     supermesh.loadOBJ(fileName);
 }
 
@@ -59,6 +59,7 @@ void Personnage::afficher(void){
     // Positionne l'objet en lieu de dessin
     glTranslatef(posX, posY, 0.0);
     glRotated(angleHorizontal, 0.0, 0.0, 1.0);
+    glScaled(scaleX, scaleY, scaleZ);
     
     
     
@@ -66,11 +67,13 @@ void Personnage::afficher(void){
         Vec4f normale;
         
         
-        Vec4f ligthPos1(3.0f,0.0f,3.0f,1.0f);
-        Vec4f ligthPos2(-3.0f,0.0f,-3.0f,1.0f);
+        Vec4f ligthPos1(0.0f,5.0f,0.0f,1.0f);
+        Vec4f ligthPos2(0.0f,-1.0f,0.0f,1.0f);
+    
+        Vec4f fd = 3.0f * Kd / 3.14;
+        float s= 10.0f;
         
-        
-        
+    
         for (int g=0; g<supermesh.meshes.size();g++){
             glBindTexture(GL_TEXTURE_2D, 0);
             
@@ -90,29 +93,20 @@ void Personnage::afficher(void){
                     
                     
                     Vec4f w0 = normalize (-v.p);
-                    
-                    
-                    //Diffus:
-                    Vec4f kd = Vec4f(0.5020f,0.1098f,0.0039f,1.0f); //la fonction texture(texture2D,texCoord) renvoie la couleur correspondant à la position texCoord sur la texture2D.
-                    
-                    
-                    Vec4f fd = 3.0f *kd / 3.14;
-                    
-                    
+                
                     //BLIN-PHONG:
                     
-                    Vec4f ks = Vec4f(0.3686f,0.1255f,0.0157f,1.0f);
-                    float s= 10.0f;
                     
-                    Vec4f fs1=ks*pow(dot(r1,w0),s);
-                    Vec4f fs2=ks*pow(dot(r2,w0),s);
+                    
+                    Vec4f fs1=Ks*pow(dot(r1,w0),s);
+                    Vec4f fs2=Ks*pow(dot(r2,w0),s);
                     
                     Vec4f L1 = Vec4f(1.0f,1.0f,1.0f,1.0f);
                     Vec4f L2 = Vec4f(1.0f,1.0f,1.0f,1.0f);
                     
                     
-                    Vec4f color1 = 100.0f*L1*(fd+fs1)*(fmax(dot(v.n,l1),0.0f)) ;
-                    Vec4f color2 = 100.0f*L2*(fd+fs2)*(fmax(dot(v.n,l2),0.0f)) ;
+                    Vec4f color1 = eclairage*10*L1*(fd+fs1)*(fmax(dot(v.n,l1),0.0f)) ;
+                    Vec4f color2 = eclairage*L2*(fd+fs2)*(fmax(dot(v.n,l2),0.0f)) ;
                     
                     Vec4f color = (color1 + color2);
                     
@@ -120,7 +114,8 @@ void Personnage::afficher(void){
                     normale = v.n;
                     
                     glColor4f(color[0],color[1],color[2],1.0f);
-                    glTexCoord2f(v.vt[0], v.vt[1]);
+                    //glColor3f(1, 1,1);
+                    //glTexCoord2f(v.vt[0], v.vt[1]);
                     glNormal3f (normale[0], normale[1], normale[2]);
                     glVertex3f (position[0], position[1], position[2]);
                 }
@@ -142,26 +137,16 @@ void Personnage::afficher(void){
                     
                     Vec4f w0 = normalize (-v.p);
                     
-                    
-                    //Diffus:
-                    Vec4f kd = Vec4f(0.5020f,0.1098f,0.0039f,1.0f);
-                    Vec4f fd = 3.0f *kd / 3.14;
-                    
-                    
-                    //BLIN-PHONG:
-                    
-                    Vec4f ks = Vec4f(0.3686f,0.1255f,0.0157f,1.0f);
-                    float s= 10.0f;
-                    
-                    Vec4f fs1=ks*pow(dot(r1,w0),s);
-                    Vec4f fs2=ks*pow(dot(r2,w0),s);
+                
+                    Vec4f fs1=Ks*pow(dot(r1,w0),s);
+                    Vec4f fs2=Ks*pow(dot(r2,w0),s);
                     
                     Vec4f L1 = Vec4f(1.0f,1.0f,1.0f,1.0f);
                     Vec4f L2 = Vec4f(1.0f,1.0f,1.0f,1.0f);
                     
                     
-                    Vec4f color1 = 100.0f*L1*(fd+fs1)*(fmax(dot(v.n,l1),0.0f)) ;
-                    Vec4f color2 = 100.0f*L2*(fd+fs2)*(fmax(dot(v.n,l2),0.0f)) ;
+                    Vec4f color1 = eclairage*10*L1*(fd+fs1)*(fmax(dot(v.n,l1),0.0f)) ;
+                    Vec4f color2 = eclairage*L2*(fd+fs2)*(fmax(dot(v.n,l2),0.0f)) ;
                     
                     Vec4f color = (color1 + color2);
                     
@@ -170,7 +155,8 @@ void Personnage::afficher(void){
                     normale = v.n;
                     
                     glColor4f(color[0],color[1],color[2],1.0f);
-                    glTexCoord2f(v.vt[0], v.vt[1]);
+                    //glColor3f(1, 1,1);
+                    //glTexCoord2f(v.vt[0], v.vt[1]);
                     glNormal3f (normale[0], normale[1], normale[2]);
                     glVertex3f (position[0], position[1], position[2]);
                 }

@@ -19,29 +19,47 @@ public:
     float posZ;
     float angleHorizontal;
     float angleVertical;
+    float scaleX;
+    float scaleY;
+    float scaleZ;
+    Vec4f Kd;
+    Vec4f Ks;
+    float eclairage;
     
     
     SuperMesh supermesh;
+    
     inline Personnage() {
         posX = 0.0f;
         posY = 0.0f;
         posZ = 0.0f;
         angleHorizontal = 0.0f;
         angleVertical = 0.0f;
-        
+        scaleX = 1.0f;
+        scaleY = 1.0f;
+        scaleZ = 1.0f;
+        Kd=Vec4f(1.0f,1.0f,1.0f,1.0f);
+        Ks=Vec4f(1.0f,1.0f,1.0f,1.0f);
+        eclairage=0.0f;
     }
     
     inline Personnage(std::string fileName) {  // Initialisation des attributs
         posX = 0.0f;
-        posY = 0.0f;
+        posY = -9.0f;
         posZ = 0.0f;
         angleHorizontal = 0.0f;
         angleVertical = 0.0f;
+        scaleX = 1.0f;
+        scaleY = 1.0f;
+        scaleZ = 1.0f;
+        Kd=Vec4f(1.0f,1.0f,1.0f,1.0f);
+        Ks=Vec4f(1.0f,1.0f,1.0f,1.0f);
+        eclairage=0.0f;
         
         supermesh.loadOBJ(fileName);
     };
     
-    Personnage(float posX, float posY, float posZ, float angleHorizontal,  float angleVertical, std::string fileName);
+    Personnage(float posX, float posY, float posZ, float angleHorizontal,  float angleVertical,float scaleX, float scaleY, float scaleZ, Vec4f Kd, Vec4f Ks,float eclairage, std::string fileName);
     ~Personnage();
     void avancer(float distance);
     void tournerHorizontalement(float angle);
