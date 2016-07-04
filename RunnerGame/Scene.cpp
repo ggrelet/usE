@@ -41,8 +41,6 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
 
 }
 
-
-
 Scene::~Scene() {
 
     SDL_GL_DeleteContext(m_contexteOpenGL);
@@ -80,8 +78,6 @@ bool Scene::initSDL2()
     return true;
 
 }
-
-
 
 //initialisation d'openGL
 
@@ -141,30 +137,6 @@ void Scene::executer()
     chargerTextures();
     SDL_Event evenement;
 int tempsPrecedent = 0, tempsActuel = 0;
-    /*wiimote_t** wiimotes;
-    int found, connected;
-    int tempsPrecedent = 0, tempsActuel = 0;
-
-    wiimotes=wiiuse_init(MAX_WIIMOTE); //On initialise la premiere Wiimote
-    found = wiiuse_find(wiimotes, MAX_WIIMOTE,5);//On essaie de la trouver
-    if (!found){
-        fprintf(stderr,"Aucune Wiimote trouvee\n");
-
-    }
-    connected = wiiuse_connect(wiimotes, MAX_WIIMOTE);
-    if(connected) {
-          printf("connected to wiimote \n");
-    } else {
-     printf("Failed to connect to any wiimote\n");
-
-    }
-
-    wiiuse_set_leds(wiimotes[0],WIIMOTE_LED_1); //On fixe sa DEL a la position 1
-    wiiuse_rumble(wiimotes[0],1); //On la fait vibrer pendant 400 ms
-    SDL_Delay(200);
-    wiiuse_rumble(wiimotes[0],0);
-    wiiuse_set_ir(wiimotes[0],1); //On active l'infrarouge pour la premiere Wiimote
-    wiiuse_set_ir_vres(wiimotes[0],1024,768); //On définit l'espace infrarouge a (0->1024 ; 0->768)*/
 
         while(continuer)
         {
@@ -172,17 +144,12 @@ int tempsPrecedent = 0, tempsActuel = 0;
         SDL_PollEvent(&evenement);
         if(evenement.type==SDL_QUIT) //Si on appuie sur la croix on quitte
             continuer=false;
-    /*
-  printf("Debut_poll %d\n", SDL_GetTicks());
-        if(wiiuse_poll(wiimotes,1)) //Si on detecte un event sur l'une des Wiimote
-                {
 
-//printf("Debut wii %d\n", SDL_GetTicks());*/
-pthread_mutex_lock(&lock);
-int x = pos.x;
-int y = pos.y;
-pthread_mutex_unlock(&lock);
-if (x > 768){
+            pthread_mutex_lock(&lock);
+            int x = pos.x;
+            int y = pos.y;
+            pthread_mutex_unlock(&lock);
+        if (x > 768){
             personnage->posAvant=personnage->posApres;
             personnage->posApres="gauche";
             personnage->deplacement();
@@ -216,15 +183,11 @@ if (x > 768){
     if (tempsActuel - tempsPrecedent > 30) /* Si 30 ms se sont écoulées */
     {
       gererEvenements();
-printf("Dessiner %d\n", SDL_GetTicks());
       dessiner();
-printf("Afficher %d\n", SDL_GetTicks());
       afficher();
       tempsPrecedent=tempsActuel;
     }
   }
-
-
 }
 
 void Scene::gererEvenements(void)
@@ -314,111 +277,13 @@ void Scene::dessiner(){
 
 }
 
-/*void Scene::dessinerSkybox() {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    float t = 800.0f; //taille du cube
-
-    glDepthMask(GL_FALSE);
-
-
-    // Utilisation de la texture CubeMap
-    //glBindTexture(GL_TEXTURE_2D, 2);
-    // Pas de teinte
-    glColor3ub(255,255,255);
-
-
-    //Pas de teinte
-    glColor3ub(255,255,255);
-    //glColor3f(1, 1, 1);
-
-    vector<Vec4f> vertices;
-    vertices.resize(8);
-    vertices[0]=Vec4f(-t,-t,-t,1);
-    vertices[1]=Vec4f(t,-t,-t,1);
-    vertices[2]=Vec4f(t,-t,t,1);
-    vertices[3]=Vec4f(-t,-t,t,1);
-    vertices[4]=Vec4f(-t,t,-t,1);
-    vertices[5]=Vec4f(t,t,-t,1);
-    vertices[6]=Vec4f(t,t,t,1);
-    vertices[7]=Vec4f(-t,t,t,1);
-
-
-
-    glBindTexture(GL_TEXTURE_2D, textures[4].getID());
-
-    glBegin(GL_QUADS);			// X Négatif
-    glTexCoord2f(0,0); glVertex3f(vertices[0][0],vertices[0][1],vertices[0][2]);
-    glTexCoord2f(1,0); glVertex3f(vertices[4][0],vertices[4][1],vertices[4][2]);
-    glTexCoord2f(1,1); glVertex3f(vertices[7][0],vertices[7][1],vertices[7][2]);
-    glTexCoord2f(0,1); glVertex3f(vertices[3][0],vertices[3][1],vertices[3][2]);
-    glEnd();
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    glBindTexture(GL_TEXTURE_2D, textures[5].getID());
-
-    glBegin(GL_QUADS);			// X Positif
-    glTexCoord2f(0,0); glVertex3f(vertices[5][0],vertices[5][1],vertices[5][2]);
-    glTexCoord2f(1,0); glVertex3f(vertices[1][0],vertices[1][1],vertices[1][2]);
-    glTexCoord2f(1,1); glVertex3f(vertices[2][0],vertices[2][1],vertices[2][2]);
-    glTexCoord2f(0,1); glVertex3f(vertices[6][0],vertices[6][1],vertices[6][2]);
-    glEnd();
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    glBindTexture(GL_TEXTURE_2D, textures[3].getID());
-
-    glBegin(GL_QUADS);			// Y Négatif
-    glTexCoord2f(0,0); glVertex3f(vertices[1][0],vertices[1][1],vertices[1][2]);
-    glTexCoord2f(1,0); glVertex3f(vertices[0][0],vertices[0][1],vertices[0][2]);
-    glTexCoord2f(1,1); glVertex3f(vertices[3][0],vertices[3][1],vertices[3][2]);
-    glTexCoord2f(0,1); glVertex3f(vertices[2][0],vertices[2][1],vertices[2][2]);
-    glEnd();
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    glBindTexture(GL_TEXTURE_2D, textures[1].getID());
-    glBegin(GL_QUADS);			// Y Positif
-    glTexCoord2f(0,0); glVertex3f(vertices[4][0],vertices[4][1],vertices[4][2]);
-    glTexCoord2f(1,0); glVertex3f(vertices[5][0],vertices[5][1],vertices[5][2]);
-    glTexCoord2f(1,1); glVertex3f(vertices[6][0],vertices[6][1],vertices[6][2]);
-    glTexCoord2f(0,1); glVertex3f(vertices[7][0],vertices[7][1],vertices[7][2]);
-    glEnd();
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    glBindTexture(GL_TEXTURE_2D, textures[6].getID());
-
-    glBegin(GL_QUADS);			// Z Négatif
-    glTexCoord2f(0,0); glVertex3f(vertices[0][0],vertices[0][1],vertices[0][2]);
-    glTexCoord2f(1,0); glVertex3f(vertices[1][0],vertices[1][1],vertices[1][2]);
-    glTexCoord2f(1,1); glVertex3f(vertices[5][0],vertices[5][1],vertices[5][2]);
-    glTexCoord2f(0,1); glVertex3f(vertices[4][0],vertices[4][1],vertices[4][2]);
-    glEnd();
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-
-    glBindTexture(GL_TEXTURE_2D, textures[2].getID());
-
-    glBegin(GL_QUADS);			// Z Positif
-    glTexCoord2f(0,0); glVertex3f(vertices[7][0],vertices[7][1],vertices[7][2]);
-    glTexCoord2f(1,0); glVertex3f(vertices[6][0],vertices[6][1],vertices[6][2]);
-    glTexCoord2f(1,1); glVertex3f(vertices[2][0],vertices[2][1],vertices[2][2]);
-    glTexCoord2f(0,1); glVertex3f(vertices[3][0],vertices[3][1],vertices[3][2]);
-    glEnd();
-    glBindTexture(GL_TEXTURE_2D, 0);
-
-    glDepthMask(GL_TRUE);
-    }
-*/
-
-
 void Scene::dessinerObjets(){
     personnage->afficher();
     for (int i=0; i<3; i++) {
         objets[i].afficher();
     }
 
-
 }
-
 
 void Scene::afficher(){
 
