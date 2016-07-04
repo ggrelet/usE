@@ -15,7 +15,7 @@
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 #include <SDL2_image/SDL_image.h>
-#define slash "/"
+
 
 
 
