@@ -71,6 +71,7 @@ const int MAX_WIIMOTE = 1;
 struct wii_pos {
 	int x;
 	int y;
+	int z1;
 };
 
 extern struct wii_pos pos;

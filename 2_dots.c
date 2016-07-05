@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <cstdlib>
 
-#include "/Library/Frameworks/SDL2.framework/Versions/A/Headers/SDL.h" 
+#include <SDL/SDL.h>
 
 #include <wiiuse.h>
 #define MAX_WIIMOTE 1
@@ -13,10 +13,7 @@ int main(int argc,char **argv)
     SDL_Rect pos1={0,0};
     SDL_Rect pos2={20,20};
     bool continuer=true;
-    bool mv_right=false;
-    bool mv_left=false;
-    bool mv_up=false;
-    bool mv_down=false;
+    int tempsPrecedent = 0, tempsActuel = 0;
 
     wiimote_t** wiimotes;
     int found, connected;
@@ -39,7 +36,7 @@ return 0;
 
     wiiuse_set_leds(wiimotes[0],WIIMOTE_LED_1); //On fixe sa DEL a la position 1
     wiiuse_rumble(wiimotes[0],1); //On la fait vibrer pendant 400 ms
-    SDL_Delay(400);
+    SDL_Delay(200);
     wiiuse_rumble(wiimotes[0],0);
     wiiuse_set_ir(wiimotes[0],1); //On active l'infrarouge pour la premiere Wiimote
     wiiuse_set_ir_vres(wiimotes[0],1024,768); //On définit l'espace infrarouge a (0->640 ; 0->480)
@@ -61,13 +58,9 @@ return 0;
         if(wiiuse_poll(wiimotes,1)) //Si on detecte un event sur l'une des Wiimote
         {
 
-
             pos1.x=wiimotes[0]->ir.dot[0].x-sur1->w/2; //On modifie les coordonnees du carre en fonction de l'infrarouge
             pos1.y=wiimotes[0]->ir.dot[0].y-sur1->h/2;
 
-
-				//printf("IR x,y coordonates : %u , %u \n" , wiimotes[0]->ir.dot[0].x, wiimotes[0]->ir.dot[0].y);
-	    	//printf("IR z distance: %f\n", wiimotes[0]->ir.z);
         if(IS_HELD(wiimotes[0],WIIMOTE_BUTTON_HOME)) //Si on appuie sur HOME on quitte
           continuer=false;
 
@@ -79,43 +72,20 @@ return 0;
         SDL_Flip(ecran);
         SDL_Delay(10);
 
-        /*  if (wiimotes[0]->ir.dot[0].x > 768){
-            mv_right=true;
-            }
-          if (mv_right)
-              printf("Droite\n");
+        tempsActuel = SDL_GetTicks();
+        if (tempsActuel - tempsPrecedent > 30)
+        {
+        printf("IR z distance: %f\n", wiimotes[0]->ir.z);
+        tempsPrecedent=tempsActuel;
+        }
 
-          if (wiimotes[0]->ir.dot[0].x < 256){
-            mv_left=true;
-            }
-          if (mv_left)
-              printf("Gauche\n");
-
-          if (wiimotes[0]->ir.dot[0].y < 192){
-            mv_up=true;
-            }
-          if (mv_up)
-              printf("Haut\n");
-
-          if (wiimotes[0]->ir.dot[0].y > 576){
-            mv_down=true;
-            }
-          if (mv_down)
-              printf("Bas\n"); */
-
- printf("IR source : (%u, %u)\n",wiimotes[0]->ir.dot[0].x, wiimotes[0]->ir.dot[0].y);
- /*
-mv_right=false;
-mv_left=false;
-mv_up=false;
-mv_down=false;
-*/
-    }
+}
 
     SDL_FreeSurface(ecran);
     SDL_FreeSurface(sur1);
     SDL_FreeSurface(sur2);
     SDL_Quit();
+
 
     wiiuse_disconnect(wiimotes[0]); //On deconnecte la premiere Wiimote
 

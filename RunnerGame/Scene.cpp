@@ -142,10 +142,10 @@ void Scene::executer()
     initSDL2();
     initOpenGl();
     chargerTextures();
-
     SDL_Event evenement;
+
 int tempsPrecedent = 0, tempsActuel = 0;
-//float avancee = (float)(SDL_GetTicks()%100)/100;
+int z2;
 
         while(continuer)
         {
@@ -156,6 +156,7 @@ int tempsPrecedent = 0, tempsActuel = 0;
     pthread_mutex_lock(&lock);
     int x = pos.x;
     int y = pos.y;
+    int z1 = pos.z1;
     pthread_mutex_unlock(&lock);
 
         if (x > 768){
@@ -183,17 +184,23 @@ int tempsPrecedent = 0, tempsActuel = 0;
           personnage->deplacement();
           }
 
-          if (y < 576 && y > 192 && x < 768 && x > 256 ){
+        if (y < 576 && y > 192 && x < 768 && x > 256 ){
             personnage->posAvant=personnage->posApres;
             personnage->posApres="neutre";
             personnage->deplacement();
             }
 
+
+
     tempsActuel = SDL_GetTicks();
+    printf("IR z distance: %f\n", wiimotes[0]->ir.z);
     //personnage->avancer(avancee);
   if (tempsActuel - tempsPrecedent > 30) /* Si 30 ms se sont écoulées */
     {
+      z2 = z1;
+      if (z2-z1 > 10){
       personnage->avancer(0.3);
+      }
       gererEvenements();
       dessiner();
       afficher();
