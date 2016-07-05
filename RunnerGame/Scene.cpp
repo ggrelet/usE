@@ -12,41 +12,21 @@ using namespace std;
 
 Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titreFenetre(titreFenetre), m_largeurFenetre(largeurFenetre),m_hauteurFenetre(hauteurFenetre), m_fenetre(0), m_contexteOpenGL(0) {
 
+
     personnage = new Personnage(chemin+"data/perso.rtf");
+    
     //initialisation objets
     for (int i=0; i<6; i++) {
         objets[i] = *new Personnage();
     }
 
-    //chargement objets
-    objets[0] = *new Personnage(-0.7,-10,-0.7,0,0,1,1,1,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cone.rtf");
-    objets[1] = *new Personnage(0.7,-5,0.3,0,0,-1,-1,-1,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cylindre.rtf");
-    objets[2] = *new Personnage(-0.6,0,0,0,0,1,1,1,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cailloux.rtf");
-    objets[3] = *new Personnage(0.8,0,7,0,0,1,1,1,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cailloux.rtf");
-
-    objets[4] = *new Personnage(0,0,0,0,0,30,30,30,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),10000000.0f,chemin+"data/tunnellight.rtf");
-    //objets[4].supermesh.meshes[0].recomputeNormals();
-    
-  //objets[4] = *new Personnage(0,0,0,0,0,10,30,10,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),10000.0f,"data/perso.rtf");
-    objets[5] = *new Personnage(0,30,0,0,0,10,1,10,Vec4f(1.0f,1.0f,1.0f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),1000.0f,chemin+"data/fond.rtf");
-
-    //objets[0] = *new Personnage(0,0,0,0,0,10,20,10,Vec4f(0.7843f,0.7843f,0.7843f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),50000.0f,chemin+"data/tout.rtf");
-
-
-
-
-    //initialisation textures
-    for (int i=0; i<7; i++) {
-        textures[i] = *new Texture();
-    }
-    //chargement des textures
-    textures[0].setFichierImage(chemin+"Textures/verre6.jpg");
-    textures[1].setFichierImage(chemin+"Textures/cube maps-centre.png");
-    textures[2].setFichierImage(chemin+"Textures/cube maps-sud.png");
-    textures[3].setFichierImage(chemin+"Textures/verre3.jpg");
-    textures[4].setFichierImage(chemin+"Textures/cube maps-ouest.png");
-    textures[5].setFichierImage(chemin+"Textures/cube maps-est.png");
-    textures[6].setFichierImage(chemin+"Textures/cube maps-nord.png");
+      objets[0] = *new Personnage(-0.5,-10,-0.5,0,0,1,1,1,Vec4f(1.0f,0.0f,0.0f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cone.rtf");
+    objets[1] = *new Personnage(0.5,-5,0.3,0,0,0.7,1,0.7,Vec4f(1.0f,0.0f,0.0f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cone.rtf");
+    objets[2] = *new Personnage(-0.5,-15,0,0,0,1,1,1,Vec4f(1.0f,0.0f,0.0f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cone.rtf");
+    objets[3] = *new Personnage(0.5,0,7,0,0,1,1,1,Vec4f(1.0f,0.0f,0.0f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cone.rtf");
+    objets[4] = *new Personnage(0,0,0,0,0,30,10,30,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,chemin+"data/tunnellight.rtf");
+    objets[5] = *new Personnage(0,30,0,0,0,10,1,10,Vec4f(1.0f,1.0f,1.0f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,chemin+"data/fond.rtf");
+;
 
 
 }
@@ -130,34 +110,25 @@ bool Scene::initOpenGl()
 
 
 
-void Scene::chargerTextures()
-{
-    for (int i=0; i<7;i++) {
-        textures[i].charger();
-    }
-
-}
-
 
 void Scene::executer()
 {
     initSDL2();
     initOpenGl();
-    chargerTextures();
-
     SDL_Event evenement;
+
 int tempsPrecedent = 0, tempsActuel = 0;
-//float avancee = (float)(SDL_GetTicks()%100)/100;
-
-        while(continuer)
-        {
+    int z2 = 0;
+    while (continuer) {
         SDL_PollEvent(&evenement);
-        if(evenement.type==SDL_QUIT) //Si on appuie sur la croix on quitte
-            continuer=false;
+        if(evenement.type==SDL_QUIT) continuer=false;
+    
 
-   /* pthread_mutex_lock(&lock);
+#ifndef __APPLE__
+    pthread_mutex_lock(&lock);
     int x = pos.x;
     int y = pos.y;
+    int z1 = pos.z1;
     pthread_mutex_unlock(&lock);
 
         if (x > 768){
@@ -185,17 +156,28 @@ int tempsPrecedent = 0, tempsActuel = 0;
           personnage->deplacement();
           }
 
-          if (y < 576 && y > 192 && x < 768 && x > 256 ){
+        if (y < 576 && y > 192 && x < 768 && x > 256 ){
             personnage->posAvant=personnage->posApres;
             personnage->posApres="neutre";
             personnage->deplacement();
-            }*/
+            }
+#endif
+
 
     tempsActuel = SDL_GetTicks();
-    //personnage->avancer(avancee);
-  if (tempsActuel - tempsPrecedent > 30) /* Si 30 ms se sont écoulées */
+
+    if (tempsActuel - tempsPrecedent > 20) /* Si 30 ms se sont écoulées */
     {
-      //personnage->avancer(0.3);
+        #ifndef __APPLE__
+        if (z1-z2 > 20 || z2-z1 > 20){
+        personnage->avancer(0.1);
+        z2 = z1;
+        }
+        #endif
+        
+        #ifdef __APPLE__
+        personnage->avancer(0.1);
+        #endif
       gererEvenements();
       dessiner();
       afficher();
@@ -284,19 +266,18 @@ void Scene::dessiner(){
     // Place la camera
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
-    gluLookAt(0.4,0,0,0,0,0,0,0,1);
-    //personnage->regarder();
 
-    //dessinerSkybox();
+    personnage->regarder();
+
     dessinerObjets();
 
 }
 
 void Scene::dessinerObjets(){
-    /*for (int i=0; i<6; i++) {
+
+    for (int i=0; i<6; i++) {
         objets[i].afficher();
-    }*/
-     objets[4].afficher();
+    }
 
 }
 

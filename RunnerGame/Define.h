@@ -31,9 +31,10 @@
 //library SDL2
 #include <SDL2/SDL.h>
 
+#ifndef __APPLE__
+#include "wiiuse.h"
+#endif
 
-//#include <wiiuse.h>
-//#include "wiiuse.h"
 
 //autres librairies
 #include <string>
@@ -42,6 +43,7 @@
 #include <map>
 #include <vector>
 #include <pthread.h>
+
 
 
 const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
@@ -71,11 +73,15 @@ const int MAX_WIIMOTE = 1;
 struct wii_pos {
 	int x;
 	int y;
+	int z1;
 };
 
 extern struct wii_pos pos;
 
-//extern wiimote_t** wiimotes;
+#ifndef __APPLE__
+extern wiimote_t** wiimotes;
+#endif
+
 extern pthread_mutex_t lock;
 
 extern bool continuer;
