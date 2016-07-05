@@ -23,17 +23,19 @@ using namespace std;
 void* my_func(void* arg) {
 
 	while(continuer) {
-		int x, y;
+		int x, y, z1;
 
     if(wiiuse_poll(wiimotes,1)) //Si on detecte un event sur l'une des Wiimote
             {
-      x=wiimotes[0]->ir.dot[0].x;
-      y=wiimotes[0]->ir.dot[0].y;
+      x = wiimotes[0]->ir.dot[0].x;
+      y = wiimotes[0]->ir.dot[0].y;
+      z1 = wiimotes[0]->ir.z;
       }
 
 		pthread_mutex_lock(&lock);
 		pos.x = x;
 		pos.y = y;
+    pos.z1 = z1;
 		pthread_mutex_unlock(&lock);
 	}
 	return 0;
@@ -71,7 +73,7 @@ int main( int argc, char* argv[] )
 
     pthread_t tid;
 
-    pthread_mutex_init(&lock, 0);
+  pthread_mutex_init(&lock, 0);
 	pthread_create(&tid, 0, my_func, 0);
 
 	scene.executer();
@@ -82,5 +84,3 @@ int main( int argc, char* argv[] )
 
     return 0;
 }
-
-

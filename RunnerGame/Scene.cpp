@@ -19,15 +19,18 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
     }
 
     //chargement objets
-    objets[0] = *new Personnage(-0.7,-10,-0.7,0,0,1,1,1,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 2000.0f, "data/cailloux.rtf");
-    objets[1] = *new Personnage(0.7,-5,0.3,0,0,-1,-1,-1,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 2000.0f, "data/cailloux.rtf");
-    objets[2] = *new Personnage(-0.6,0,0,0,0,1,1,1,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 2000.0f, "data/cailloux.rtf");
+    objets[0] = *new Personnage(-0.7,-10,-0.7,0,0,1,1,1,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 2000.0f, "data/cylindre.rtf");
+printf("1\n");
+    objets[1] = *new Personnage(0.7,-5,0.3,0,0,-1,-1,-1,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 2000.0f, "data/cylindre.rtf");
+printf("2\n");
+objets[2] = *new Personnage(-0.6,0,0,0,0,1,1,1,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 2000.0f, "data/duo.rtf");
+printf("3\n");
     objets[3] = *new Personnage(0.8,0,7,0,0,1,1,1,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 2000.0f, "data/cailloux.rtf");
-
-    objets[4] = *new Personnage(0,0,0,0,0,10,30,10,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),10000.0f,"data/Grotte.rtf");
-  //objets[4] = *new Personnage(0,0,0,0,0,10,30,10,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),10000.0f,"data/perso.rtf");
+printf("4\n");
+    objets[4] = *new Personnage(0,0,0,0,0,10,30,10,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),10000.0f,"data/tunnellight.rtf");
+printf("5\n");
     objets[5] = *new Personnage(0,30,0,0,0,10,1,10,Vec4f(1.0f,1.0f,1.0f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),10000.0f,"data/fond.rtf");
-
+printf("6\n");
     //objets[0] = *new Personnage(0,0,0,0,0,10,20,10,Vec4f(0.7843f,0.7843f,0.7843f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),50000.0f,chemin+"data/tout.rtf");
 
 
@@ -145,11 +148,12 @@ void Scene::executer()
     SDL_Event evenement;
 
 int tempsPrecedent = 0, tempsActuel = 0;
-int z2;
+int z2=0;
 
         while(continuer)
         {
         SDL_PollEvent(&evenement);
+//printf("Poll event : %d : \n", tempsActuel);
         if(evenement.type==SDL_QUIT) //Si on appuie sur la croix on quitte
             continuer=false;
 
@@ -190,16 +194,17 @@ int z2;
             personnage->deplacement();
             }
 
-
+  //printf("Fin_cas : %d : \n", tempsActuel);
 
     tempsActuel = SDL_GetTicks();
-    printf("IR z distance: %f\n", wiimotes[0]->ir.z);
-    //personnage->avancer(avancee);
-  if (tempsActuel - tempsPrecedent > 30) /* Si 30 ms se sont écoulées */
+    if (tempsActuel - tempsPrecedent > 20) /* Si 30 ms se sont écoulées */
     {
-      z2 = z1;
-      if (z2-z1 > 10){
-      personnage->avancer(0.3);
+      //printf("IR z distance: %f\n", wiimotes[0]->ir.z);
+        if (z1-z2 > 20 || z2-z1 > 20){
+        //printf("Debut mvt : %d : \n", tempsActuel);
+        personnage->avancer(0.7);
+        //printf("fin mvt : %d : \n", tempsActuel);
+        z2 = z1;
       }
       gererEvenements();
       dessiner();
@@ -289,10 +294,7 @@ void Scene::dessiner(){
     // Place la camera
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
-    //gluLookAt(30,50,0,0,30,0,0,0,1);
     personnage->regarder();
-
-    //dessinerSkybox();
     dessinerObjets();
 
 }
