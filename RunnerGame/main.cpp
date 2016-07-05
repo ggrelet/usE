@@ -23,12 +23,18 @@ using namespace std;
 void* my_func(void* arg) {
 
 	while(continuer) {
-		int x, y, z1;
+		int x1, x2, x, y1 , y2, y, z1;
+
 
     if(wiiuse_poll(wiimotes,1)) //Si on detecte un event sur l'une des Wiimote
             {
-      x = wiimotes[0]->ir.dot[0].x;
-      y = wiimotes[0]->ir.dot[0].y;
+      x1 = wiimotes[0]->ir.dot[0].x;
+      x2 = wiimotes[0]->ir.dot[1].x;
+      y1 = wiimotes[0]->ir.dot[0].y;
+      y2 = wiimotes[0]->ir.dot[1].y;
+
+      x=(x1+x2)/2;
+      y=(y1+y2)/2;
       z1 = wiimotes[0]->ir.z;
       }
 
