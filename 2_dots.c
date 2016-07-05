@@ -1,9 +1,9 @@
 #include <cstdio>
 #include <cstdlib>
 
-#include <SDL/SDL.h>
+#include <SDL.h>
 
-#include <wiiuse.h>
+#include "wiiuse.h"
 #define MAX_WIIMOTE 1
 
 int main(int argc,char **argv)
