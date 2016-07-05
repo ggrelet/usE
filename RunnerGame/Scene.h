@@ -15,11 +15,8 @@
 class Scene
 {
 private:
-    //< Key,Value> Key: on utilisera un string pour distinguer nos textures(plus intuitif) -- map values: contenu associe a la clé (GluInt utilisé par openGL pour referencer ses textures)
-    //agit comme un tableau dynamique: Textures[identifiant sous forme de string]=valeur
 
     Personnage objets[6];
-    Texture textures[7];
 
     Personnage *personnage;
 

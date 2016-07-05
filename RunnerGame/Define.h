@@ -15,7 +15,7 @@
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 #include <SDL2_image/SDL_image.h>
-#define slash "/"
+
 
 
 
@@ -31,9 +31,10 @@
 //library SDL2
 #include <SDL2/SDL.h>
 
-
-//#include <wiiuse.h>
+#ifndef __APPLE__
 #include "wiiuse.h"
+#endif
+
 
 //autres librairies
 #include <string>
@@ -44,12 +45,13 @@
 #include <pthread.h>
 
 
-/*const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
+
+const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
 
 #ifndef __APPLE__
 chemin="";
-#endif*/
-const std::string chemin = "";
+#endif
+//const std::string chemin = "";
 
 //nom de notre Programme
 const std::string programName="Runner Game";
@@ -76,7 +78,10 @@ struct wii_pos {
 
 extern struct wii_pos pos;
 
+#ifndef __APPLE__
 extern wiimote_t** wiimotes;
+#endif
+
 extern pthread_mutex_t lock;
 
 extern bool continuer;
