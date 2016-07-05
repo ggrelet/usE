@@ -8,18 +8,18 @@
 
 
 #include "Scene.h"
+bool continuer = true;
 
- struct wii_pos pos;
+ /*struct wii_pos pos;
 
  wiimote_t** wiimotes;
  pthread_mutex_t lock;
 
-bool continuer = true;
+
 
 using namespace std;
 
 
-/* thread function */
 void* my_func(void* arg) {
 
 	while(continuer) {
@@ -37,12 +37,12 @@ void* my_func(void* arg) {
 		pthread_mutex_unlock(&lock);
 	}
 	return 0;
-}
+}*/
 
 int main( int argc, char* argv[] )
 {
 
-
+/*
   int found, connected;
 
 
@@ -69,14 +69,14 @@ int main( int argc, char* argv[] )
 
   Scene scene(programName,WIDTH,HEIGHT);
 
-    pthread_t tid;
+   /* pthread_t tid;
 
     pthread_mutex_init(&lock, 0);
-	pthread_create(&tid, 0, my_func, 0);
+	pthread_create(&tid, 0, my_func, 0);*/
 
 	scene.executer();
 
-	pthread_join(tid, 0);
+	//pthread_join(tid, 0);
 
 
 

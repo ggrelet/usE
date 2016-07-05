@@ -33,6 +33,7 @@
 
 
 //#include <wiiuse.h>
+//#include "wiiuse.h"
 
 //autres librairies
 #include <string>
@@ -44,9 +45,11 @@
 
 
 const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
+
 #ifndef __APPLE__
 chemin="";
 #endif
+//const std::string chemin = "";
 
 //nom de notre Programme
 const std::string programName="Runner Game";
@@ -72,7 +75,7 @@ struct wii_pos {
 
 extern struct wii_pos pos;
 
-extern wiimote_t** wiimotes;
+//extern wiimote_t** wiimotes;
 extern pthread_mutex_t lock;
 
 extern bool continuer;

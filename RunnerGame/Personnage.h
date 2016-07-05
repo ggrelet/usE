@@ -29,7 +29,7 @@ public:
     std::string posApres;
 
     SuperMesh supermesh;
-    
+
     inline Personnage() {
         posX = 0.0f;
         posY = 0.0f;
@@ -49,7 +49,7 @@ public:
 
     inline Personnage(std::string fileName) {  // Initialisation des attributs
         posX = 0.0f;
-        posY = -9.0f;
+        posY = -20.0f;
         posZ = 0.0f;
         angleHorizontal = 0.0f;
         angleVertical = 0.0f;
@@ -62,10 +62,10 @@ public:
         posApres="neutre";
         posAvant="neutre";
 
-        
+
         supermesh.loadOBJ(fileName);
     };
-    
+
     Personnage(float posX, float posY, float posZ, float angleHorizontal,  float angleVertical,float scaleX, float scaleY, float scaleZ, Vec4f Kd, Vec4f Ks,float eclairage, std::string fileName);
     ~Personnage();
     void avancer(float distance);

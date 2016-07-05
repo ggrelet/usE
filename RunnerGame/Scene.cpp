@@ -11,25 +11,28 @@ using namespace std;
 #define MAX_WIIMOTE 1
 
 Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titreFenetre(titreFenetre), m_largeurFenetre(largeurFenetre),m_hauteurFenetre(hauteurFenetre), m_fenetre(0), m_contexteOpenGL(0) {
-    personnage = new Personnage("data/ball.rtf");
 
-    
     personnage = new Personnage(chemin+"data/perso.rtf");
     //initialisation objets
-    for (int i=0; i<3; i++) {
+    for (int i=0; i<6; i++) {
         objets[i] = *new Personnage();
     }
 
     //chargement objets
-    objets[0] = *new Personnage(-0.7,7,0,0,0,1,1,1,Vec4f(0.7843f,0.7843f,0.7843f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f), 2500.0f, chemin+"data/cailloux.rtf");
-    //objets[1] = *new Personnage(-2,10,0,0,0,1,1,1,chemin+"data/stalagtites1.rtf");
-    //objets[2] = *new Personnage(0.5,5,0,0,0,chemin+"data/stalagtites1.rtf");
-    objets[1] = *new Personnage(0,0,0,0,0,10,20,10,Vec4f(0.7843f,0.7843f,0.7843f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),80000.0f,chemin+"data/tunnel.rtf");
-    objets[2] = *new Personnage(0,10,0,0,0,10,1,10,Vec4f(1.0f,1.0f,1.0f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),10000.0f,chemin+"data/fond.rtf");
+    objets[0] = *new Personnage(-0.7,-10,-0.7,0,0,1,1,1,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cone.rtf");
+    objets[1] = *new Personnage(0.7,-5,0.3,0,0,-1,-1,-1,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cylindre.rtf");
+    objets[2] = *new Personnage(-0.6,0,0,0,0,1,1,1,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cailloux.rtf");
+    objets[3] = *new Personnage(0.8,0,7,0,0,1,1,1,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cailloux.rtf");
+
+    objets[4] = *new Personnage(0,0,0,0,0,30,30,30,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),10000000.0f,chemin+"data/tunnellight.rtf");
+    //objets[4].supermesh.meshes[0].recomputeNormals();
     
+  //objets[4] = *new Personnage(0,0,0,0,0,10,30,10,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),10000.0f,"data/perso.rtf");
+    objets[5] = *new Personnage(0,30,0,0,0,10,1,10,Vec4f(1.0f,1.0f,1.0f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),1000.0f,chemin+"data/fond.rtf");
+
     //objets[0] = *new Personnage(0,0,0,0,0,10,20,10,Vec4f(0.7843f,0.7843f,0.7843f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),50000.0f,chemin+"data/tout.rtf");
-    
-    
+
+
 
 
     //initialisation textures
@@ -48,10 +51,7 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
 
 }
 
-
-
 Scene::~Scene() {
-
     SDL_GL_DeleteContext(m_contexteOpenGL);
 
     SDL_DestroyWindow(m_fenetre);
@@ -87,8 +87,6 @@ bool Scene::initSDL2()
     return true;
 
 }
-
-
 
 //initialisation d'openGL
 
@@ -149,18 +147,21 @@ void Scene::executer()
 
     SDL_Event evenement;
 int tempsPrecedent = 0, tempsActuel = 0;
-   
+//float avancee = (float)(SDL_GetTicks()%100)/100;
+
         while(continuer)
         {
-
         SDL_PollEvent(&evenement);
         if(evenement.type==SDL_QUIT) //Si on appuie sur la croix on quitte
             continuer=false;
-    pthread_mutex_lock(&lock);
-int x = pos.x;
-int y = pos.y;
-pthread_mutex_unlock(&lock);
-if (x > 768){
+
+   /* pthread_mutex_lock(&lock);
+    int x = pos.x;
+    int y = pos.y;
+    pthread_mutex_unlock(&lock);
+
+        if (x > 768){
+
             personnage->posAvant=personnage->posApres;
             personnage->posApres="gauche";
             personnage->deplacement();
@@ -188,19 +189,21 @@ if (x > 768){
             personnage->posAvant=personnage->posApres;
             personnage->posApres="neutre";
             personnage->deplacement();
-            }
+            }*/
 
     tempsActuel = SDL_GetTicks();
-    if (tempsActuel - tempsPrecedent > 30) /* Si 30 ms se sont écoulées */
+    //personnage->avancer(avancee);
+  if (tempsActuel - tempsPrecedent > 30) /* Si 30 ms se sont écoulées */
     {
-
-        gererEvenements();
-        dessiner();
-        afficher();
-
+      //personnage->avancer(0.3);
+      gererEvenements();
+      dessiner();
+      afficher();
       tempsPrecedent=tempsActuel;
     }
- }
+  }
+}
+
 
 void Scene::gererEvenements(void)
 {
@@ -281,8 +284,8 @@ void Scene::dessiner(){
     // Place la camera
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
-    //gluLookAt(10,0,0,0,0,0,0,0,1);
-    personnage->regarder();
+    gluLookAt(0.4,0,0,0,0,0,0,0,1);
+    //personnage->regarder();
 
     //dessinerSkybox();
     dessinerObjets();
@@ -290,14 +293,12 @@ void Scene::dessiner(){
 }
 
 void Scene::dessinerObjets(){
-    personnage->afficher();
-    for (int i=0; i<3; i++) {
+    /*for (int i=0; i<6; i++) {
         objets[i].afficher();
-    }
-
+    }*/
+     objets[4].afficher();
 
 }
-
 
 void Scene::afficher(){
 
