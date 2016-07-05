@@ -18,10 +18,9 @@ private:
     //< Key,Value> Key: on utilisera un string pour distinguer nos textures(plus intuitif) -- map values: contenu associe a la clé (GluInt utilisé par openGL pour referencer ses textures)
     //agit comme un tableau dynamique: Textures[identifiant sous forme de string]=valeur
 
-    Personnage objets[3];
+    Personnage objets[6];
     Texture textures[7];
 
-    bool continuer;
     Personnage *personnage;
 
     std::string m_titreFenetre;

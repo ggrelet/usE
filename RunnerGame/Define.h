@@ -14,18 +14,26 @@
 #ifdef __APPLE__
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
+#include <SDL2_image/SDL_image.h>
+#define slash "/"
+
+
 
 #else
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <SDL2/SDL_image.h>
+
+
+
 #endif
 
 //library SDL2
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 
 
-#include <wiiuse.h>
+//#include <wiiuse.h>
+#include "wiiuse.h"
 
 //autres librairies
 #include <string>
@@ -33,9 +41,15 @@
 #include <stdio.h>
 #include <map>
 #include <vector>
+#include <pthread.h>
 
 
+/*const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
 
+#ifndef __APPLE__
+chemin="";
+#endif*/
+const std::string chemin = "";
 
 //nom de notre Programme
 const std::string programName="Runner Game";
@@ -54,5 +68,17 @@ const float ANGLE_VISION=45.0;
 //on doit initialiser le nombre maximal de wiimotes qu'on veut (une seule pour nous -> sera directement la camera de notre telephone par la suite)
 const int MAX_WIIMOTE = 1;
 
+struct wii_pos {
+	int x;
+	int y;
+	int z1;
+};
+
+extern struct wii_pos pos;
+
+extern wiimote_t** wiimotes;
+extern pthread_mutex_t lock;
+
+extern bool continuer;
 
 #endif /* Define_h */
