@@ -309,6 +309,7 @@ typedef Vec4<float> Vec4f;
 typedef Vec4<double> Vec4d;
 typedef Vec4<int> Vec4i;
 
+
     
 // Some Emacs-Hints -- please don't remove:
 //
@@ -316,3 +317,6 @@ typedef Vec4<int> Vec4i;
 //  mode:C++
 //  tab-width:4
 //  End:
+
+
+

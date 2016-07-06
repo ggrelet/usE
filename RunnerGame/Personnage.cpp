@@ -9,7 +9,8 @@
 #include "Personnage.h"
 using namespace std;
 
-Personnage::Personnage(float posX, float posY, float posZ, float angleHorizontal,float angleVertical, float scaleX, float scaleY, float scaleZ, Vec4f Kd, Vec4f Ks, float eclairage, std::string fileName):posX(posX),posY(posY),posZ(posZ),angleHorizontal(angleHorizontal),angleVertical(angleVertical), scaleX(scaleX), scaleY(scaleY),scaleZ(scaleZ), Kd(Kd),Ks(Ks), eclairage(eclairage) {
+Personnage::Personnage(float posX, float posY, float posZ, float angleHorizontal,float angleVertical, float scaleX, float scaleY, float scaleZ, Vec4f Kd, Vec4f Ks, float eclairage, float p, float l, std::string fileName):posX(posX),posY(posY),posZ(posZ),angleHorizontal(angleHorizontal),angleVertical(angleVertical), scaleX(scaleX), scaleY(scaleY),scaleZ(scaleZ), Kd(Kd),Ks(Ks), eclairage(eclairage), p(p), l(l) {
+    
     supermesh.loadOBJ(fileName);
     posApres="neutre";
     posAvant="neutre";
@@ -118,7 +119,11 @@ void Personnage::deplacement(void) {
 }
 
 void Personnage::avancer(float distance){
+    if (posY<30) {
     posY += distance ;
+    }
+    
+    else posY = -30.0f;
 
 }
 
@@ -169,6 +174,7 @@ void Personnage::afficher(void){
 
         Vec4f ligthPos1(0.0f,30.0f,0.0f,1.0f);
         Vec4f ligthPos2(0.0f,-30.0f,0.0f,1.0f);
+        Vec4f ligthPos3(0.0f,0.0f,0.0f,1.0f);
 
         Vec4f fd = 3.0f * Kd / 3.14;
         float s= 10.0f;
@@ -189,6 +195,9 @@ void Personnage::afficher(void){
 
                     Vec4f l2 = normalize (ligthPos2 - v.p);
                     Vec4f r2 = l2 - 2.0f * dot(v.n, l1) * v.n;
+                    
+                    Vec4f l3 = normalize (ligthPos3 - v.p);
+                    Vec4f r3 = l3 - 2.0f * dot(v.n, l1) * v.n;
 
 
                     Vec4f w0 = normalize (-v.p);
@@ -203,14 +212,17 @@ void Personnage::afficher(void){
 
                     Vec4f L1 = Vec4f(1.0f,1.0f,1.0f,1.0f);
                     Vec4f L2 = Vec4f(1.0f,1.0f,1.0f,1.0f);
+                    Vec4f L3 = Vec4f(0.4f,0.4f,1.0f,1.0f);
 
 
                     Vec4f color1 = eclairage*L1*(fd+fs1)*(fmax(dot(v.n,l1),0.0f)) ;
                     Vec4f color2 = eclairage*L2*(fd+fs2)*(fmax(dot(v.n,l2),0.0f)) ;
+                    Vec4f color3 = eclairage*10*L3*(fd+fs2)*(fmax(dot(v.n,l2),0.0f)) ;
 
 
-
-                    Vec4f color = (color1 + color2);
+                    
+                    Vec4f color = color1 + color2;
+                    if (fabs(v.p[1]) < 0.02f) color+=color3;
 
                     position =  v.p;
                     normale = v.n;
@@ -235,6 +247,9 @@ void Personnage::afficher(void){
 
                     Vec4f l2 = normalize (ligthPos2 - v.p);
                     Vec4f r2 = l2 - 2.0f * dot(v.n, l1) * v.n;
+                    
+                    Vec4f l3 = normalize (ligthPos3 - v.p);
+                    Vec4f r3 = l3 - 2.0f * dot(v.n, l1) * v.n;
 
 
                     Vec4f w0 = normalize (-v.p);
@@ -245,14 +260,17 @@ void Personnage::afficher(void){
 
                     Vec4f L1 = Vec4f(1.0f,1.0f,1.0f,1.0f);
                     Vec4f L2 = Vec4f(1.0f,1.0f,1.0f,1.0f);
+                    Vec4f L3 = Vec4f(0.4f,0.4f,1.0f,1.0f);
 
 
                     Vec4f color1 = eclairage*L1*(fd+fs1)*(fmax(dot(v.n,l1),0.0f)) ;
                     Vec4f color2 = eclairage*L2*(fd+fs2)*(fmax(dot(v.n,l2),0.0f)) ;
+                    Vec4f color3 = eclairage*10 *L3*(fd+fs2)*(fmax(dot(v.n,l2),0.0f)) ;
 
 
 
-                    Vec4f color = (color1 + color2);
+                    Vec4f color = color1 + color2;
+                    if (fabs(v.p[1]) < 0.02f) color+= color3;
 
 
                     position = v.p;
@@ -279,3 +297,16 @@ void Personnage::regarder(void)
     gluLookAt(posX, posY, posZ, posX-sin(angleHorizontal * M_PI/180), posY+cos(angleHorizontal*M_PI/180), posZ + tan(angleVertical*M_PI/180), 0, 0, 1);
 
    }
+
+bool Personnage::inCollisionWith(Personnage objet) {
+    if ( ((posY+p/2) > (objet.posY-objet.p/2)) || ((posX+l/2) > (objet.posX-objet.l/2)) || ((posX-l/2) > (objet.posX+objet.l/2)) ) {
+        
+        return true;
+    }
+    
+    return false;
+
+  
+    
+    return true;
+}
