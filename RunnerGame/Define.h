@@ -16,15 +16,10 @@
 #include <OpenGL/glu.h>
 #include <SDL2_image/SDL_image.h>
 
-
-
-
 #else
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <SDL2/SDL_image.h>
-
-
 
 #endif
 
@@ -44,14 +39,12 @@
 #include <vector>
 #include <pthread.h>
 
+//std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
 
-
-const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
-
-#ifndef __APPLE__
+/*#ifndef __APPLE__
 chemin="";
-#endif
-//const std::string chemin = "";
+#endif */
+const std::string chemin = "";
 
 //nom de notre Programme
 const std::string programName="Runner Game";

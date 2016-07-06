@@ -14,17 +14,17 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
 
 
     personnage = new Personnage(chemin+"data/perso.rtf");
-    
+
     //initialisation objets
     for (int i=0; i<6; i++) {
         objets[i] = *new Personnage();
     }
 
-      objets[0] = *new Personnage(-0.5,-10,-0.5,0,0,1,1,1,Vec4f(1.0f,0.0f,0.0f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cone.rtf");
+    objets[0] = *new Personnage(-0.5,-10,-0.5,0,0,1,1,1,Vec4f(1.0f,0.0f,0.0f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cone.rtf");
     objets[1] = *new Personnage(0.5,-5,0.3,0,0,0.7,1,0.7,Vec4f(1.0f,0.0f,0.0f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cone.rtf");
     objets[2] = *new Personnage(-0.5,-15,0,0,0,1,1,1,Vec4f(1.0f,0.0f,0.0f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cone.rtf");
     objets[3] = *new Personnage(0.5,0,7,0,0,1,1,1,Vec4f(1.0f,0.0f,0.0f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cone.rtf");
-    objets[4] = *new Personnage(0,0,0,0,0,30,10,30,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,chemin+"data/tunnellight.rtf");
+    objets[4] = *new Personnage(0,0,0,0,0,30,10,30,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),10000.0f,chemin+"data/tunnellight.rtf");
     objets[5] = *new Personnage(0,30,0,0,0,10,1,10,Vec4f(1.0f,1.0f,1.0f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,chemin+"data/fond.rtf");
 ;
 
@@ -117,12 +117,12 @@ void Scene::executer()
     initOpenGl();
     SDL_Event evenement;
 
-int tempsPrecedent = 0, tempsActuel = 0;
+int tempsPrecedent = 0, tempsActuel = 0, tempsmvt = 0;
     int z2 = 0;
     while (continuer) {
         SDL_PollEvent(&evenement);
         if(evenement.type==SDL_QUIT) continuer=false;
-    
+
 
 #ifndef __APPLE__
     pthread_mutex_lock(&lock);
@@ -130,6 +130,10 @@ int tempsPrecedent = 0, tempsActuel = 0;
     int y = pos.y;
     int z1 = pos.z1;
     pthread_mutex_unlock(&lock);
+
+tempsActuel = SDL_GetTicks();
+
+  if (tempsActuel - tempsmvt > 500){
 
         if (x > 768){
 
@@ -144,27 +148,26 @@ int tempsPrecedent = 0, tempsActuel = 0;
           personnage->deplacement();
           }
 
-        if (y < 192){
+        /*if (y < 92){
           personnage->posAvant=personnage->posApres;
           personnage->posApres="haut";
           personnage->deplacement();
           }
 
-        if (y > 576){
+        if (y > 676){
           personnage->posAvant=personnage->posApres;
           personnage->posApres="bas";
           personnage->deplacement();
-          }
+          }*/
 
         if (y < 576 && y > 192 && x < 768 && x > 256 ){
             personnage->posAvant=personnage->posApres;
             personnage->posApres="neutre";
             personnage->deplacement();
             }
+        tempsmvt=tempsActuel;
+    }
 #endif
-
-
-    tempsActuel = SDL_GetTicks();
 
     if (tempsActuel - tempsPrecedent > 20) /* Si 30 ms se sont écoulées */
     {
@@ -174,7 +177,7 @@ int tempsPrecedent = 0, tempsActuel = 0;
         z2 = z1;
         }
         #endif
-        
+
         #ifdef __APPLE__
         personnage->avancer(0.1);
         #endif
