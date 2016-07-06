@@ -209,18 +209,18 @@ int z2 = 0;
     {
         #ifndef __APPLE__
         if (z1-z2 > 20 || z2-z1 > 20){
-        personnage->avancer(0.2);
+        personnage->avancer(0.4);
         z2 = z1;
         }
         #endif
-    
+
 
         #ifdef __APPLE__
-        personnage->avancer(0.2);
+        personnage->avancer(0.4);
         #endif
       //gererEvenements();
       dessiner();
-      
+
       afficher();
       tempsPrecedent=tempsActuel;
         for (int i = 0 ; i<1 ; i++) {
@@ -230,8 +230,8 @@ int z2 = 0;
                 break;
             }
         }
+      }
     }
-  }
   }
 }
 
