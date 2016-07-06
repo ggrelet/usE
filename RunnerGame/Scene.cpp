@@ -23,10 +23,10 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
         objets[i] = *new Personnage();
     }
 
-    objets[0] = *new Personnage(0.7,-20,-0.4,0,0,0.7,0.5,0.5,Vec4f(1.0000f,0.5216f,0.1529f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 10.0f,1.0f,1.0f, chemin + "data/cylindre.rtf");
-    objets[1] = *new Personnage(-0.6,-10,-1.7,0,0,0.6,0.8,0.8,Vec4f(1.0000f,0.3922f,0.2745f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,1.0f,1.0f,  chemin+"data/cone.rtf");
-    objets[2] = *new Personnage(0.5,0,0.3,0,0,0.4,0.4,0.4,Vec4f(0.0902f,0.3059f,0.9294f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 1.0f,1.0f, chemin+"data/sphere.rtf");
-    objets[3] = *new Personnage(-0.7,10,7,0,0,0.6,0.5,0.6,Vec4f(0.38f,0.98f,0.63f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 10.0f, 1.0f,1.0f, chemin+"data/cylindre.rtf");
+    objets[0] = *new Personnage(0.7,-20,-0.4,0,0,0.7,0.5,0.5,Vec4f(1.0000f,0.5216f,0.1529f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 10.0f,1.0f,0.1f, chemin + "data/cylindre.rtf");
+    objets[1] = *new Personnage(-0.6,-10,-1.7,0,0,0.6,0.8,0.8,Vec4f(1.0000f,0.3922f,0.2745f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,1.0f,0.1f,  chemin+"data/cone.rtf");
+    objets[2] = *new Personnage(0.5,0,0.3,0,0,0.4,0.4,0.4,Vec4f(0.0902f,0.3059f,0.9294f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 1.0f,0.1f, chemin+"data/sphere.rtf");
+    objets[3] = *new Personnage(-0.7,10,7,0,0,0.6,0.5,0.6,Vec4f(0.38f,0.98f,0.63f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 10.0f, 1.0f,0.1f, chemin+"data/cylindre.rtf");
 
 
     objets[4] = *new Personnage(0,0,0,0,0,6,27,6,Vec4f(0.0902f,0.4196f,0.9294f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,1.0f,1.0f, chemin+"data/tunnellight.rtf");
@@ -150,11 +150,14 @@ int z2 = 0;
             if(evenement.key.keysym.scancode==SDL_SCANCODE_UP) {
                     est_dans_menu = false;
                     est_dans_jeu= true;
+                    evenement.key.keysym.scancode=SDL_SCANCODE_LEFT;
                 }
+           
         }
 
 
        if(est_dans_jeu) {
+           cout<<"jeu"<<endl;
     tempsActuel = SDL_GetTicks();
 
     #ifndef __APPLE__
@@ -223,11 +226,10 @@ int z2 = 0;
 
       afficher();
       tempsPrecedent=tempsActuel;
-        for (int i = 0 ; i<1 ; i++) {
+        for (int i = 0 ; i<4 ; i++) {
             if (personnage->inCollisionWith(objets[i])) {
                 est_dans_jeu = false;
                 est_dans_menu = true;
-                break;
             }
         }
       }
