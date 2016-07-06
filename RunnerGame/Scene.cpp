@@ -40,7 +40,7 @@ Scene::~Scene() {
     SDL_DestroyWindow(m_fenetre);
 
     Mix_FreeMusic(musique); // Liberer les
-    Mix_FreeChunk(son);     //  pointeurs
+    //Mix_FreeChunk(son);     //  pointeurs
     Mix_CloseAudio();
 
     SDL_Quit();
@@ -124,13 +124,11 @@ bool Scene::initSDL_mixer()
 
     Mix_AllocateChannels(2); // Nombre de fichiers sonores
 
-    Mix_Music *musique; // Musique qui dure tout le jeu
     musique = Mix_LoadMUS("../TestSon/musique2.mp3"); // Charger musique
     //Mix_PlayMusic(musique, -1); // Jouer musique en boucle
     //Mix_VolumeMusic (50); // Volume (~moyen)
 
     /*   Son en cas de collision
-    /*
     Mix_Chunk *son; // Son épisodique
     son = Mix_LoadWAV("Su3.wav"); // Charger le son
     Mix_VolumeChunk(son, 128); // Volume (max)
@@ -145,6 +143,7 @@ void Scene::executer()
 {
     initSDL2();
     initOpenGl();
+    initSDL_mixer();
     menu->init();
     SDL_Event evenement;
 

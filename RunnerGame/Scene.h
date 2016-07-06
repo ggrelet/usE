@@ -18,6 +18,8 @@ private:
     bool est_dans_accueil;
     bool est_dans_menu;
     bool est_dans_jeu;
+    Mix_Music *musique; // Musique qui dure tout le jeu
+
 
     //Menu
     Menu *menu;
