@@ -31,7 +31,7 @@ public:
     float p;
     float l;
     float h;
-    
+
 
     SuperMesh supermesh;
 
@@ -52,12 +52,12 @@ public:
         Vec4f pos = Vec4f(posX,posY,posZ,1.0f);
         p = 0.0f;
         l = 0.0f;
-        
+
     }
 
     inline Personnage(std::string fileName) {  // Initialisation des attributs
         posX = 0.0f;
-        posY = -30.0f;
+        posY = -27.0f;
         posZ = 0.0f;
         angleHorizontal = 0.0f;
         angleVertical = 0.0f;
