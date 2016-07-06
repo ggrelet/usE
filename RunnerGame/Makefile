@@ -8,7 +8,7 @@ PROG = RunnerGame
 #
 # Fichiers sources (NE PAS METTRE les .h ni les .o seulement les .cpp)
 #
-SOURCES = main.cpp Scene.cpp Texture.cpp SuperMesh.cpp Mesh.cpp Personnage.cpp
+SOURCES = main.cpp Scene.cpp Texture.cpp SuperMesh.cpp Mesh.cpp Personnage.cpp Menu.cpp
 #
 # Fichiers objets (ne pas modifier sauf si l'extension n'est pas .cpp)
 #

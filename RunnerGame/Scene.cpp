@@ -11,10 +11,10 @@ using namespace std;
 #define MAX_WIIMOTE 1
 
 Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titreFenetre(titreFenetre), m_largeurFenetre(largeurFenetre),m_hauteurFenetre(hauteurFenetre), m_fenetre(0), m_contexteOpenGL(0) {
-    est_dans_accueil = true;
-    est_dans_menu = false;
-    est_dans_jeu = false;
-    menu = new Menu(chemin + "Textures/verre6.jpg");
+    //est_dans_accueil = true;
+    //est_dans_menu = false;
+    //est_dans_jeu = false;
+  //  menu = new Menu(chemin + "Textures/verre6.jpg");
 
     personnage = new Personnage(chemin+"data/perso.rtf");
 
@@ -40,8 +40,6 @@ Scene::~Scene() {
     SDL_Quit();
 
 }
-
-
 
 //initialisation de SDL2
 bool Scene::initSDL2()
@@ -110,21 +108,23 @@ bool Scene::initOpenGl()
 }
 
 
-
-
 void Scene::executer()
 {
     initSDL2();
     initOpenGl();
-    menu->init();
+    //menu->init();
     SDL_Event evenement;
 
-int tempsPrecedent = SDL_GetTicks(), tempsActuel = SDL_GetTicks();
+int tempsPrecedent = 0, tempsActuel = SDL_GetTicks(),tempsmvt = 0;
 int z2 = 0;
 
     while (continuer) {
 
+      SDL_PollEvent(&evenement);
+      if(evenement.type==SDL_QUIT) continuer=false;
 
+
+/*
         if (est_dans_accueil) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             glMatrixMode( GL_MODELVIEW );
@@ -146,7 +146,6 @@ int z2 = 0;
             SDL_GL_SwapWindow(m_fenetre);
 
 
-
                 SDL_PollEvent(&evenement);
                 if(evenement.type==SDL_QUIT) continuer=false;
                 if(evenement.key.keysym.scancode==SDL_SCANCODE_UP) {
@@ -156,7 +155,7 @@ int z2 = 0;
         }
 
 
-       if(est_dans_jeu) {
+       if(est_dans_jeu) {*/
 
     #ifndef __APPLE__
     pthread_mutex_lock(&lock);
@@ -168,17 +167,23 @@ int z2 = 0;
 tempsActuel = SDL_GetTicks();
 
         if (x > 768){
-
-            personnage->posAvant=personnage->posApres;
-            personnage->posApres="gauche";
-            personnage->deplacement();
-            }
+          personnage->posAvant=personnage->posApres;
+          personnage->posApres="gauche";
+          personnage->deplacement();
+        }
 
         if (x < 256){
           personnage->posAvant=personnage->posApres;
           personnage->posApres="droite";
           personnage->deplacement();
-          }
+          //dessiner();
+          //afficher();
+          /*personnage->posAvant=personnage->posApres;
+          personnage->posApres="neutre";
+          personnage->deplacement();
+          dessiner();
+          afficher();
+        */}
 
         /*if (y < 92){
           personnage->posAvant=personnage->posApres;
@@ -190,13 +195,13 @@ tempsActuel = SDL_GetTicks();
           personnage->posAvant=personnage->posApres;
           personnage->posApres="bas";
           personnage->deplacement();
-          }*/
+          }
 
         if (y < 576 && y > 192 && x < 768 && x > 256 ){
             personnage->posAvant=personnage->posApres;
             personnage->posApres="neutre";
             personnage->deplacement();
-            }
+            }*/
 
 #endif
 
@@ -204,21 +209,21 @@ tempsActuel = SDL_GetTicks();
     {
         #ifndef __APPLE__
         if (z1-z2 > 20 || z2-z1 > 20){
-        personnage->avancer(0.1);
+        personnage->avancer(0.2);
         z2 = z1;
         }
         #endif
 
         #ifdef __APPLE__
-        personnage->avancer(0.1);
+        personnage->avancer(0.2);
         #endif
       //gererEvenements();
       dessiner();
       afficher();
       tempsPrecedent=tempsActuel;
     }
+  //}
   }
-    }
 }
 
 
@@ -319,9 +324,7 @@ void Scene::dessinerObjets(){
 }
 
 void Scene::afficher(){
-    SDL_Delay(10);
     SDL_GL_SwapWindow(m_fenetre);
-
 }
 
 void Scene::dessinerAccueil(){
