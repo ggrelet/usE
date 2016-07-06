@@ -22,13 +22,14 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
     for (int i=0; i<6; i++) {
         objets[i] = *new Personnage();
     }
-    objets[0] = *new Personnage(0.7,-20,-0.4,0,0,0.7,0.5,0.5,Vec4f(1.0000f,0.5216f,0.1529f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 10.0f,0.1f,0.1f, chemin + "data/cylindre.rtf");
-    objets[1] = *new Personnage(-0.6,-10,-1.7,0,0,0.6,0.8,0.8,Vec4f(1.0000f,0.3922f,0.2745f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,0.1f,0.1f,chemin+"data/cone.rtf");
-    objets[2] = *new Personnage(0.5,0,0.3,0,0,0.4,0.4,0.4,Vec4f(0.0902f,0.3059f,0.9294f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 0.1f,0.1f, chemin+"data/sphere.rtf");
-    objets[3] = *new Personnage(-0.7,10,7,0,0,0.6,0.5,0.6,Vec4f(0.38f,0.98f,0.63f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 10.0f, 0.1f,0.1f, chemin+"data/cylindre.rtf");
-    
-    
-    objets[4] = *new Personnage(0,0,0,0,0,6,30,6,Vec4f(0.0902f,0.4196f,0.9294f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),200.0f,1.0f,1.0f, chemin+"data/tunnellight.rtf");
+
+    objets[0] = *new Personnage(0.7,-20,-0.4,0,0,0.7,0.5,0.5,Vec4f(1.0000f,0.5216f,0.1529f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 10.0f,1.0f,1.0f, chemin + "data/cylindre.rtf");
+    objets[1] = *new Personnage(-0.6,-10,-1.7,0,0,0.6,0.8,0.8,Vec4f(1.0000f,0.3922f,0.2745f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,1.0f,1.0f,  chemin+"data/cone.rtf");
+    objets[2] = *new Personnage(0.5,0,0.3,0,0,0.4,0.4,0.4,Vec4f(0.0902f,0.3059f,0.9294f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 1.0f,1.0f, chemin+"data/sphere.rtf");
+    objets[3] = *new Personnage(-0.7,10,7,0,0,0.6,0.5,0.6,Vec4f(0.38f,0.98f,0.63f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 10.0f, 1.0f,1.0f, chemin+"data/cylindre.rtf");
+
+
+    objets[4] = *new Personnage(0,0,0,0,0,6,27,6,Vec4f(0.0902f,0.4196f,0.9294f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,1.0f,1.0f, chemin+"data/tunnellight.rtf");
     objets[5] = *new Personnage(0,30,0,0,0,10,1,10,Vec4f(1.0f,1.0f,1.0f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,1.0f,1.0f, chemin+"data/fond.rtf");
 
 
@@ -121,11 +122,11 @@ int tempsPrecedent = SDL_GetTicks(), tempsActuel = SDL_GetTicks(),tempsmvt = 0;
 int z2 = 0;
 
     while (continuer) {
-    
+
     SDL_PollEvent(&evenement);
     if(evenement.type==SDL_QUIT) continuer=false;
-        
-        
+
+
         if (est_dans_accueil) {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             glMatrixMode( GL_MODELVIEW );
@@ -145,7 +146,7 @@ int z2 = 0;
             glLoadIdentity();
             menu->affiche();
             SDL_GL_SwapWindow(m_fenetre);
-            
+
             if(evenement.key.keysym.scancode==SDL_SCANCODE_UP) {
                     est_dans_menu = false;
                     est_dans_jeu= true;
@@ -154,8 +155,8 @@ int z2 = 0;
 
 
        if(est_dans_jeu) {
-tempsActuel = SDL_GetTicks();
-           
+    tempsActuel = SDL_GetTicks();
+
     #ifndef __APPLE__
     pthread_mutex_lock(&lock);
     int x = pos.x;
@@ -212,14 +213,23 @@ tempsActuel = SDL_GetTicks();
         z2 = z1;
         }
         #endif
+    
 
         #ifdef __APPLE__
         personnage->avancer(0.2);
         #endif
       //gererEvenements();
       dessiner();
+      
       afficher();
       tempsPrecedent=tempsActuel;
+        for (int i = 0 ; i<1 ; i++) {
+            if (personnage->inCollisionWith(objets[i])) {
+                est_dans_jeu = false;
+                est_dans_menu = true;
+                break;
+            }
+        }
     }
   }
   }
@@ -315,20 +325,7 @@ void Scene::dessiner(){
 }
 
 void Scene::dessinerObjets(){
-    
-    if (personnage->inCollisionWith(objets[0])) {
-        objets[4].Kd = Vec4f(1.0f,0.0f,0.0f,1.0f);
-    }
-    if (personnage->inCollisionWith(objets[1])) {
-        objets[4].Kd = Vec4f(0.0f,1.0f,0.0f,1.0f);
-    }
-    if (personnage->inCollisionWith(objets[2])) {
-        objets[4].Kd = Vec4f(0.0f,0.0f,1.0f,1.0f);
-    }
-   
-    if (personnage->inCollisionWith(objets[3])) {
-        objets[4].Kd = Vec4f(1.0f,0.0f,0.0f,1.0f);
-    }
+
     for (int i=0; i<6; i++) {
         objets[i].afficher();
     }

@@ -9,7 +9,7 @@
 #include "Personnage.h"
 
 Personnage::Personnage(float posX, float posY, float posZ, float angleHorizontal,float angleVertical, float scaleX, float scaleY, float scaleZ, Vec4f Kd, Vec4f Ks, float eclairage, float p, float l, std::string fileName):posX(posX),posY(posY),posZ(posZ),angleHorizontal(angleHorizontal),angleVertical(angleVertical), scaleX(scaleX), scaleY(scaleY),scaleZ(scaleZ), Kd(Kd),Ks(Ks), eclairage(eclairage), p(p), l(l) {
-    
+
     supermesh.loadOBJ(fileName);
     posApres="neutre";
     posAvant="neutre";
@@ -118,11 +118,11 @@ void Personnage::deplacement(void) {
 }
 
 void Personnage::avancer(float distance){
-    if (posY<30) {
+    if (posY<25) {
     posY += distance ;
     }
-    
-    else posY = -30.0f;
+
+    else posY = -27.0f;
 
 }
 
@@ -194,7 +194,7 @@ void Personnage::afficher(void){
 
                     Vec4f l2 = normalize (ligthPos2 - v.p);
                     Vec4f r2 = l2 - 2.0f * dot(v.n, l1) * v.n;
-                    
+
                     Vec4f l3 = normalize (ligthPos3 - v.p);
                     Vec4f r3 = l3 - 2.0f * dot(v.n, l1) * v.n;
 
@@ -219,7 +219,7 @@ void Personnage::afficher(void){
                     Vec4f color3 = eclairage*10*L3*(fd+fs2)*(fmax(dot(v.n,l2),0.0f)) ;
 
 
-                    
+
                     Vec4f color = color1 + color2;
                     if (fabs(v.p[1]) < 0.02f) color+=color3;
 
@@ -246,7 +246,7 @@ void Personnage::afficher(void){
 
                     Vec4f l2 = normalize (ligthPos2 - v.p);
                     Vec4f r2 = l2 - 2.0f * dot(v.n, l1) * v.n;
-                    
+
                     Vec4f l3 = normalize (ligthPos3 - v.p);
                     Vec4f r3 = l3 - 2.0f * dot(v.n, l1) * v.n;
 
@@ -299,13 +299,13 @@ void Personnage::regarder(void)
 
 bool Personnage::inCollisionWith(Personnage objet) {
     if ( ((posY+p/2) > (objet.posY-objet.p/2)) || ((posX+l/2) > (objet.posX-objet.l/2)) || ((posX-l/2) > (objet.posX+objet.l/2)) ) {
-        
+
         return true;
     }
-    
+
     return false;
 
-  
-    
+
+
     return true;
 }

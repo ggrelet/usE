@@ -52,10 +52,10 @@ const std::string programName="Runner Game";
 const int WIDTH=1084;
 const int HEIGHT=768;
 //taille
-#ifndef __APPLE__
+/*#ifndef __APPLE__
 const int WIDTH=1920;
 const int HEIGHT=1200;
-#endif
+#endif */
 
 //vision
 const float RATIO= (float)WIDTH/(float)HEIGHT;
