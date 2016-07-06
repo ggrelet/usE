@@ -298,7 +298,7 @@ void Personnage::regarder(void)
    }
 
 bool Personnage::inCollisionWith(Personnage objet) {
-    if ( ((posY+p/2) > (objet.posY-objet.p/2)) || ((posX+l/2) > (objet.posX-objet.l/2)) || ((posX-l/2) > (objet.posX+objet.l/2)) ) {
+    if ( ( ((posY+p/2) >= (objet.posY-objet.p/2)) && ((posY-p/2) <= (objet.posY+objet.p/2)) && ((posX+l/2) >= (objet.posX-objet.l/2)) && ((posX-l/2) <= (objet.posX+objet.l/2)) ) || (((posY+p/2) >= (objet.posY-objet.p/2)) && ((posY-p/2) <= (objet.posY+objet.p/2)) && ((posX-l/2) <= (objet.posX+objet.l/2)) && ((posX+l/2) <= (objet.posX-objet.l/2))) ) {
 
         return true;
     }
