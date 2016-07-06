@@ -47,6 +47,7 @@ public:
     Scene(std::string titreFenetre, int largeurFenetre, int hauteurFenetre);
     bool initOpenGl();
     bool initSDL2();
+    bool initSDL_mixer();
     ~Scene();
     void executer();
 };

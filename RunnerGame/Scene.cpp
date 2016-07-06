@@ -39,6 +39,10 @@ Scene::~Scene() {
 
     SDL_DestroyWindow(m_fenetre);
 
+    Mix_FreeMusic(musique); // Liberer les 
+    Mix_FreeChunk(son);     //  pointeurs
+    Mix_CloseAudio();
+
     SDL_Quit();
 
 }
@@ -64,6 +68,8 @@ bool Scene::initSDL2()
         SDL_Quit();
         return false;
     }
+
+
 
     return true;
 
@@ -109,6 +115,31 @@ bool Scene::initOpenGl()
     return true;
 }
 
+bool Scene::initSDL_mixer()
+{
+    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
+    {
+        printf("%s", Mix_GetError());
+    }
+
+    Mix_AllocateChannels(2); // Nombre de fichiers sonores
+
+    Mix_Music *musique; // Musique qui dure tout le jeu
+    musique = Mix_LoadMUS("musique2.mp3"); // Charger musique
+    //Mix_PlayMusic(musique, -1); // Jouer musique en boucle
+    //Mix_VolumeMusic (50); // Volume (~moyen)
+
+    /*   Son en cas de collision 
+    /*
+    Mix_Chunk *son; // Son épisodique
+    son = Mix_LoadWAV("Su3.wav"); // Charger le son
+    Mix_VolumeChunk(son, 128); // Volume (max)
+    */
+
+
+    return true;
+}
+
 
 void Scene::executer()
 {
@@ -149,6 +180,8 @@ int z2 = 0;
             if(evenement.key.keysym.scancode==SDL_SCANCODE_UP) {
                     est_dans_menu = false;
                     est_dans_jeu= true;
+                    Mix_PlayMusic(musique, -1); // Jouer musique en boucle
+                    Mix_VolumeMusic (50); // Volume (~moyen)
                 }
         }
 

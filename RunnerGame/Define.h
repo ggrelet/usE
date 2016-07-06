@@ -25,6 +25,7 @@
 
 //library SDL2
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 
 #ifndef __APPLE__
 #include "wiiuse.h"
@@ -38,6 +39,7 @@
 #include <map>
 #include <vector>
 #include <pthread.h>
+#include <stdlib.h>
 
 const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
 
