@@ -339,9 +339,9 @@ void Scene::afficher(){
 }
 
 void Scene::dessinerAccueil(){
-        gluLookAt(0,-1,0,0,0,0,0,0,1);
+        gluLookAt(0,-2,0,0,0,0,0,0,1);
 
-        Texture *accueilImg = new Texture(chemin +"Textures/verre3.jpg");
+        Texture *accueilImg = new Texture(chemin +"Textures/accueil.jpg");
         accueilImg->charger();
 
         glEnable(GL_TEXTURE_2D);
