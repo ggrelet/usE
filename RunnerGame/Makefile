@@ -38,7 +38,7 @@ LDFLAGS = -Wno-deprecated
 # Example: LDLIBS = -L/usr/local/qt/lib -lqt
 #
 
-LDLIBS = -lGL -lSDL2 -lSDL2_image -lwiiuse -lGLU -lbluetooth -lpthread
+LDLIBS = -lGL -lSDL2 -lSDL2_image -lwiiuse -lGLU -lbluetooth -lpthread -lSDL2_mixer
 
 ##########################################
 #
@@ -55,18 +55,9 @@ ${PROG}: depend-${PROG} ${OBJETS}
 	${CXX} -o $@ ${LDFLAGS} ${OBJETS} ${LDLIBS}
 
 clean:
-	-@$(RM) *.o depend-${PROG} core 1>/dev/null 2>&1
+	rm -f *.o depend-${PROG} core 1>/dev/null 2>&1
 
-clean-all: clean
-	-@$(RM) ${PROG} 1>/dev/null 2>&1
 
-tar:
-	tar cvf ${PROG}.tar.gz ${SOURCES}
-
-# Gestion des dependances : creation automatique des dependances en utilisant
-
-tar:
-	tar cvf ${PROG}.tar.gz ${SOURCES}
 
 # Gestion des dependances : creation automatique des dependances en utilisant
 # l'option -MM de g++ (attention tous les compilateurs n'ont pas cette option)

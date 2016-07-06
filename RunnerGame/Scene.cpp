@@ -23,6 +23,7 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
         objets[i] = *new Personnage();
     }
 
+
     objets[0] = *new Personnage(0.7,-20,-0.4,0,0,0.7,0.5,0.5,Vec4f(1.0000f,0.5216f,0.1529f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 10.0f,1.0f,0.1f, chemin + "data/cylindre.rtf");
     objets[1] = *new Personnage(-0.6,-10,-1.7,0,0,0.6,0.8,0.8,Vec4f(1.0000f,0.3922f,0.2745f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,1.0f,0.1f,  chemin+"data/cone.rtf");
     objets[2] = *new Personnage(0.5,0,0.3,0,0,0.4,0.4,0.4,Vec4f(0.0902f,0.3059f,0.9294f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 1.0f,0.1f, chemin+"data/sphere.rtf");
@@ -30,6 +31,7 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
 
 
     objets[4] = *new Personnage(0,0,0,0,0,6,27,6,Vec4f(0.0902f,0.4196f,0.9294f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,1.0f,1.0f, chemin+"data/tunnellight.rtf");
+
     objets[5] = *new Personnage(0,30,0,0,0,10,1,10,Vec4f(1.0f,1.0f,1.0f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,1.0f,1.0f, chemin+"data/fond.rtf");
 
 
@@ -39,6 +41,10 @@ Scene::~Scene() {
     SDL_GL_DeleteContext(m_contexteOpenGL);
 
     SDL_DestroyWindow(m_fenetre);
+
+    Mix_FreeMusic(musique); // Liberer les
+    //Mix_FreeChunk(son);     //  pointeurs
+    Mix_CloseAudio();
 
     SDL_Quit();
 
@@ -65,6 +71,8 @@ bool Scene::initSDL2()
         SDL_Quit();
         return false;
     }
+
+
 
     return true;
 
@@ -110,11 +118,40 @@ bool Scene::initOpenGl()
     return true;
 }
 
+bool Scene::initSDL_mixer()
+{
+    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
+    {
+        printf("%s", Mix_GetError());
+    }
+
+    Mix_AllocateChannels(2); // Nombre de fichiers sonores
+
+
+    
+    string cheminMusique = chemin + "Musiques/musique2.mp3";
+
+    musique = Mix_LoadMUS(cheminMusique.c_str()); // Charger musique
+
+    //Mix_PlayMusic(musique, -1); // Jouer musique en boucle
+    //Mix_VolumeMusic (50); // Volume (~moyen)
+
+    /*   Son en cas de collision
+    Mix_Chunk *son; // Son épisodique
+    son = Mix_LoadWAV("Su3.wav"); // Charger le son
+    Mix_VolumeChunk(son, 128); // Volume (max)
+    */
+
+
+    return true;
+}
+
 
 void Scene::executer()
 {
     initSDL2();
     initOpenGl();
+    initSDL_mixer();
     menu->init();
     SDL_Event evenement;
 
@@ -150,15 +187,21 @@ int z2 = 0;
             if(evenement.key.keysym.scancode==SDL_SCANCODE_UP) {
                     est_dans_menu = false;
                     est_dans_jeu= true;
+
                     evenement.key.keysym.scancode=SDL_SCANCODE_LEFT;
+
+                Mix_PlayMusic(musique, -1); // Jouer musique en boucle
+                Mix_VolumeMusic (50); // Volume (~moyen)
+
                 }
 
         }
 
 
        if(est_dans_jeu) {
-           //cout<<"jeu"<<endl;
+
     tempsActuel = SDL_GetTicks();
+
 
     #ifndef __APPLE__
     pthread_mutex_lock(&lock);
@@ -212,7 +255,9 @@ int z2 = 0;
     {
         #ifndef __APPLE__
         if (z1-z2 > 20 || z2-z1 > 20){
+
         personnage->avancer(0.4);
+
         z2 = z1;
         }
         #endif
@@ -226,12 +271,12 @@ int z2 = 0;
 
       afficher();
       tempsPrecedent=tempsActuel;
-        for (int i = 0 ; i<4 ; i++) {
+        /*for (int i = 0 ; i<4 ; i++) {
             if (personnage->inCollisionWith(objets[i])) {
                 est_dans_jeu = false;
                 est_dans_menu = true;
             }
-        }
+        }*/
       }
     }
   }

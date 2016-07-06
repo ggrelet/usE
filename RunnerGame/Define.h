@@ -25,6 +25,7 @@
 
 //library SDL2
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 
 #ifndef __APPLE__
 #include "wiiuse.h"
@@ -38,13 +39,15 @@
 #include <map>
 #include <vector>
 #include <pthread.h>
+#include <stdlib.h>
 
-//const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
+#ifdef __APPLE__
+const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
+#endif
 
-//#ifndef __APPLE__
-//chemin="";
-//#endif
+#ifndef __APPLE__
 const std::string chemin = "";
+#endif
 
 //nom de notre Programme
 const std::string programName="Runner Game";
