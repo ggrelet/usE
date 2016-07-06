@@ -124,7 +124,12 @@ bool Scene::initSDL_mixer()
 
     Mix_AllocateChannels(2); // Nombre de fichiers sonores
 
-    musique = Mix_LoadMUS("../TestSon/musique2.mp3"); // Charger musique
+
+    
+    string cheminMusique = chemin + "Musiques/musique2.mp3";
+
+    musique = Mix_LoadMUS(cheminMusique.c_str()); // Charger musique
+
     //Mix_PlayMusic(musique, -1); // Jouer musique en boucle
     //Mix_VolumeMusic (50); // Volume (~moyen)
 
