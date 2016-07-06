@@ -152,12 +152,12 @@ int z2 = 0;
                     est_dans_jeu= true;
                     evenement.key.keysym.scancode=SDL_SCANCODE_LEFT;
                 }
-           
+
         }
 
 
        if(est_dans_jeu) {
-           cout<<"jeu"<<endl;
+           //cout<<"jeu"<<endl;
     tempsActuel = SDL_GetTicks();
 
     #ifndef __APPLE__
