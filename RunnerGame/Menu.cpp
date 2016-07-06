@@ -18,37 +18,37 @@ Menu::~Menu()
 
 void Menu::init() {
     texture->charger();
-    
+
     // menu
     positions[0].x = 0;
     positions[0].y = 0;
     positions[0].w = WIDTH;
     positions[0].h = HEIGHT;
-    
+
     //titre
     positions[1].x = 0;
     positions[1].y = 0;
     positions[1].w = 0;
     positions[1].h = 0;
-    
+
     //"Nouveau"
     positions[2].x = 0;
     positions[2].y = 0;
     positions[2].w = 0;
     positions[2].h = 0;
-    
+
     //"Quitter"
     positions[3].x = 0;
     positions[3].y = 0;
     positions[3].w = 0;
     positions[3].h = 0;
-    
+
     //"Continuer"
     positions[3].x = 0;
     positions[3].y = 0;
     positions[3].w = 0;
     positions[3].h = 0;
-    
+
 
 }
 
@@ -89,35 +89,31 @@ bool Menu::clavier(unsigned char k)
 void Menu::affiche()
 {
     gluLookAt(0,-1,0,0,0,0,0,0,1);
-    
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
+
     glEnable(GL_TEXTURE_2D);
-    glDisable(GL_DEPTH_TEST);
-    glAlphaFunc(GL_LESS,10);
-    glEnable(GL_ALPHA_TEST);
-    
-    //On dessine l'image de fond
-    
+
+
     glColor4f(1.0,1.0,1.0,0.0);
-   
+
         glBindTexture(GL_TEXTURE_2D, texture->getID());
         glBegin(GL_QUADS);
-    
+
         glTexCoord2i(0,0);
         glVertex3f(-1,0,-1);
-   
+
         glTexCoord2i(1,0);
         glVertex3f(1,0,-1);
-    
+
         glTexCoord2i(1,1);
         glVertex3f(1,0,1);
-    
+
         glTexCoord2i(0,1);
         glVertex3f(-1,0,1);
         glEnd();
-    
+
 
     glDisable(GL_TEXTURE_2D);
-    
+
 }

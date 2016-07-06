@@ -16,15 +16,10 @@
 #include <OpenGL/glu.h>
 #include <SDL2_image/SDL_image.h>
 
-
-
-
 #else
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <SDL2/SDL_image.h>
-
-
 
 #endif
 
@@ -44,8 +39,6 @@
 #include <vector>
 #include <pthread.h>
 
-
-
 const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
 
 #ifndef __APPLE__
@@ -56,9 +49,13 @@ chemin="";
 //nom de notre Programme
 const std::string programName="Runner Game";
 
-//taille
-const int WIDTH=1024;
+const int WIDTH=1084;
 const int HEIGHT=768;
+//taille
+#ifndef __APPLE__
+const int WIDTH=1920;
+const int HEIGHT=1200;
+#endif
 
 //vision
 const float RATIO= (float)WIDTH/(float)HEIGHT;

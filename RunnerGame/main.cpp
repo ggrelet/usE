@@ -25,19 +25,24 @@ pthread_mutex_t lock;
 void* my_func(void* arg) {
 
 	while(continuer) {
-		int x, y, z1;
+		int x1, x2, x, y1 , y2, y, z1;
+
 
     if(wiiuse_poll(wiimotes,1)) //Si on detecte un event sur l'une des Wiimote
             {
-      x = wiimotes[0]->ir.dot[0].x;
-      y = wiimotes[0]->ir.dot[0].y;
+      x1 = wiimotes[0]->ir.dot[0].x;
+      x2 = wiimotes[0]->ir.dot[1].x;
+      y1 = wiimotes[0]->ir.dot[0].y;
+      y2 = wiimotes[0]->ir.dot[1].y;
+      x=(x1+x2)/2;
+      y=(y1+y2)/2;
       z1 = wiimotes[0]->ir.z;
       }
 
 		pthread_mutex_lock(&lock);
 		pos.x = x;
 		pos.y = y;
-        pos.z1 = z1;
+    pos.z1 = z1;
 		pthread_mutex_unlock(&lock);
 	}
 	return 0;
@@ -73,10 +78,10 @@ int main( int argc, char* argv[] )
   wiiuse_set_ir(wiimotes[0],1); //On active l'infrarouge pour la premiere Wiimote
   wiiuse_set_ir_vres(wiimotes[0],1024,768); //On définit l'espace infrarouge a (0->1024 ; 0->768)*/
 #endif
-    
-    
+
+
   Scene scene(programName,WIDTH,HEIGHT);
-    
+
 #ifndef __APPLE__
 
     pthread_t tid;
@@ -88,9 +93,9 @@ int main( int argc, char* argv[] )
 
 	pthread_join(tid, 0);
 #endif
-    
+
 #ifdef __APPLE__
-    
+
     scene.executer();
 
 #endif

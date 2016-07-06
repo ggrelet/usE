@@ -7,7 +7,6 @@
 //
 
 #include "Personnage.h"
-using namespace std;
 
 Personnage::Personnage(float posX, float posY, float posZ, float angleHorizontal,float angleVertical, float scaleX, float scaleY, float scaleZ, Vec4f Kd, Vec4f Ks, float eclairage, float p, float l, std::string fileName):posX(posX),posY(posY),posZ(posZ),angleHorizontal(angleHorizontal),angleVertical(angleVertical), scaleX(scaleX), scaleY(scaleY),scaleZ(scaleZ), Kd(Kd),Ks(Ks), eclairage(eclairage), p(p), l(l) {
     
@@ -215,7 +214,7 @@ void Personnage::afficher(void){
                     Vec4f L3 = Vec4f(0.4f,0.4f,1.0f,1.0f);
 
 
-                    Vec4f color1 = eclairage*L1*(fd+fs1)*(fmax(dot(v.n,l1),0.0f)) ;
+                    Vec4f color1 = eclairage*10*L1*(fd+fs1)*(fmax(dot(v.n,l1),0.0f)) ;
                     Vec4f color2 = eclairage*L2*(fd+fs2)*(fmax(dot(v.n,l2),0.0f)) ;
                     Vec4f color3 = eclairage*10*L3*(fd+fs2)*(fmax(dot(v.n,l2),0.0f)) ;
 
@@ -263,7 +262,7 @@ void Personnage::afficher(void){
                     Vec4f L3 = Vec4f(0.4f,0.4f,1.0f,1.0f);
 
 
-                    Vec4f color1 = eclairage*L1*(fd+fs1)*(fmax(dot(v.n,l1),0.0f)) ;
+                    Vec4f color1 = eclairage*10*L1*(fd+fs1)*(fmax(dot(v.n,l1),0.0f)) ;
                     Vec4f color2 = eclairage*L2*(fd+fs2)*(fmax(dot(v.n,l2),0.0f)) ;
                     Vec4f color3 = eclairage*10 *L3*(fd+fs2)*(fmax(dot(v.n,l2),0.0f)) ;
 

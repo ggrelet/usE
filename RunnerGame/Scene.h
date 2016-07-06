@@ -18,10 +18,10 @@ private:
     bool est_dans_accueil;
     bool est_dans_menu;
     bool est_dans_jeu;
-    
+
     //Menu
     Menu *menu;
-    
+
     //jeu
     Personnage objets[6];
     Personnage *personnage;

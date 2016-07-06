@@ -17,7 +17,7 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
     menu = new Menu(chemin + "Textures/verre6.jpg");
 
     personnage = new Personnage(chemin+"data/perso.rtf");
-    
+
     //initialisation objets
     for (int i=0; i<6; i++) {
         objets[i] = *new Personnage();
@@ -28,7 +28,7 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
     objets[3] = *new Personnage(-0.7,10,7,0,0,0.6,0.5,0.6,Vec4f(0.38f,0.98f,0.63f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 10.0f, 1.0f,1.0f, chemin+"data/cylindre.rtf");
     
     
-    objets[4] = *new Personnage(0,0,0,0,0,6,30,6,Vec4f(0.0902f,0.4196f,0.9294f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),1000.0f,1.0f,1.0f, chemin+"data/tunnellight.rtf");
+    objets[4] = *new Personnage(0,0,0,0,0,6,30,6,Vec4f(0.0902f,0.4196f,0.9294f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,1.0f,1.0f, chemin+"data/tunnellight.rtf");
     objets[5] = *new Personnage(0,30,0,0,0,10,1,10,Vec4f(1.0f,1.0f,1.0f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,1.0f,1.0f, chemin+"data/fond.rtf");
 
 
@@ -42,8 +42,6 @@ Scene::~Scene() {
     SDL_Quit();
 
 }
-
-
 
 //initialisation de SDL2
 bool Scene::initSDL2()
@@ -112,17 +110,16 @@ bool Scene::initOpenGl()
 }
 
 
-
-
 void Scene::executer()
 {
     initSDL2();
     initOpenGl();
     menu->init();
     SDL_Event evenement;
-    int tempsPrecedent = SDL_GetTicks(), tempsActuel = SDL_GetTicks();
-    int z2 = 0;
-    
+
+int tempsPrecedent = SDL_GetTicks(), tempsActuel = SDL_GetTicks(),tempsmvt = 0;
+int z2 = 0;
+
     while (continuer) {
     
     SDL_PollEvent(&evenement);
@@ -133,36 +130,32 @@ void Scene::executer()
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             glMatrixMode( GL_MODELVIEW );
             glLoadIdentity();
-            
+
             dessinerAccueil();
             SDL_GL_SwapWindow(m_fenetre);
             SDL_Delay(2500);
             est_dans_accueil = false;
             est_dans_menu = true;
         }
-        
+
         if (est_dans_menu) {
-            
+
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             glMatrixMode( GL_MODELVIEW );
             glLoadIdentity();
             menu->affiche();
             SDL_GL_SwapWindow(m_fenetre);
             
-
-                          
-            
-                if(evenement.key.keysym.scancode==SDL_SCANCODE_UP) {
+            if(evenement.key.keysym.scancode==SDL_SCANCODE_UP) {
                     est_dans_menu = false;
                     est_dans_jeu= true;
                 }
         }
-        
-        
-        
-       if(est_dans_jeu) {
-            
 
+
+       if(est_dans_jeu) {
+tempsActuel = SDL_GetTicks();
+           
     #ifndef __APPLE__
     pthread_mutex_lock(&lock);
     int x = pos.x;
@@ -170,26 +163,34 @@ void Scene::executer()
     int z1 = pos.z1;
     pthread_mutex_unlock(&lock);
 
-        if (x > 768){
+//tempsActuel = SDL_GetTicks();
 
-            personnage->posAvant=personnage->posApres;
-            personnage->posApres="gauche";
-            personnage->deplacement();
-            }
+        if (x > 768){
+          personnage->posAvant=personnage->posApres;
+          personnage->posApres="gauche";
+          personnage->deplacement();
+        }
 
         if (x < 256){
           personnage->posAvant=personnage->posApres;
           personnage->posApres="droite";
           personnage->deplacement();
-          }
+          //dessiner();
+          //afficher();
+          /*personnage->posAvant=personnage->posApres;
+          personnage->posApres="neutre";
+          personnage->deplacement();
+          dessiner();
+          afficher();
+        */}
 
-        if (y < 192){
+        /*if (y < 92){
           personnage->posAvant=personnage->posApres;
           personnage->posApres="haut";
           personnage->deplacement();
           }
 
-        if (y > 576){
+        if (y > 676){
           personnage->posAvant=personnage->posApres;
           personnage->posApres="bas";
           personnage->deplacement();
@@ -199,23 +200,21 @@ void Scene::executer()
             personnage->posAvant=personnage->posApres;
             personnage->posApres="neutre";
             personnage->deplacement();
-            }
-        #endif
+            }*/
 
+#endif
 
-    tempsActuel = SDL_GetTicks();
-
-    if (tempsActuel - tempsPrecedent > 20) /* Si 30 ms se sont écoulées */
+    if (fabs(tempsActuel - tempsPrecedent) > 20) /* Si 30 ms se sont écoulées */
     {
         #ifndef __APPLE__
         if (z1-z2 > 20 || z2-z1 > 20){
-        personnage->avancer(0.1);
+        personnage->avancer(0.2);
         z2 = z1;
         }
         #endif
-        
+
         #ifdef __APPLE__
-        personnage->avancer(0.1);
+        personnage->avancer(0.2);
         #endif
       //gererEvenements();
       dessiner();
@@ -223,7 +222,7 @@ void Scene::executer()
       tempsPrecedent=tempsActuel;
     }
   }
-    }
+  }
 }
 
 
@@ -302,8 +301,8 @@ void Scene::gererEvenements(void)
 
 
 void Scene::dessiner(){
-    
-    
+
+
     // Vidage de l'écran
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode( GL_MODELVIEW );
@@ -324,27 +323,25 @@ void Scene::dessinerObjets(){
 }
 
 void Scene::afficher(){
-    SDL_Delay(10);
     SDL_GL_SwapWindow(m_fenetre);
-
 }
-    
+
 void Scene::dessinerAccueil(){
         gluLookAt(0,-1,0,0,0,0,0,0,1);
-    
+
         Texture *accueilImg = new Texture(chemin +"Textures/verre3.jpg");
         accueilImg->charger();
-    
+
         glEnable(GL_TEXTURE_2D);
-    
+
         //On dessine l'image de fond
-    
+
         glBindTexture(GL_TEXTURE_2D, accueilImg->getID());
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
+
         glColor4f(1.0,1.0,1.0,0.0);
-    
+
         glBegin(GL_QUADS);
         glTexCoord2i(0,0);
         glVertex3f(-1,0,-1);
@@ -355,7 +352,7 @@ void Scene::dessinerAccueil(){
         glTexCoord2i(0,1);
         glVertex3f(-1,0,1);
         glEnd();
-    
+
         glDisable(GL_TEXTURE_2D);
-        
+
     }
