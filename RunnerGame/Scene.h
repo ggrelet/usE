@@ -9,15 +9,21 @@
 #ifndef Scene_h
 #define Scene_h
 
-#include "Texture.h"
 #include "Personnage.h"
+#include "Menu.h"
 
 class Scene
 {
 private:
-
+    bool est_dans_accueil;
+    bool est_dans_menu;
+    bool est_dans_jeu;
+    
+    //Menu
+    Menu *menu;
+    
+    //jeu
     Personnage objets[6];
-
     Personnage *personnage;
 
     std::string m_titreFenetre;
@@ -35,6 +41,7 @@ private:
     void dessinerSkybox(void);
     void dessinerObjets(void);
     void chargerTextures(void);
+    void dessinerAccueil(void);
 
 public:
     Scene(std::string titreFenetre, int largeurFenetre, int hauteurFenetre);

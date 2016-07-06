@@ -11,7 +11,10 @@ using namespace std;
 #define MAX_WIIMOTE 1
 
 Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titreFenetre(titreFenetre), m_largeurFenetre(largeurFenetre),m_hauteurFenetre(hauteurFenetre), m_fenetre(0), m_contexteOpenGL(0) {
-
+    est_dans_accueil = true;
+    est_dans_menu = false;
+    est_dans_jeu = false;
+    menu = new Menu(chemin + "Textures/verre6.jpg");
 
     personnage = new Personnage(chemin+"data/perso.rtf");
 
@@ -19,14 +22,12 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
     for (int i=0; i<6; i++) {
         objets[i] = *new Personnage();
     }
-
-    objets[0] = *new Personnage(-0.5,-10,-0.5,0,0,1,1,1,Vec4f(1.0f,0.0f,0.0f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cone.rtf");
-    objets[1] = *new Personnage(0.5,-5,0.3,0,0,0.7,1,0.7,Vec4f(1.0f,0.0f,0.0f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cone.rtf");
-    objets[2] = *new Personnage(-0.5,-15,0,0,0,1,1,1,Vec4f(1.0f,0.0f,0.0f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cone.rtf");
-    objets[3] = *new Personnage(0.5,0,7,0,0,1,1,1,Vec4f(1.0f,0.0f,0.0f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cone.rtf");
-    objets[4] = *new Personnage(0,0,0,0,0,30,10,30,Vec4f(0.6f,0.6f,0.95f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),10000.0f,chemin+"data/tunnellight.rtf");
+    objets[0] = *new Personnage(0.6,-20,-0.4,0,0,0.6,0.5,0.5,Vec4f(1.0000f,0.5216f,0.1529f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 10.0f, chemin + "data/cylindre.rtf");
+    objets[1] = *new Personnage(-0.5,-10,0,0,0,0.5,0.5,0.5,Vec4f(1.0000f,0.3922f,0.2745f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 10.0f, chemin+"data/cone.rtf");
+    objets[2] = *new Personnage(0.5,0,0.3,0,0,0.4,0.4,0.4,Vec4f(0.0902f,0.3059f,0.9294f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 100.0f, chemin+"data/sphere.rtf");
+    objets[3] = *new Personnage(-0.5,10,7,0,0,0.5,1,0.6,Vec4f(1.0f,0.0f,0.0f,1.0f),Vec4f(0.4f,0.4f,0.4f,1.0f), 20.0f, chemin+"data/cylindre.rtf");
+    objets[4] = *new Personnage(0,0,0,0,0,6,30,6,Vec4f(0.0902f,0.4196f,0.9294f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),1000.0f,chemin+"data/tunnellight.rtf");
     objets[5] = *new Personnage(0,30,0,0,0,10,1,10,Vec4f(1.0f,1.0f,1.0f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,chemin+"data/fond.rtf");
-;
 
 
 }
@@ -115,16 +116,49 @@ void Scene::executer()
 {
     initSDL2();
     initOpenGl();
+    menu->init();
     SDL_Event evenement;
 
-int tempsPrecedent = 0, tempsActuel = 0, tempsmvt = 0;
-    int z2 = 0;
+int tempsPrecedent = SDL_GetTicks(), tempsActuel = SDL_GetTicks();
+int z2 = 0;
+
     while (continuer) {
-        SDL_PollEvent(&evenement);
-        if(evenement.type==SDL_QUIT) continuer=false;
 
 
-#ifndef __APPLE__
+        if (est_dans_accueil) {
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            glMatrixMode( GL_MODELVIEW );
+            glLoadIdentity();
+
+            dessinerAccueil();
+            SDL_GL_SwapWindow(m_fenetre);
+            SDL_Delay(2500);
+            est_dans_accueil = false;
+            est_dans_menu = true;
+        }
+
+        if (est_dans_menu) {
+
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            glMatrixMode( GL_MODELVIEW );
+            glLoadIdentity();
+            menu->affiche();
+            SDL_GL_SwapWindow(m_fenetre);
+
+
+
+                SDL_PollEvent(&evenement);
+                if(evenement.type==SDL_QUIT) continuer=false;
+                if(evenement.key.keysym.scancode==SDL_SCANCODE_UP) {
+                    est_dans_menu = false;
+                    est_dans_jeu= true;
+                }
+        }
+
+
+       if(est_dans_jeu) {
+
+    #ifndef __APPLE__
     pthread_mutex_lock(&lock);
     int x = pos.x;
     int y = pos.y;
@@ -132,8 +166,6 @@ int tempsPrecedent = 0, tempsActuel = 0, tempsmvt = 0;
     pthread_mutex_unlock(&lock);
 
 tempsActuel = SDL_GetTicks();
-
-  if (tempsActuel - tempsmvt > 500){
 
         if (x > 768){
 
@@ -165,8 +197,7 @@ tempsActuel = SDL_GetTicks();
             personnage->posApres="neutre";
             personnage->deplacement();
             }
-        tempsmvt=tempsActuel;
-    }
+
 #endif
 
     if (tempsActuel - tempsPrecedent > 20) /* Si 30 ms se sont écoulées */
@@ -181,12 +212,13 @@ tempsActuel = SDL_GetTicks();
         #ifdef __APPLE__
         personnage->avancer(0.1);
         #endif
-      gererEvenements();
+      //gererEvenements();
       dessiner();
       afficher();
       tempsPrecedent=tempsActuel;
     }
   }
+    }
 }
 
 
@@ -263,21 +295,23 @@ void Scene::gererEvenements(void)
 
 }
 
+
 void Scene::dessiner(){
+
+
     // Vidage de l'écran
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    // Place la camera
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
 
     personnage->regarder();
+    //gluLookAt(0, -30, 0, 0, 0, 0, 0, 0, 1);
 
     dessinerObjets();
 
 }
 
 void Scene::dessinerObjets(){
-
     for (int i=0; i<6; i++) {
         objets[i].afficher();
     }
@@ -285,8 +319,38 @@ void Scene::dessinerObjets(){
 }
 
 void Scene::afficher(){
-
+    SDL_Delay(10);
     SDL_GL_SwapWindow(m_fenetre);
 
-
 }
+
+void Scene::dessinerAccueil(){
+        gluLookAt(0,-1,0,0,0,0,0,0,1);
+
+        Texture *accueilImg = new Texture(chemin +"Textures/verre3.jpg");
+        accueilImg->charger();
+
+        glEnable(GL_TEXTURE_2D);
+
+        //On dessine l'image de fond
+
+        glBindTexture(GL_TEXTURE_2D, accueilImg->getID());
+
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        glColor4f(1.0,1.0,1.0,0.0);
+
+        glBegin(GL_QUADS);
+        glTexCoord2i(0,0);
+        glVertex3f(-1,0,-1);
+        glTexCoord2i(1,0);
+        glVertex3f(1,0,-1);
+        glTexCoord2i(1,1);
+        glVertex3f(1,0,1);
+        glTexCoord2i(0,1);
+        glVertex3f(-1,0,1);
+        glEnd();
+
+        glDisable(GL_TEXTURE_2D);
+
+    }
