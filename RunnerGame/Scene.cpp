@@ -152,12 +152,12 @@ int z2 = 0;
                     est_dans_jeu= true;
                     evenement.key.keysym.scancode=SDL_SCANCODE_LEFT;
                 }
-           
+
         }
 
 
        if(est_dans_jeu) {
-           cout<<"jeu"<<endl;
+           //cout<<"jeu"<<endl;
     tempsActuel = SDL_GetTicks();
 
     #ifndef __APPLE__
@@ -212,18 +212,18 @@ int z2 = 0;
     {
         #ifndef __APPLE__
         if (z1-z2 > 20 || z2-z1 > 20){
-        personnage->avancer(0.2);
+        personnage->avancer(0.4);
         z2 = z1;
         }
         #endif
-    
+
 
         #ifdef __APPLE__
-        personnage->avancer(0.2);
+        personnage->avancer(0.4);
         #endif
       //gererEvenements();
       dessiner();
-      
+
       afficher();
       tempsPrecedent=tempsActuel;
         for (int i = 0 ; i<4 ; i++) {
@@ -232,8 +232,8 @@ int z2 = 0;
                 est_dans_menu = true;
             }
         }
+      }
     }
-  }
   }
 }
 

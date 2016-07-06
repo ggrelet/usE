@@ -304,8 +304,4 @@ bool Personnage::inCollisionWith(Personnage objet) {
     }
 
     return false;
-
-
-
-    return true;
 }
