@@ -10,7 +10,10 @@
 #include "Scene.h"
 
 
+
 bool continuer = true;
+int niveau = 0;
+bool newNiveau = false; 
 
 struct wii_pos pos;
 

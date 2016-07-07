@@ -118,11 +118,18 @@ void Personnage::deplacement(void) {
 }
 
 void Personnage::avancer(float distance){
-    if (posY<25) {
+    
+    
+    if (posY<30) {
     posY += distance ;
+    newNiveau = false;
     }
 
-    else posY = -27.0f;
+    else {posY = -30.0f;
+        niveau+=1;
+        newNiveau = true;
+    }
+    
 
 }
 
@@ -293,19 +300,15 @@ void Personnage::afficher(void){
 
 void Personnage::regarder(void)
 {
-    gluLookAt(posX, posY, posZ, posX-sin(angleHorizontal * M_PI/180), posY+cos(angleHorizontal*M_PI/180), posZ + tan(angleVertical*M_PI/180), 0, 0, 1);
+    gluLookAt(posX, posY, posZ, posX, posY+1, posZ, 0, 0, 1);
 
    }
 
 bool Personnage::inCollisionWith(Personnage objet) {
-    if ( ((posY+p/2) > (objet.posY-objet.p/2)) || ((posX+l/2) > (objet.posX-objet.l/2)) || ((posX-l/2) > (objet.posX+objet.l/2)) ) {
+    if ( ( ((posY+p/2) >= (objet.posY-objet.p/2)) && ((posY-p/2) <= (objet.posY+objet.p/2)) && ((posX+l/2) >= (objet.posX-objet.l/2)) && ((posX-l/2) <= (objet.posX+objet.l/2)) ) || (((posY+p/2) >= (objet.posY-objet.p/2)) && ((posY-p/2) <= (objet.posY+objet.p/2)) && ((posX-l/2) <= (objet.posX+objet.l/2)) && ((posX+l/2) <= (objet.posX-objet.l/2))) ) {
 
         return true;
     }
 
     return false;
-
-
-
-    return true;
 }

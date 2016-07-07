@@ -14,7 +14,7 @@
 #ifdef __APPLE__
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
-#include <SDL2_image/SDL_image.h>
+#include <SDL2/SDL_image.h>
 
 #else
 #include <GL/gl.h>
@@ -25,6 +25,7 @@
 
 //library SDL2
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 
 #ifndef __APPLE__
 #include "wiiuse.h"
@@ -38,6 +39,8 @@
 #include <map>
 #include <vector>
 #include <pthread.h>
+#include <stdlib.h>
+#include <time.h>
 
 //const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
 
@@ -49,8 +52,8 @@ const std::string chemin = "";
 //nom de notre Programme
 const std::string programName="Runner Game";
 
-const int WIDTH=1080;
-const int HEIGHT=1900;
+const int WIDTH=1084;
+const int HEIGHT=768;
 //taille
 /*#ifndef __APPLE__
 const int WIDTH=1920;
@@ -82,5 +85,10 @@ extern wiimote_t** wiimotes;
 extern pthread_mutex_t lock;
 
 extern bool continuer;
+
+extern int niveau;
+
+
+extern bool newNiveau;
 
 #endif /* Define_h */
