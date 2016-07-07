@@ -57,7 +57,7 @@ public:
 
     inline Personnage(std::string fileName) {  // Initialisation des attributs
         posX = 0.0f;
-        posY = -27.0f;
+        posY = -30.0f;
         posZ = 0.0f;
         angleHorizontal = 0.0f;
         angleVertical = 0.0f;
