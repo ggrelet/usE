@@ -89,5 +89,7 @@ extern bool continuer;
 
 extern int niveau;
 
+extern bool newNiveau;
+
 
 #endif /* Define_h */

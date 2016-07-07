@@ -16,8 +16,22 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
     est_dans_menu = false;
     est_dans_jeu = false;
     menu = new Menu(chemin + "Textures/go.jpg");
-
+    
     personnage = new Personnage(chemin+"data/perso.rtf");
+    
+    //Tableau des positions possibles en Y pour l'aléatoire
+    positionsY[0] = pairs[0] = -24;
+    positionsY[1] = impairs[0] = -18;
+    positionsY[2] = pairs[1] = -12;
+    positionsY[3] = impairs[0] = -6;
+    positionsY[4] = pairs[2] = 0;
+    positionsY[5] = impairs[0] = 6;
+    positionsY[6] = pairs[3] =12;
+    positionsY[7] = impairs[0] = 18;
+    positionsY[8] = pairs[4] =24;
+    
+
+
 
     //initialisation objets
     for (int i=0; i<11; i++) {
@@ -25,20 +39,22 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
     }
 
 
-    objets[0] = *new Personnage(0.7,-24,-0.4,0,0,0.7,0.5,0.5,Vec4f(0.0000f,0.5216f,0.1529f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 10.0f,1.0f,0.1f, chemin + "data/cylindre.rtf");
-    objets[1] = *new Personnage(-0.6,-18,-1.7,0,0,0.6,0.8,0.8,Vec4f(1.0000f,0.3922f,0.2745f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,1.0f,0.1f,  chemin+"data/cone.rtf");
-    objets[2] = *new Personnage(0.5,-12,0.3,0,0,0.4,0.4,0.4,Vec4f(0.0902f,0.3059f,0.9294f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 1.0f,0.1f, chemin+"data/sphere.rtf");
-    objets[3] = *new Personnage(-0.7,-6,7,0,0,0.6,0.5,0.6,Vec4f(0.38f,0.98f,0.63f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 10.0f, 1.0f,0.1f, chemin+"data/cylindre.rtf");
-    objets[4] = *new Personnage(0.7,0,-0.4,0,0,0.7,0.5,0.5,Vec4f(0.0000f,0.5216f,0.1529f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 200.0f,1.0f,0.1f, chemin + "data/sphere.rtf");
-    objets[5] = *new Personnage(-0.6,6,-1.7,0,0,0.6,0.8,0.8,Vec4f(1.0000f,0.3922f,0.2745f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,1.0f,0.1f,  chemin+"data/cone.rtf");
-    objets[6] = *new Personnage(0.5,12,0.3,0,0,0.4,0.4,0.4,Vec4f(0.0902f,0.3059f,0.9294f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 1.0f,0.1f, chemin+"data/sphere.rtf");
-    objets[7] = *new Personnage(-0.7,18,7,0,0,0.6,0.5,0.6,Vec4f(0.38f,0.98f,0.63f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 10.0f, 1.0f,0.1f, chemin+"data/cylindre.rtf");
-    objets[8] = *new Personnage(-0.7,24,7,0,0,0.6,0.5,0.6,Vec4f(0.38f,0.98f,0.63f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 10.0f, 1.0f,0.1f, chemin+"data/cone.rtf");
+    objets[0] = *new Personnage(-0.7,-24,-0.4,0,0,0.7,0.5,0.5,Vec4f(0.0000f,0.5216f,0.1529f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 10.0f,1.0f,0.1f, chemin + "data/cylindre.rtf");
+    objets[1] = *new Personnage(0.7,-18,-1.7,0,0,0.6,0.8,0.8,Vec4f(1.0000f,0.3922f,0.2745f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,1.0f,0.1f,  chemin+"data/cone.rtf");
+    objets[2] = *new Personnage(-0.7,-12,0.3,0,0,0.4,0.4,0.4,Vec4f(0.0902f,0.3059f,0.9294f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 1.0f,0.1f, chemin+"data/sphere.rtf");
+    objets[3] = *new Personnage(0.7,-6,7,0,0,0.6,0.5,0.6,Vec4f(0.38f,0.98f,0.63f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 10.0f, 1.0f,0.1f, chemin+"data/cylindre.rtf");
+    objets[4] = *new Personnage(-0.7,0,-0.4,0,0,0.4,0.4,0.4,Vec4f(0.0000f,0.5216f,0.1529f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 200.0f,1.0f,0.1f, chemin + "data/sphere.rtf");
+    objets[5] = *new Personnage(0.7,6,-1.7,0,0,0.6,0.8,0.8,Vec4f(1.0000f,0.3922f,0.2745f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,1.0f,0.1f,  chemin+"data/cone.rtf");
+    objets[6] = *new Personnage(-0.7,12,0.3,0,0,0.4,0.4,0.4,Vec4f(0.0902f,0.3059f,0.9294f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 1.0f,0.1f, chemin+"data/sphere.rtf");
+    objets[7] = *new Personnage(0.7,18,7,0,0,0.6,0.5,0.6,Vec4f(0.38f,0.98f,0.63f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 10.0f, 1.0f,0.1f, chemin+"data/cylindre.rtf");
+    objets[8] = *new Personnage(-0.7,24,7,0,0,0.6,0.5,0.6,Vec4f(0.38f,0.98f,0.63f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 20.0f, 1.0f,0.1f, chemin+"data/cone.rtf");
 
 
     objets[9] = *new Personnage(0,0,0,0,0,6,30,6,Vec4f(0.0902f,0.4196f,0.9294f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,1.0f,1.0f, chemin+"data/tunnellight.rtf");
 
     objets[10] = *new Personnage(0,30,0,0,0,10,1,10,Vec4f(1.0f,1.0f,1.0f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,1.0f,1.0f, chemin+"data/fond.rtf");
+    
+
 
 
 }
@@ -193,7 +209,7 @@ int z2 = 0;
                     evenement.key.keysym.scancode=SDL_SCANCODE_LEFT;
 
                 Mix_PlayMusic(musique, -1); // Jouer musique en boucle
-                Mix_VolumeMusic (50); // Volume (~moyen)
+                Mix_VolumeMusic (0); // Volume (~moyen)
 
                 }
 
@@ -201,6 +217,8 @@ int z2 = 0;
 
 
        if(est_dans_jeu) {
+           
+           cout<<personnage->posX<<endl;
 
     tempsActuel = SDL_GetTicks();
 
@@ -266,7 +284,7 @@ int z2 = 0;
 
 
         #ifdef __APPLE__
-        personnage->avancer(0.2);
+        personnage->avancer(0.6);
         #endif
       //gererEvenements();
       dessiner();
@@ -374,8 +392,40 @@ void Scene::dessiner(){
 }
 
 void Scene::dessinerObjets(){
-    //objets[0].posY=niveau;
-    //objets[0].Kd[1] = niveau/10;
+    
+    if (niveau == 3) {
+        for (int i=0; i<9; i++) {
+            for (int j =0; j<3; j++) {
+                objets[i].Kd[j] = Rand::randf();
+            }
+        }
+    }
+    int indice= 0;
+    
+    if (newNiveau) {
+        for (int i=0; i<9; i++) {
+            for (int j =0; j<3; j++) {
+                objets[i].Kd[j] = Rand::randf();
+            }
+            
+            indice=Rand::randi(9-i);
+            objets[i].posY = positionsY[indice];
+            int tmp=positionsY[8-i];
+            positionsY[8-i] = positionsY[indice];
+            positionsY[indice]=tmp;
+            }
+            
+    }
+    
+   /* for (int i=0; i<8; i+=2) {
+        if(mySet.find(objets[i].posY) != mySet.end()){
+           
+        }
+        objets[i].posX = -0.7;
+        objets[i+1].posX = 0.7;
+    
+    }*/
+    
     for (int i=0; i<11; i++) {
         objets[i].afficher();
     }
