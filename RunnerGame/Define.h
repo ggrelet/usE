@@ -40,6 +40,7 @@
 #include <vector>
 #include <pthread.h>
 #include <stdlib.h>
+#include <time.h>
 
 #ifdef __APPLE__
 const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";

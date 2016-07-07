@@ -428,8 +428,3 @@ void Scene::dessinerAccueil(){
 
 //retourne un nombre aléatoire entre [0,1]
 
-double Scene::randf()
-{
-    checkSeed();
-    return rand()/((double) RAND_MAX);
-}

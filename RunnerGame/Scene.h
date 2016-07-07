@@ -44,6 +44,7 @@ private:
     void dessinerObjets(void);
     void chargerTextures(void);
     void dessinerAccueil(void);
+    double randf();
 
 public:
     Scene(std::string titreFenetre, int largeurFenetre, int hauteurFenetre);
