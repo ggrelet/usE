@@ -11,7 +11,6 @@ int main(int argc, char *argv[])
    ecran = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
    SDL_Event event;
    SDL_WM_SetCaption("SDL_Mixer", NULL);
-   SDL_Flip(ecran);
    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
    {
       printf("%s", Mix_GetError());
