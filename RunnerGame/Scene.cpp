@@ -9,6 +9,7 @@
 #include "Scene.h"
 using namespace std;
 #define MAX_WIIMOTE 1
+#define VOLUME 50
 
 
 Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titreFenetre(titreFenetre), m_largeurFenetre(largeurFenetre),m_hauteurFenetre(hauteurFenetre), m_fenetre(0), m_contexteOpenGL(0) {
@@ -16,9 +17,9 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
     est_dans_menu = false;
     est_dans_jeu = false;
     menu = new Menu(chemin + "Textures/go.jpg");
-    
+
     personnage = new Personnage(chemin+"data/perso.rtf");
-    
+
     //Tableau des positions possibles en Y pour l'aléatoire
     positionsY[0] = pairs[0] = -24;
     positionsY[1] = impairs[0] = -18;
@@ -29,7 +30,7 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
     positionsY[6] = pairs[3] =12;
     positionsY[7] = impairs[0] = 18;
     positionsY[8] = pairs[4] =24;
-    
+
 
 
 
@@ -53,7 +54,7 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
     objets[9] = *new Personnage(0,0,0,0,0,6,30,6,Vec4f(0.0902f,0.4196f,0.9294f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,1.0f,1.0f, chemin+"data/tunnellight.rtf");
 
     objets[10] = *new Personnage(0,30,0,0,0,10,1,10,Vec4f(1.0f,1.0f,1.0f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,1.0f,1.0f, chemin+"data/fond.rtf");
-    
+
 
 
 
@@ -209,7 +210,7 @@ int z2 = 0;
                     evenement.key.keysym.scancode=SDL_SCANCODE_LEFT;
 
                 Mix_PlayMusic(musique, -1); // Jouer musique en boucle
-                Mix_VolumeMusic (0); // Volume (~moyen)
+                Mix_VolumeMusic (VOLUME); // Volume (~moyen)
 
                 }
 
@@ -217,8 +218,8 @@ int z2 = 0;
 
 
        if(est_dans_jeu) {
-           
-           cout<<personnage->posX<<endl;
+
+           //cout<<personnage->posX<<endl;
 
     tempsActuel = SDL_GetTicks();
 
@@ -392,7 +393,7 @@ void Scene::dessiner(){
 }
 
 void Scene::dessinerObjets(){
-    
+
     if (niveau == 3) {
         for (int i=0; i<9; i++) {
             for (int j =0; j<3; j++) {
@@ -401,31 +402,31 @@ void Scene::dessinerObjets(){
         }
     }
     int indice= 0;
-    
+
     if (newNiveau) {
         for (int i=0; i<9; i++) {
             for (int j =0; j<3; j++) {
                 objets[i].Kd[j] = Rand::randf();
             }
-            
+
             indice=Rand::randi(9-i);
             objets[i].posY = positionsY[indice];
             int tmp=positionsY[8-i];
             positionsY[8-i] = positionsY[indice];
             positionsY[indice]=tmp;
             }
-            
+
     }
-    
-    for (int i=0; i<8; i+=2) {
+
+  /*  for (int i=0; i<8; i+=2) {
         if(pairs.find(objets[i].posY) != pairs.end()){
-           
+
         }
         objets[i].posX = -0.7;
         objets[i+1].posX = 0.7;
-    
-    }
-    
+
+    }*/
+
     for (int i=0; i<11; i++) {
         objets[i].afficher();
     }
@@ -477,4 +478,3 @@ void Scene::dessinerAccueil(){
     }
 
 //retourne un nombre aléatoire entre [0,1]
-
