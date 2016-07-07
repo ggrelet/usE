@@ -118,12 +118,15 @@ void Personnage::deplacement(void) {
 }
 
 void Personnage::avancer(float distance){
+    newNiveau = false;
+    
     if (posY<30) {
     posY += distance ;
     }
 
     else {posY = -30.0f;
         niveau+=1;
+        newNiveau = true;
     }
     
 
@@ -296,7 +299,7 @@ void Personnage::afficher(void){
 
 void Personnage::regarder(void)
 {
-    gluLookAt(posX, posY, posZ, posX-sin(angleHorizontal * M_PI/180), posY+cos(angleHorizontal*M_PI/180), posZ + tan(angleVertical*M_PI/180), 0, 0, 1);
+    gluLookAt(posX, posY, posZ, posX, posY+1, posZ, 0, 0, 1);
 
    }
 

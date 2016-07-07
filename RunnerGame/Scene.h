@@ -11,6 +11,7 @@
 
 #include "Personnage.h"
 #include "Menu.h"
+#include "Rand.h"
 
 class Scene
 {
@@ -19,7 +20,7 @@ private:
     bool est_dans_menu;
     bool est_dans_jeu;
     Mix_Music *musique; // Musique qui dure tout le jeu
-
+    
 
     //Menu
     Menu *menu;
@@ -27,6 +28,10 @@ private:
     //jeu
     Personnage objets[11];
     Personnage *personnage;
+    
+    int positionsY[9];
+    int pairs[5];
+    int impairs[4];
 
     std::string m_titreFenetre;
     int m_largeurFenetre;
@@ -44,6 +49,7 @@ private:
     void dessinerObjets(void);
     void chargerTextures(void);
     void dessinerAccueil(void);
+    double randf();
 
 public:
     Scene(std::string titreFenetre, int largeurFenetre, int hauteurFenetre);

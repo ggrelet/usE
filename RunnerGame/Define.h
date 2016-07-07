@@ -39,6 +39,8 @@
 #include <map>
 #include <vector>
 #include <pthread.h>
+#include <stdlib.h>
+#include <time.h>
 
 //const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
 
@@ -86,4 +88,10 @@ extern bool continuer;
 
 extern int niveau;
 
+<<<<<<< HEAD
+=======
+extern bool newNiveau;
+
+
+>>>>>>> 9c077aeb675d8b59de865b5fcc633a6573caff07
 #endif /* Define_h */
