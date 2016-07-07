@@ -52,8 +52,8 @@ const std::string chemin = "";
 //nom de notre Programme
 const std::string programName="Runner Game";
 
-const int WIDTH=1084;
-const int HEIGHT=768;
+const int WIDTH=1280;
+const int HEIGHT=720;
 //taille
 /*#ifndef __APPLE__
 const int WIDTH=1920;
@@ -85,5 +85,8 @@ extern wiimote_t** wiimotes;
 extern pthread_mutex_t lock;
 
 extern bool continuer;
+
+extern int niveau;
+
 
 #endif /* Define_h */

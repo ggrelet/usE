@@ -122,7 +122,10 @@ void Personnage::avancer(float distance){
     posY += distance ;
     }
 
-    else posY = -27.0f;
+    else {posY = -27.0f;
+        niveau+=5;
+    }
+    
 
 }
 

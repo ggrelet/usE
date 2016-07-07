@@ -10,11 +10,12 @@
 using namespace std;
 #define MAX_WIIMOTE 1
 
+
 Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titreFenetre(titreFenetre), m_largeurFenetre(largeurFenetre),m_hauteurFenetre(hauteurFenetre), m_fenetre(0), m_contexteOpenGL(0) {
     est_dans_accueil = true;
     est_dans_menu = false;
     est_dans_jeu = false;
-    menu = new Menu(chemin + "Textures/verre6.jpg");
+    menu = new Menu(chemin + "Textures/go.jpg");
 
     personnage = new Personnage(chemin+"data/perso.rtf");
 
@@ -24,7 +25,7 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
     }
 
 
-    objets[0] = *new Personnage(0.7,-20,-0.4,0,0,0.7,0.5,0.5,Vec4f(1.0000f,0.5216f,0.1529f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 10.0f,1.0f,0.1f, chemin + "data/cylindre.rtf");
+    objets[0] = *new Personnage(0.7,-20,-0.4,0,0,0.7,0.5,0.5,Vec4f(0.0000f,0.5216f,0.1529f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 10.0f,1.0f,0.1f, chemin + "data/cylindre.rtf");
     objets[1] = *new Personnage(-0.6,-10,-1.7,0,0,0.6,0.8,0.8,Vec4f(1.0000f,0.3922f,0.2745f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,1.0f,0.1f,  chemin+"data/cone.rtf");
     objets[2] = *new Personnage(0.5,0,0.3,0,0,0.4,0.4,0.4,Vec4f(0.0902f,0.3059f,0.9294f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 1.0f,0.1f, chemin+"data/sphere.rtf");
     objets[3] = *new Personnage(-0.7,10,7,0,0,0.6,0.5,0.6,Vec4f(0.38f,0.98f,0.63f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 10.0f, 1.0f,0.1f, chemin+"data/cylindre.rtf");
@@ -130,19 +131,15 @@ bool Scene::initSDL_mixer()
 
     
     string cheminMusique = chemin + "Musiques/musique2.mp3";
+    string cheminSon = chemin + "Musiques/su3.mp3";
 
     musique = Mix_LoadMUS(cheminMusique.c_str()); // Charger musique
-
-    //Mix_PlayMusic(musique, -1); // Jouer musique en boucle
-    //Mix_VolumeMusic (50); // Volume (~moyen)
-
-    /*   Son en cas de collision
+    
+    //Son en cas de collision
     Mix_Chunk *son; // Son épisodique
-    son = Mix_LoadWAV("Su3.wav"); // Charger le son
-    Mix_VolumeChunk(son, 128); // Volume (max)
-    */
-
-
+    son = Mix_LoadWAV(cheminSon.c_str()); // Charger le son
+    //Mix_VolumeChunk(son, 128); // Volume (max)
+    
     return true;
 }
 
@@ -264,7 +261,7 @@ int z2 = 0;
 
 
         #ifdef __APPLE__
-        personnage->avancer(0.4);
+        personnage->avancer(0.2);
         #endif
       //gererEvenements();
       dessiner();
@@ -372,7 +369,8 @@ void Scene::dessiner(){
 }
 
 void Scene::dessinerObjets(){
-
+    objets[0].posY=niveau;
+    objets[0].Kd[1] = niveau/10;
     for (int i=0; i<6; i++) {
         objets[i].afficher();
     }
@@ -396,20 +394,29 @@ void Scene::dessinerAccueil(){
         glBindTexture(GL_TEXTURE_2D, accueilImg->getID());
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    // On mémorise le repère courant avant d'effectuer la RST
+    glPushMatrix();
+    // Positionne l'objet en lieu de dessin
+    glRotated(90.0, 0.0, 1.0, 0.0);
+    glScaled(1, 1, 1.5);
+
 
         glColor4f(1.0,1.0,1.0,0.0);
 
         glBegin(GL_QUADS);
         glTexCoord2i(0,0);
         glVertex3f(-1,0,-1);
-        glTexCoord2i(1,0);
+        glTexCoord2i(0,1);
         glVertex3f(1,0,-1);
         glTexCoord2i(1,1);
         glVertex3f(1,0,1);
-        glTexCoord2i(0,1);
+        glTexCoord2i(1,0);
         glVertex3f(-1,0,1);
         glEnd();
 
         glDisable(GL_TEXTURE_2D);
+    
+    glPopMatrix();
 
     }
