@@ -118,10 +118,11 @@ void Personnage::deplacement(void) {
 }
 
 void Personnage::avancer(float distance){
-    newNiveau = false;
+    
     
     if (posY<30) {
     posY += distance ;
+    newNiveau = false;
     }
 
     else {posY = -30.0f;

@@ -39,23 +39,20 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
     }
 
 
-    objets[0] = *new Personnage(-0.7,-24,-0.4,0,0,0.7,0.5,0.5,Vec4f(0.0000f,0.5216f,0.1529f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 10.0f,1.0f,0.1f, chemin + "data/cylindre.rtf");
-    objets[1] = *new Personnage(0.7,-18,-1.7,0,0,0.6,0.8,0.8,Vec4f(1.0000f,0.3922f,0.2745f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,1.0f,0.1f,  chemin+"data/cone.rtf");
-    objets[2] = *new Personnage(-0.7,-12,0.3,0,0,0.4,0.4,0.4,Vec4f(0.0902f,0.3059f,0.9294f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 1.0f,0.1f, chemin+"data/sphere.rtf");
-    objets[3] = *new Personnage(0.7,-6,7,0,0,0.6,0.5,0.6,Vec4f(0.38f,0.98f,0.63f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 10.0f, 1.0f,0.1f, chemin+"data/cylindre.rtf");
-    objets[4] = *new Personnage(-0.7,0,-0.4,0,0,0.4,0.4,0.4,Vec4f(0.0000f,0.5216f,0.1529f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 200.0f,1.0f,0.1f, chemin + "data/sphere.rtf");
-    objets[5] = *new Personnage(0.7,6,-1.7,0,0,0.6,0.8,0.8,Vec4f(1.0000f,0.3922f,0.2745f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,1.0f,0.1f,  chemin+"data/cone.rtf");
-    objets[6] = *new Personnage(-0.7,12,0.3,0,0,0.4,0.4,0.4,Vec4f(0.0902f,0.3059f,0.9294f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 1.0f,0.1f, chemin+"data/sphere.rtf");
-    objets[7] = *new Personnage(0.7,18,7,0,0,0.6,0.5,0.6,Vec4f(0.38f,0.98f,0.63f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 10.0f, 1.0f,0.1f, chemin+"data/cylindre.rtf");
-    objets[8] = *new Personnage(-0.7,24,7,0,0,0.6,0.5,0.6,Vec4f(0.38f,0.98f,0.63f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 20.0f, 1.0f,0.1f, chemin+"data/cone.rtf");
+    objets[0] = *new Personnage(-0.7,-24,-0.4,0,0,0.7,0.5,0.5,Vec4f(0.278f, 0.333f, 0.357f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 15.0f,1.0f,0.1f, chemin + "data/cylindre.rtf");
+    objets[1] = *new Personnage(0.7,-18,-1.7,0,0,0.6,0.8,0.8,Vec4f(0.239f,0.545f,0.914f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,1.0f,0.1f,  chemin+"data/cone.rtf");
+    objets[2] = *new Personnage(-0.7,-12,0.3,0,0,0.4,0.4,0.4,Vec4f(0.157f,0.196f,0.357f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 1.0f,0.1f, chemin+"data/sphere.rtf");
+    objets[3] = *new Personnage(0.7,-6,7,0,0,0.6,0.5,0.6,Vec4f(0.820f,0.282f,0.255f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 15.0f, 1.0f,0.1f, chemin+"data/cylindre.rtf");
+    objets[4] = *new Personnage(-0.7,0,-0.4,0,0,0.4,0.4,0.4,Vec4f(0.921f,0.420f,0.337f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 200.0f,1.0f,0.1f, chemin + "data/sphere.rtf");
+    objets[5] = *new Personnage(0.7,6,-1.7,0,0,0.6,0.8,0.8,Vec4f(0.968f,0.855f,0.392f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,1.0f,0.1f,  chemin+"data/cone.rtf");
+    objets[6] = *new Personnage(-0.7,12,0.3,0,0,0.4,0.4,0.4,Vec4f(0.980f,0.773f,0.110f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 1.0f,0.1f, chemin+"data/sphere.rtf");
+    objets[7] = *new Personnage(0.7,18,7,0,0,0.6,0.5,0.6,Vec4f(0.0f,0.659f,0.522f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 15.0f, 1.0f,0.1f, chemin+"data/cylindre.rtf");
+    objets[8] = *new Personnage(-0.7,24,7,0,0,0.6,0.5,0.6,Vec4f(0.0f,0.530f,0.522f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 20.0f, 1.0f,0.1f, chemin+"data/cone.rtf");
 
 
-    objets[9] = *new Personnage(0,0,0,0,0,6,30,6,Vec4f(0.0902f,0.4196f,0.9294f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,1.0f,1.0f, chemin+"data/tunnellight.rtf");
+    objets[9] = *new Personnage(0,0,0,0,0,6,30,6,Vec4f(0.235,0.27f,0.439f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),500.0f,1.0f,1.0f, chemin+"data/tunnellight.rtf");
 
     objets[10] = *new Personnage(0,30,0,0,0,10,1,10,Vec4f(1.0f,1.0f,1.0f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,1.0f,1.0f, chemin+"data/fond.rtf");
-    
-
-
 
 }
 
@@ -201,25 +198,23 @@ int z2 = 0;
             glLoadIdentity();
             menu->affiche();
             SDL_GL_SwapWindow(m_fenetre);
-
+       
+            
             if(evenement.key.keysym.scancode==SDL_SCANCODE_UP) {
                     est_dans_menu = false;
                     est_dans_jeu= true;
 
-                    evenement.key.keysym.scancode=SDL_SCANCODE_LEFT;
+                
 
                 Mix_PlayMusic(musique, -1); // Jouer musique en boucle
                 Mix_VolumeMusic (0); // Volume (~moyen)
 
                 }
-
         }
 
 
        if(est_dans_jeu) {
            
-           cout<<personnage->posX<<endl;
-
     tempsActuel = SDL_GetTicks();
 
 
@@ -286,95 +281,23 @@ int z2 = 0;
         #ifdef __APPLE__
         personnage->avancer(0.6);
         #endif
-      //gererEvenements();
       dessiner();
 
       afficher();
       tempsPrecedent=tempsActuel;
-        /*for (int i = 0 ; i<4 ; i++) {
+        for (int i = 0 ; i<9 ; i++) {
             if (personnage->inCollisionWith(objets[i])) {
                 est_dans_jeu = false;
                 est_dans_menu = true;
+                evenement.key.keysym.scancode=SDL_SCANCODE_LEFT;
+                break;
             }
-        }*/
+        }
       }
     }
   }
 }
 
-
-void Scene::gererEvenements(void)
-{
-    SDL_Event evenement;
-
-
-    while (SDL_PollEvent(&evenement))
-    {
-        switch(evenement.type)
-        {
-            case SDL_QUIT:
-                continuer = false;
-                break;
-            case SDL_KEYDOWN:
-                switch (evenement.key.keysym.scancode)
-            {
-                case SDL_SCANCODE_ESCAPE:
-                    continuer = false;
-                    break;
-                case SDL_SCANCODE_Z: //va savoir pourquoi c'est W?
-                    GLint mode[2];
-                    glGetIntegerv (GL_POLYGON_MODE, mode);
-                    glPolygonMode (GL_FRONT_AND_BACK, mode[1] ==  GL_FILL ? GL_LINE : GL_FILL);
-                    break;
-                case SDL_SCANCODE_UP:
-                    //personnage->avancer(0.5);
-                    personnage->posAvant=personnage->posApres;
-                    personnage->posApres="haut";
-                    personnage->deplacement();
-                    break;
-                case SDL_SCANCODE_DOWN:
-                    //personnage->avancer(-0.5);
-                    personnage->posAvant=personnage->posApres;
-                    personnage->posApres="bas";
-                    personnage->deplacement();
-                    break;
-                case SDL_SCANCODE_RIGHT:
-                    //personnage->tournerHorizontalement(-10.0);
-                    personnage->posAvant=personnage->posApres;
-                    personnage->posApres="droite";
-                    personnage->deplacement();
-                    break;
-                case SDL_SCANCODE_LEFT:
-                    //personnage->tournerHorizontalement(10.0);
-                    personnage->posAvant=personnage->posApres;
-                    personnage->posApres="gauche";
-                    personnage->deplacement();
-
-                    break;
-                case SDL_SCANCODE_P:
-                    //personnage->tournerVerticalement(10.0);
-                    personnage->posAvant=personnage->posApres;
-                    personnage->posApres="neutre";
-                    personnage->deplacement();
-
-                    break;
-                case SDL_SCANCODE_SEMICOLON:
-                    personnage->tournerVerticalement(-10.0);
-
-                default:
-                    break;
-            }
-
-            case SDL_MOUSEBUTTONDOWN:
-                break;
-            default:
-                break;
-
-        }
-
-    }
-
-}
 
 
 void Scene::dessiner(){
@@ -409,20 +332,23 @@ void Scene::dessinerObjets(){
             }
             
             indice=Rand::randi(9-i);
-            objets[i].posY = positionsY[indice];
             int tmp=positionsY[8-i];
             positionsY[8-i] = positionsY[indice];
             positionsY[indice]=tmp;
+            objets[i].posY = positionsY[8-i];
             }
             
     }
     
-    for (int i=0; i<8; i+=2) {
-        if(pairs.find(objets[i].posY) != pairs.end()){
-           
+    for (int i=0; i<9; i++) {
+        bool inPairs = std::find(std::begin(pairs), std::end(pairs), objets[i].posY) != std::end(pairs);
+        if(inPairs){
+           objets[i].posX = -0.7;
         }
-        objets[i].posX = -0.7;
-        objets[i+1].posX = 0.7;
+
+        else {
+            objets[i].posX = 0.7;
+        }
     
     }
     
