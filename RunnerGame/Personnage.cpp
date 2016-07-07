@@ -125,9 +125,11 @@ void Personnage::avancer(float distance){
     newNiveau = false;
     }
 
-    else {posY = -30.0f;
-        niveau+=1;
+    else {
         newNiveau = true;
+        posY = -30.0f;
+        niveau+=1;
+       
     }
     
 
@@ -300,13 +302,12 @@ void Personnage::afficher(void){
 
 void Personnage::regarder(void)
 {
-    gluLookAt(posX, posY, posZ, posX, posY+1, posZ, 0, 0, 1);
+    gluLookAt(posX, posY-1, posZ+0.1, posX, posY-1+1, posZ+0.1, 0, 0, 1);
 
    }
 
 bool Personnage::inCollisionWith(Personnage objet) {
-    if ( ( ((posY+p/2) >= (objet.posY-objet.p/2)) && ((posY-p/2) <= (objet.posY+objet.p/2)) && ((posX+l/2) >= (objet.posX-objet.l/2)) && ((posX-l/2) <= (objet.posX+objet.l/2)) ) || (((posY+p/2) >= (objet.posY-objet.p/2)) && ((posY-p/2) <= (objet.posY+objet.p/2)) && ((posX-l/2) <= (objet.posX+objet.l/2)) && ((posX+l/2) <= (objet.posX-objet.l/2))) ) {
-
+    if ( ( ((posY+p/2) >= (objet.posY-objet.p/2)) && ((posY-p/2) <= (objet.posY+objet.p/2)) && ((posX+l/2) >= (objet.posX-objet.l/2)) && ((posX-l/2) <= (objet.posX+objet.l/2)) ) /*|| (((posY+p/2) >= (objet.posY-objet.p/2)) && ((posY-p/2) <= (objet.posY+objet.p/2)) && ((posX-l/2) <= (objet.posX+objet.l/2)) && ((posX+l/2) <= (objet.posX-objet.l/2)))*/ ) {
         return true;
     }
 

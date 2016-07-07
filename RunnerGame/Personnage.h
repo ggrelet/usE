@@ -57,20 +57,20 @@ public:
 
     inline Personnage(std::string fileName) {  // Initialisation des attributs
         posX = 0.0f;
-        posY = -30.0f;
-        posZ = 0.0f;
+        posY = -29.0f;
+        posZ = -0.1f;
         angleHorizontal = 0.0f;
         angleVertical = 0.0f;
-        scaleX = 1.0f;
-        scaleY = 1.0f;
-        scaleZ = 1.0f;
-        Kd=Vec4f(1.0f,1.0f,1.0f,1.0f);
-        Ks=Vec4f(1.0f,1.0f,1.0f,1.0f);
-        eclairage=0.0f;
+        scaleX = 2.0f;
+        scaleY = 2.0f;
+        scaleZ = 2.0f;
+        Kd=Vec4f(0.4f,0.4f,0.8f,1.0f);
+        Ks=Vec4f(0.0f,0.0f,1.0f,1.0f);
+        eclairage=10.0f;
         posApres="neutre";
         posAvant="neutre";
-        p = 0.0f;
-        l = 0.0f;
+        p = 0.3f;
+        l = 0.3f;
 
 
 

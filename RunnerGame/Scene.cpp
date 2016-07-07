@@ -40,20 +40,20 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
     }
 
 
-    objets[0] = *new Personnage(-0.7,-24,-0.4,0,0,0.7,0.5,0.5,Vec4f(0.278f, 0.333f, 0.357f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 15.0f,1.0f,0.1f, chemin + "data/cylindre.rtf");
-    objets[1] = *new Personnage(0.7,-18,-1.7,0,0,0.6,0.8,0.8,Vec4f(0.239f,0.545f,0.914f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,1.0f,0.1f,  chemin+"data/cone.rtf");
-    objets[2] = *new Personnage(-0.7,-12,0.3,0,0,0.4,0.4,0.4,Vec4f(0.157f,0.196f,0.357f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 1.0f,0.1f, chemin+"data/sphere.rtf");
-    objets[3] = *new Personnage(0.7,-6,7,0,0,0.6,0.5,0.6,Vec4f(0.820f,0.282f,0.255f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 15.0f, 1.0f,0.1f, chemin+"data/cylindre.rtf");
-    objets[4] = *new Personnage(-0.7,0,-0.4,0,0,0.4,0.4,0.4,Vec4f(0.921f,0.420f,0.337f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 200.0f,1.0f,0.1f, chemin + "data/sphere.rtf");
-    objets[5] = *new Personnage(0.7,6,-1.7,0,0,0.6,0.8,0.8,Vec4f(0.968f,0.855f,0.392f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,1.0f,0.1f,  chemin+"data/cone.rtf");
-    objets[6] = *new Personnage(-0.7,12,0.3,0,0,0.4,0.4,0.4,Vec4f(0.980f,0.773f,0.110f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 1.0f,0.1f, chemin+"data/sphere.rtf");
-    objets[7] = *new Personnage(0.7,18,7,0,0,0.6,0.5,0.6,Vec4f(0.0f,0.659f,0.522f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 15.0f, 1.0f,0.1f, chemin+"data/cylindre.rtf");
-    objets[8] = *new Personnage(-0.7,24,7,0,0,0.6,0.5,0.6,Vec4f(0.0f,0.530f,0.522f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 20.0f, 1.0f,0.1f, chemin+"data/cone.rtf");
+    objets[0] = *new Personnage(-0.7,-24,-0.4,0,0,0.7,0.5,0.5,Vec4f(0.278f, 0.333f, 0.357f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 15.0f,0.3f,0.3f, chemin + "data/cylindre.rtf");
+    objets[1] = *new Personnage(0.7,-18,-1.7,0,0,0.6,0.8,0.8,Vec4f(0.239f,0.545f,0.914f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,0.3f,0.3f,  chemin+"data/cone.rtf");
+    objets[2] = *new Personnage(-0.7,-12,0.3,0,0,0.4,0.4,0.4,Vec4f(0.157f,0.196f,0.357f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 0.3f,0.3f, chemin+"data/sphere.rtf");
+    objets[3] = *new Personnage(0.7,-6,7,0,0,0.6,0.5,0.6,Vec4f(0.820f,0.282f,0.255f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 15.0f, 0.3,0.3f, chemin+"data/cylindre.rtf");
+    objets[4] = *new Personnage(-0.7,0,-0.4,0,0,0.4,0.4,0.4,Vec4f(0.921f,0.420f,0.337f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 200.0f,0.3f,0.3f, chemin + "data/sphere.rtf");
+    objets[5] = *new Personnage(0.7,6,-1.7,0,0,0.6,0.8,0.8,Vec4f(0.968f,0.855f,0.392f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,0.3f,0.3f,  chemin+"data/cone.rtf");
+    objets[6] = *new Personnage(-0.7,12,0.3,0,0,0.4,0.4,0.4,Vec4f(0.980f,0.773f,0.110f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 0.3f,0.3f, chemin+"data/sphere.rtf");
+    objets[7] = *new Personnage(0.7,18,7,0,0,0.6,0.5,0.6,Vec4f(0.0f,0.659f,0.522f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 15.0f, 0.3f,0.3f, chemin+"data/cylindre.rtf");
+    objets[8] = *new Personnage(-0.7,24,7,0,0,0.6,0.5,0.6,Vec4f(0.0f,0.530f,0.522f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 20.0f, 0.3f,0.3f, chemin+"data/cone.rtf");
 
 
-    objets[9] = *new Personnage(0,0,0,0,0,6,30,6,Vec4f(0.235,0.27f,0.439f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),500.0f,1.0f,1.0f, chemin+"data/tunnellight.rtf");
+    objets[9] = *new Personnage(0,0,0,0,0,6,30,6,Vec4f(0.235,0.27f,0.439f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),500.0f,0.0f,0.0f, chemin+"data/tunnellight.rtf");
 
-    objets[10] = *new Personnage(0,30,0,0,0,10,1,10,Vec4f(1.0f,1.0f,1.0f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,1.0f,1.0f, chemin+"data/fond.rtf");
+    objets[10] = *new Personnage(0,30,0,0,0,10,1,10,Vec4f(1.0f,1.0f,1.0f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,0.0f,0.0f, chemin+"data/fond.rtf");
 }
 
 Scene::~Scene() {
@@ -279,7 +279,20 @@ int z2 = 0;
 
 
         #ifdef __APPLE__
+        if(evenement.key.keysym.scancode==SDL_SCANCODE_LEFT) {
+            personnage->posAvant=personnage->posApres;
+            personnage->posApres="gauche";
+            personnage->deplacement();
+        }
+        
+        if(evenement.key.keysym.scancode==SDL_SCANCODE_RIGHT) {
+            personnage->posAvant=personnage->posApres;
+            personnage->posApres="droite";
+            personnage->deplacement();
+        }
+        
         personnage->avancer(0.6);
+        
         #endif
       dessiner();
 
@@ -289,10 +302,11 @@ int z2 = 0;
             if (personnage->inCollisionWith(objets[i])) {
                 est_dans_jeu = false;
                 est_dans_menu = true;
-                evenement.key.keysym.scancode=SDL_SCANCODE_LEFT;
+                evenement.key.keysym.scancode=SDL_SCANCODE_DOWN;
                 break;
             }
         }
+         
       }
     }
   }
@@ -306,10 +320,13 @@ void Scene::dessiner(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
-
+    
+    
+    personnage->afficher();
     personnage->regarder();
     //gluLookAt(0, -30, 0, 0, 0, 0, 0, 0, 1);
 
+    
     dessinerObjets();
 
 }
