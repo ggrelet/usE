@@ -41,7 +41,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <time.h>
-b
+
 //const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
 
 //#ifndef __APPLE__
