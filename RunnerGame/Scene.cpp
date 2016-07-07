@@ -129,17 +129,17 @@ bool Scene::initSDL_mixer()
     Mix_AllocateChannels(2); // Nombre de fichiers sonores
 
 
-    
+
     string cheminMusique = chemin + "Musiques/musique2.mp3";
     string cheminSon = chemin + "Musiques/su3.mp3";
 
     musique = Mix_LoadMUS(cheminMusique.c_str()); // Charger musique
-    
+
     //Son en cas de collision
-    Mix_Chunk *son; // Son épisodique
-    son = Mix_LoadWAV(cheminSon.c_str()); // Charger le son
+    //Mix_Chunk *son; // Son épisodique
+    //son = Mix_LoadWAV(cheminSon.c_str()); // Charger le son
     //Mix_VolumeChunk(son, 128); // Volume (max)
-    
+
     return true;
 }
 
@@ -394,7 +394,7 @@ void Scene::dessinerAccueil(){
         glBindTexture(GL_TEXTURE_2D, accueilImg->getID());
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
+
     // On mémorise le repère courant avant d'effectuer la RST
     glPushMatrix();
     // Positionne l'objet en lieu de dessin
@@ -416,7 +416,7 @@ void Scene::dessinerAccueil(){
         glEnd();
 
         glDisable(GL_TEXTURE_2D);
-    
+
     glPopMatrix();
 
     }

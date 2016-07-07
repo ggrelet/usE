@@ -39,21 +39,19 @@
 #include <map>
 #include <vector>
 #include <pthread.h>
-#include <stdlib.h>
 
-#ifdef __APPLE__
-const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
-#endif
+//const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
 
-#ifndef __APPLE__
+//#ifndef __APPLE__
+//chemin="";
+//#endif
 const std::string chemin = "";
-#endif
 
 //nom de notre Programme
 const std::string programName="Runner Game";
 
-const int WIDTH=1280;
-const int HEIGHT=720;
+const int WIDTH=1084;
+const int HEIGHT=768;
 //taille
 /*#ifndef __APPLE__
 const int WIDTH=1920;
@@ -87,6 +85,5 @@ extern pthread_mutex_t lock;
 extern bool continuer;
 
 extern int niveau;
-
 
 #endif /* Define_h */
