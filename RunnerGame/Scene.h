@@ -25,7 +25,7 @@ private:
     Menu *menu;
 
     //jeu
-    Personnage objets[6];
+    Personnage objets[11];
     Personnage *personnage;
 
     std::string m_titreFenetre;

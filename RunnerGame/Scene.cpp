@@ -20,20 +20,25 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
     personnage = new Personnage(chemin+"data/perso.rtf");
 
     //initialisation objets
-    for (int i=0; i<6; i++) {
+    for (int i=0; i<11; i++) {
         objets[i] = *new Personnage();
     }
 
 
-    objets[0] = *new Personnage(0.7,-20,-0.4,0,0,0.7,0.5,0.5,Vec4f(0.0000f,0.5216f,0.1529f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 10.0f,1.0f,0.1f, chemin + "data/cylindre.rtf");
-    objets[1] = *new Personnage(-0.6,-10,-1.7,0,0,0.6,0.8,0.8,Vec4f(1.0000f,0.3922f,0.2745f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,1.0f,0.1f,  chemin+"data/cone.rtf");
-    objets[2] = *new Personnage(0.5,0,0.3,0,0,0.4,0.4,0.4,Vec4f(0.0902f,0.3059f,0.9294f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 1.0f,0.1f, chemin+"data/sphere.rtf");
-    objets[3] = *new Personnage(-0.7,10,7,0,0,0.6,0.5,0.6,Vec4f(0.38f,0.98f,0.63f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 10.0f, 1.0f,0.1f, chemin+"data/cylindre.rtf");
+    objets[0] = *new Personnage(0.7,-24,-0.4,0,0,0.7,0.5,0.5,Vec4f(0.0000f,0.5216f,0.1529f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 10.0f,1.0f,0.1f, chemin + "data/cylindre.rtf");
+    objets[1] = *new Personnage(-0.6,-18,-1.7,0,0,0.6,0.8,0.8,Vec4f(1.0000f,0.3922f,0.2745f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,1.0f,0.1f,  chemin+"data/cone.rtf");
+    objets[2] = *new Personnage(0.5,-12,0.3,0,0,0.4,0.4,0.4,Vec4f(0.0902f,0.3059f,0.9294f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 1.0f,0.1f, chemin+"data/sphere.rtf");
+    objets[3] = *new Personnage(-0.7,-6,7,0,0,0.6,0.5,0.6,Vec4f(0.38f,0.98f,0.63f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 10.0f, 1.0f,0.1f, chemin+"data/cylindre.rtf");
+    objets[4] = *new Personnage(0.7,0,-0.4,0,0,0.7,0.5,0.5,Vec4f(0.0000f,0.5216f,0.1529f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 200.0f,1.0f,0.1f, chemin + "data/sphere.rtf");
+    objets[5] = *new Personnage(-0.6,6,-1.7,0,0,0.6,0.8,0.8,Vec4f(1.0000f,0.3922f,0.2745f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,1.0f,0.1f,  chemin+"data/cone.rtf");
+    objets[6] = *new Personnage(0.5,12,0.3,0,0,0.4,0.4,0.4,Vec4f(0.0902f,0.3059f,0.9294f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 1.0f,0.1f, chemin+"data/sphere.rtf");
+    objets[7] = *new Personnage(-0.7,18,7,0,0,0.6,0.5,0.6,Vec4f(0.38f,0.98f,0.63f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 10.0f, 1.0f,0.1f, chemin+"data/cylindre.rtf");
+    objets[8] = *new Personnage(-0.7,24,7,0,0,0.6,0.5,0.6,Vec4f(0.38f,0.98f,0.63f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 10.0f, 1.0f,0.1f, chemin+"data/cone.rtf");
 
 
-    objets[4] = *new Personnage(0,0,0,0,0,6,27,6,Vec4f(0.0902f,0.4196f,0.9294f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,1.0f,1.0f, chemin+"data/tunnellight.rtf");
+    objets[9] = *new Personnage(0,0,0,0,0,6,30,6,Vec4f(0.0902f,0.4196f,0.9294f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,1.0f,1.0f, chemin+"data/tunnellight.rtf");
 
-    objets[5] = *new Personnage(0,30,0,0,0,10,1,10,Vec4f(1.0f,1.0f,1.0f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,1.0f,1.0f, chemin+"data/fond.rtf");
+    objets[10] = *new Personnage(0,30,0,0,0,10,1,10,Vec4f(1.0f,1.0f,1.0f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,1.0f,1.0f, chemin+"data/fond.rtf");
 
 
 }
@@ -369,9 +374,9 @@ void Scene::dessiner(){
 }
 
 void Scene::dessinerObjets(){
-    objets[0].posY=niveau;
-    objets[0].Kd[1] = niveau/10;
-    for (int i=0; i<6; i++) {
+    //objets[0].posY=niveau;
+    //objets[0].Kd[1] = niveau/10;
+    for (int i=0; i<11; i++) {
         objets[i].afficher();
     }
 
@@ -420,3 +425,11 @@ void Scene::dessinerAccueil(){
     glPopMatrix();
 
     }
+
+//retourne un nombre aléatoire entre [0,1]
+
+double Scene::randf()
+{
+    checkSeed();
+    return rand()/((double) RAND_MAX);
+}
