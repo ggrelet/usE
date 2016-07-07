@@ -417,14 +417,14 @@ void Scene::dessinerObjets(){
             
     }
     
-   /* for (int i=0; i<8; i+=2) {
-        if(mySet.find(objets[i].posY) != mySet.end()){
+    for (int i=0; i<8; i+=2) {
+        if(pairs.find(objets[i].posY) != pairs.end()){
            
         }
         objets[i].posX = -0.7;
         objets[i+1].posX = 0.7;
     
-    }*/
+    }
     
     for (int i=0; i<11; i++) {
         objets[i].afficher();
