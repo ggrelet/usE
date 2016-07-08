@@ -16,6 +16,7 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
     est_dans_accueil = true;
     est_dans_menu = false;
     est_dans_jeu = false;
+     est_dans_gameOver = false;
     menu = new Menu(chemin + "Textures/go.jpg");
 
     personnage = new Personnage(chemin+"data/perso.rtf");
@@ -30,7 +31,6 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
     positionsY[6] = pairs[3] =12;
     positionsY[7] = impairs[0] = 18;
     positionsY[8] = pairs[4] =24;
-
 
 
 
@@ -54,6 +54,10 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
     objets[9] = *new Personnage(0,0,0,0,0,6,30,6,Vec4f(0.235,0.27f,0.439f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),500.0f,0.0f,0.0f, chemin+"data/tunnellight.rtf");
 
     objets[10] = *new Personnage(0,30,0,0,0,10,1,10,Vec4f(1.0f,1.0f,1.0f,1.0f),Vec4f(0.0f,0.0f,0.0f,1.0f),100.0f,0.0f,0.0f, chemin+"data/fond.rtf");
+    
+    gameOver = new Texture(chemin +"Textures/gameOver.jpg");
+    
+    
 }
 
 Scene::~Scene() {
@@ -62,8 +66,13 @@ Scene::~Scene() {
     SDL_DestroyWindow(m_fenetre);
 
     Mix_FreeMusic(musique); // Liberer les
-    //Mix_FreeChunk(son);     //  pointeurs
+    Mix_FreeChunk(son);     //  pointeurs
     Mix_CloseAudio();
+    
+    TTF_CloseFont(police);
+    TTF_Quit();
+    
+
 
     SDL_Quit();
 
@@ -81,7 +90,7 @@ bool Scene::initSDL2()
 
     // Create our window centered at WIDTHxHEIGHT resolution
     m_fenetre = SDL_CreateWindow(programName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                                  WIDTH,HEIGHT, SDL_WINDOW_OPENGL);
+                                 WIDTH,HEIGHT, SDL_WINDOW_OPENGL);
 
     // Check that everything worked out okay
     if (m_fenetre==0)
@@ -149,15 +158,36 @@ bool Scene::initSDL_mixer()
 
 
     string cheminMusique = chemin + "Musiques/musique2.mp3";
-    string cheminSon = chemin + "Musiques/su3.mp3";
+    string cheminSon = chemin + "Musiques/Su3.wav";
 
     musique = Mix_LoadMUS(cheminMusique.c_str()); // Charger musique
 
     //Son en cas de collision
-    //Mix_Chunk *son; // Son épisodique
-    //son = Mix_LoadWAV(cheminSon.c_str()); // Charger le son
-    //Mix_VolumeChunk(son, 128); // Volume (max)
+    // Son épisodique
+    son = Mix_LoadWAV(cheminSon.c_str()); // Charger le son
+   
+    
 
+    return true;
+}
+
+bool Scene::initSDL_ttf()
+{
+     texte = NULL;
+    
+    ecran= SDL_GetWindowSurface(m_fenetre);
+    police = NULL;
+    couleurNoire = {0, 0, 0};
+    
+
+    var=1;
+    /* Chargement de la police */
+    police = TTF_OpenFont("angelina.ttf", 65);
+    /* …criture du texte dans la SDL_Surface texte en mode Blended (optimal) */
+
+    position.x = 0;
+    position.y = 0;
+    
     return true;
 }
 
@@ -167,6 +197,8 @@ void Scene::executer()
     initSDL2();
     initOpenGl();
     initSDL_mixer();
+    gameOver->charger();
+    
     menu->init();
     SDL_Event evenement;
 
@@ -192,7 +224,9 @@ int z2 = 0;
         }
 
         if (est_dans_menu) {
-
+           
+            
+            
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             glMatrixMode( GL_MODELVIEW );
             glLoadIdentity();
@@ -203,19 +237,38 @@ int z2 = 0;
             if(evenement.key.keysym.scancode==SDL_SCANCODE_UP) {
                     est_dans_menu = false;
                     est_dans_jeu= true;
-
-                
+                                
 
                 Mix_PlayMusic(musique, -1); // Jouer musique en boucle
                 Mix_VolumeMusic (VOLUME); // Volume (~moyen)
 
                 }
         }
+        
+        if (est_dans_gameOver) {
+        
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            glMatrixMode( GL_MODELVIEW );
+            glLoadIdentity();
+            
+            dessinerGameOver();
+            SDL_GL_SwapWindow(m_fenetre);
+            
+            
+            if(evenement.key.keysym.scancode==SDL_SCANCODE_UP) {
+                est_dans_gameOver = false;
+                est_dans_menu= true;
+                
+                Mix_PlayMusic(musique, -1); // Jouer musique en boucle
+                Mix_VolumeMusic (VOLUME); // Volume (~moyen)
+                
+            }
+        }
 
 
        if(est_dans_jeu) {
-
-    tempsActuel = SDL_GetTicks();
+           
+        tempsActuel = SDL_GetTicks();
 
 
     #ifndef __APPLE__
@@ -294,14 +347,28 @@ int z2 = 0;
         personnage->avancer(0.6);
         
         #endif
-      dessiner();
+        
+        
 
+      dessiner();
+    sprintf (b, "Score : %d", var);
+    texte = TTF_RenderText_Blended(police, b, couleurNoire);
+    SDL_BlitSurface(texte, NULL, ecran, &position); /* Blit du texte */
+        
       afficher();
       tempsPrecedent=tempsActuel;
         for (int i = 0 ; i<9 ; i++) {
             if (personnage->inCollisionWith(objets[i])) {
+                Mix_PlayChannel(1,son,0);
+                
                 est_dans_jeu = false;
-                est_dans_menu = true;
+                est_dans_gameOver = true;
+                
+                personnage->avancer (30);
+                niveau = 0;
+                
+                Mix_HaltMusic();
+
                 evenement.key.keysym.scancode=SDL_SCANCODE_DOWN;
                 break;
             }
@@ -420,4 +487,42 @@ void Scene::dessinerAccueil(){
 
     }
 
-//retourne un nombre aléatoire entre [0,1]
+void Scene::dessinerGameOver(){
+    gluLookAt(0,-2,0,0,0,0,0,0,1);
+    
+    
+    
+    glEnable(GL_TEXTURE_2D);
+    
+    //On dessine l'image de fond
+    
+    glBindTexture(GL_TEXTURE_2D, gameOver->getID());
+    
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    // On mémorise le repère courant avant d'effectuer la RST
+    glPushMatrix();
+    // Positionne l'objet en lieu de dessin
+    glRotated(90.0, 0.0, 1.0, 0.0);
+    glScaled(1, 1, 1.5);
+    
+    
+    glColor4f(1.0,1.0,1.0,0.0);
+    
+    glBegin(GL_QUADS);
+    glTexCoord2i(0,0);
+    glVertex3f(-1,0,-1);
+    glTexCoord2i(0,1);
+    glVertex3f(1,0,-1);
+    glTexCoord2i(1,1);
+    glVertex3f(1,0,1);
+    glTexCoord2i(1,0);
+    glVertex3f(-1,0,1);
+    glEnd();
+    
+    glDisable(GL_TEXTURE_2D);
+    
+    glPopMatrix();
+    
+}
+

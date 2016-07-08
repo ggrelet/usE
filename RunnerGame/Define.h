@@ -15,17 +15,19 @@
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2_ttf/SDL_ttf.h>
 
 #else
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
 
 #endif
 
 //library SDL2
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
+//#include <SDL2/SDL_ttf.h>
 
 #ifndef __APPLE__
 #include "wiiuse.h"

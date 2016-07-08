@@ -13,17 +13,36 @@
 #include "Menu.h"
 #include "Rand.h"
 
+
 class Scene
 {
 private:
     bool est_dans_accueil;
     bool est_dans_menu;
     bool est_dans_jeu;
-    Mix_Music *musique; // Musique qui dure tout le jeu
+    bool est_dans_gameOver;
+    
+    //Musique qui dure tout le jeu
+    Mix_Music *musique; //
+    Mix_Chunk *son; //son collision
+    
+    
+    //score
+    SDL_Rect position;
+    SDL_Surface* ecran;
+    SDL_Surface *texte; 
+    TTF_Font *police;
+    SDL_Color couleurNoire;
+    int var=1;
+    char b[20]="";
+  
     
 
     //Menu
     Menu *menu;
+    
+    //gameOver
+    Texture *gameOver;
 
     //jeu
     Personnage objets[11];
@@ -49,13 +68,14 @@ private:
     void dessinerObjets(void);
     void chargerTextures(void);
     void dessinerAccueil(void);
-    double randf();
+    void dessinerGameOver();
 
 public:
     Scene(std::string titreFenetre, int largeurFenetre, int hauteurFenetre);
     bool initOpenGl();
     bool initSDL2();
     bool initSDL_mixer();
+    bool initSDL_ttf();
     ~Scene();
     void executer();
 };

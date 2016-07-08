@@ -120,7 +120,7 @@ void Personnage::deplacement(void) {
 void Personnage::avancer(float distance){
     
     
-    if (posY<30) {
+    if (posY+distance<30) {
     posY += distance ;
     newNiveau = false;
     }
