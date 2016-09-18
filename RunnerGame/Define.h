@@ -46,7 +46,7 @@
 //#ifndef __APPLE__
 //chemin="";
 //#endif
-const std::string chemin = "";
+//const std::string chemin = "";
 
 //nom de notre Programme
 const std::string programName="Runner Game";
