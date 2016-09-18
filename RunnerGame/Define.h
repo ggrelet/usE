@@ -11,25 +11,25 @@
 
 //library openGL
 #define GLEW_STATIC 1
-#ifdef __APPLE__
+/*#ifdef __APPLE__
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 #include <SDL2_image/SDL_image.h>
 
-#else
+#else */
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <SDL2/SDL_image.h>
 
-#endif
+//#endif
 
 //library SDL2
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 
-#ifndef __APPLE__
+//#ifndef __APPLE__
 #include "wiiuse.h"
-#endif
+//#endif
 
 
 //autres librairies
@@ -41,12 +41,12 @@
 #include <pthread.h>
 #include <stdlib.h>
 
-const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
+//const std::string chemin = "/Users/etcheverrymayalen/TRAVAIL/TELECOM_2A/FIRST/git_usE/RunnerGame/";
 
-#ifndef __APPLE__
-chemin="";
-#endif
-//const std::string chemin = "";
+//#ifndef __APPLE__
+//chemin="";
+//#endif
+const std::string chemin = "";
 
 //nom de notre Programme
 const std::string programName="Runner Game";
@@ -54,10 +54,10 @@ const std::string programName="Runner Game";
 const int WIDTH=1084;
 const int HEIGHT=768;
 //taille
-#ifndef __APPLE__
+/*#ifndef __APPLE__
 const int WIDTH=1920;
 const int HEIGHT=1200;
-#endif
+#endif*/
 
 //vision
 const float RATIO= (float)WIDTH/(float)HEIGHT;
@@ -77,9 +77,9 @@ struct wii_pos {
 
 extern struct wii_pos pos;
 
-#ifndef __APPLE__
+//#ifndef __APPLE__
 extern wiimote_t** wiimotes;
-#endif
+//#endif
 
 extern pthread_mutex_t lock;
 
