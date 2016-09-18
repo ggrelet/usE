@@ -40,14 +40,14 @@ Scene::Scene(string titreFenetre, int largeurFenetre, int hauteurFenetre):m_titr
     }
 
 
-    objets[0] = *new Personnage(-0.7,-24,-0.4,0,0,0.7,0.5,0.5,Vec4f(0.278f, 0.333f, 0.357f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 15.0f,0.3f,0.3f, chemin + "data/cylindre.rtf");
+    objets[0] = *new Personnage(-0.7,-24,-10,0,0,0.7,0.5,0.5,Vec4f(0.278f, 0.333f, 0.357f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 15.0f,0.3f,0.3f, chemin + "data/cylindre.rtf");
     objets[1] = *new Personnage(0.7,-18,-1.7,0,0,0.6,0.8,0.8,Vec4f(0.239f,0.545f,0.914f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,0.3f,0.3f,  chemin+"data/cone.rtf");
     objets[2] = *new Personnage(-0.7,-12,0.3,0,0,0.4,0.4,0.4,Vec4f(0.157f,0.196f,0.357f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 0.3f,0.3f, chemin+"data/sphere.rtf");
-    objets[3] = *new Personnage(0.7,-6,7,0,0,0.6,0.5,0.6,Vec4f(0.820f,0.282f,0.255f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 15.0f, 0.3,0.3f, chemin+"data/cylindre.rtf");
+    objets[3] = *new Personnage(0.7,-6,-2,0,0,0.6,0.5,0.6,Vec4f(0.820f,0.282f,0.255f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 15.0f, 0.3,0.3f, chemin+"data/cylindre.rtf");
     objets[4] = *new Personnage(-0.7,0,-0.4,0,0,0.4,0.4,0.4,Vec4f(0.921f,0.420f,0.337f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 200.0f,0.3f,0.3f, chemin + "data/sphere.rtf");
     objets[5] = *new Personnage(0.7,6,-1.7,0,0,0.6,0.8,0.8,Vec4f(0.968f,0.855f,0.392f,1.0f),Vec4f(1.0f,0.0f,0.0f,1.0f), 20.0f,0.3f,0.3f,  chemin+"data/cone.rtf");
     objets[6] = *new Personnage(-0.7,12,0.3,0,0,0.4,0.4,0.4,Vec4f(0.980f,0.773f,0.110f,1.0f),Vec4f(0.0f,0.2f,1.0f,1.0f), 200.0f, 0.3f,0.3f, chemin+"data/sphere.rtf");
-    objets[7] = *new Personnage(0.7,18,7,0,0,0.6,0.5,0.6,Vec4f(0.0f,0.659f,0.522f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 15.0f, 0.3f,0.3f, chemin+"data/cylindre.rtf");
+    objets[7] = *new Personnage(0.7,18,-3,0,0,0.6,0.5,0.6,Vec4f(0.0f,0.659f,0.522f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 15.0f, 0.3f,0.3f, chemin+"data/cylindre.rtf");
     objets[8] = *new Personnage(-0.7,24,7,0,0,0.6,0.5,0.6,Vec4f(0.0f,0.530f,0.522f,1.0f),Vec4f(0.0f,1.0f,0.4f,1.0f), 20.0f, 0.3f,0.3f, chemin+"data/cone.rtf");
 
 
@@ -87,6 +87,10 @@ bool Scene::initSDL2()
         SDL_Quit();
         return false;
     }
+    
+    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
+    SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 16);
+    
 
     // Create our window centered at WIDTHxHEIGHT resolution
     m_fenetre = SDL_CreateWindow(programName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -130,6 +134,10 @@ bool Scene::initOpenGl()
     // Activation du Depth Buffer
     glDepthFunc (GL_LESS); // Specify the depth test for the z-buffer
     glEnable(GL_DEPTH_TEST);
+    
+    glEnable(GL_MULTISAMPLE);
+    
+
 
 
     //fond noir
@@ -177,7 +185,7 @@ bool Scene::initSDL_ttf()
     
     ecran= SDL_GetWindowSurface(m_fenetre);
     police = NULL;
-    couleurNoire = {0, 0, 0};
+    couleurNoire = {1, 1, 1};
     
 
     var=1;
@@ -185,8 +193,8 @@ bool Scene::initSDL_ttf()
     police = TTF_OpenFont("angelina.ttf", 65);
     /* …criture du texte dans la SDL_Surface texte en mode Blended (optimal) */
 
-    position.x = 0;
-    position.y = 0;
+    position.x = 50;
+    position.y = 50;
     
     return true;
 }
@@ -289,33 +297,7 @@ int z2 = 0;
         if (x < 256){
           personnage->posAvant=personnage->posApres;
           personnage->posApres="droite";
-          personnage->deplacement();
-          //dessiner();
-          //afficher();
-          /*personnage->posAvant=personnage->posApres;
-          personnage->posApres="neutre";
-          personnage->deplacement();
-          dessiner();
-          afficher();
-        */}
-
-        /*if (y < 92){
-          personnage->posAvant=personnage->posApres;
-          personnage->posApres="haut";
-          personnage->deplacement();
-          }
-
-        if (y > 676){
-          personnage->posAvant=personnage->posApres;
-          personnage->posApres="bas";
-          personnage->deplacement();
-          }
-
-        if (y < 576 && y > 192 && x < 768 && x > 256 ){
-            personnage->posAvant=personnage->posApres;
-            personnage->posApres="neutre";
-            personnage->deplacement();
-            }*/
+            personnage->deplacement();}
 
 #endif
 
@@ -324,7 +306,7 @@ int z2 = 0;
         #ifndef __APPLE__
         if (z1-z2 > 20 || z2-z1 > 20){
 
-        personnage->avancer(0.4);
+        personnage->avancer(0.2);
 
         z2 = z1;
         }
@@ -347,7 +329,7 @@ int z2 = 0;
         personnage->avancer(0.6);
         
         #endif
-        
+
         
 
       dessiner();
@@ -364,7 +346,7 @@ int z2 = 0;
                 est_dans_jeu = false;
                 est_dans_gameOver = true;
                 
-                personnage->avancer (30);
+                personnage->avancer (60);
                 niveau = 0;
                 
                 Mix_HaltMusic();
@@ -448,7 +430,7 @@ void Scene::afficher(){
 }
 
 void Scene::dessinerAccueil(){
-        gluLookAt(0,-2,0,0,0,0,0,0,1);
+        gluLookAt(0,-4,0,0,0,0,0,0,1);
 
         Texture *accueilImg = new Texture(chemin +"Textures/accueil.jpg");
         accueilImg->charger();
@@ -488,7 +470,7 @@ void Scene::dessinerAccueil(){
     }
 
 void Scene::dessinerGameOver(){
-    gluLookAt(0,-2,0,0,0,0,0,0,1);
+    gluLookAt(0,-4,0,0,0,0,0,0,1);
     
     
     

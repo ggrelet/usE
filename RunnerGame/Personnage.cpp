@@ -230,7 +230,7 @@ void Personnage::afficher(void){
 
 
                     Vec4f color = color1 + color2;
-                    if (fabs(v.p[1]) < 0.02f) color+=color3;
+                    //if (fabs(v.p[1]) < 0.02f) color+=color3;
 
                     position =  v.p;
                     normale = v.n;
@@ -278,7 +278,7 @@ void Personnage::afficher(void){
 
 
                     Vec4f color = color1 + color2;
-                    if (fabs(v.p[1]) < 0.02f) color+= color3;
+                    //if (fabs(v.p[1]) < 0.02f) color+= color3;
 
 
                     position = v.p;
@@ -302,12 +302,12 @@ void Personnage::afficher(void){
 
 void Personnage::regarder(void)
 {
-    gluLookAt(posX, posY-1, posZ+0.1, posX, posY-1+1, posZ+0.1, 0, 0, 1);
+    gluLookAt(posX, posY, posZ, posX, posY+1, posZ, 0, 0, 1);
 
    }
 
 bool Personnage::inCollisionWith(Personnage objet) {
-    if ( ( ((posY+p/2) >= (objet.posY-objet.p/2)) && ((posY-p/2) <= (objet.posY+objet.p/2)) && ((posX+l/2) >= (objet.posX-objet.l/2)) && ((posX-l/2) <= (objet.posX+objet.l/2)) ) /*|| (((posY+p/2) >= (objet.posY-objet.p/2)) && ((posY-p/2) <= (objet.posY+objet.p/2)) && ((posX-l/2) <= (objet.posX+objet.l/2)) && ((posX+l/2) <= (objet.posX-objet.l/2)))*/ ) {
+    if ( ( ((posY+p/2) >= (objet.posY-objet.p/2)) && ((posY-p/2) <= (objet.posY+objet.p/2)) && ((posX+l/2) >= (objet.posX-objet.l/2)) && ((posX-l/2) <= (objet.posX+objet.l/2)))) {
         return true;
     }
 
