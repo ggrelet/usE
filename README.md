@@ -11,7 +11,7 @@ This repository contains the work of the following persons:
 [Pierre-Jean Jacquet] (https://fr.linkedin.com/in/pierre-jean-jacquet-57274812b) - [Télécom SudParis] (http://www.telecom-sudparis.eu/en_accueil.html)    
 
 
-This work was part of an academic project about open innovation called FIRST https://www.fondation-telecom.org/en-actions/former/first/ in 2016.    
+This work was part of an academic project about open innovation called [Projet FIRST] (https://www.fondation-telecom.org/en-actions/former/first/) in 2016.    
   
 It intended to show that people can play video games with their smartphone without even touching the screen through image processing and embedded sensors. The repo contains a C++ written game which you can play with two fingers and special rings with infrared light LED.
 
